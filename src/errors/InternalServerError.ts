@@ -1,5 +1,6 @@
 import ApiError from "./ApiError";
 import { StatusCodes } from "http-status-codes";
+
 class InternalServerError extends ApiError {
     statusCode: number;
     error: string;

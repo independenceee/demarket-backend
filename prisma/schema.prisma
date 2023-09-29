@@ -8,3 +8,169 @@ datasource db {
   directUrl         = env("POSTGRES_URL_NON_POOLING")
   shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING")
 }
+
+model Account {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  policyId String @unique @db.Text
+  address  String @unique @db.Text
+
+  email       String @unique @db.Text
+  name        String @db.Text
+  description String @db.Text
+  rating      Float  @db.Real
+
+  cover    String  @db.Text
+  avatar   String  @db.Text
+  followed Int     @default(0) @db.Integer
+  validate Boolean @default(false) @db.Boolean
+
+  collections  Collection[]
+  socialMedias SocialMedia[]
+  cart         Cart?
+}
+
+model Collection {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title       String? @db.Text
+  description String? @db.Text
+  avatar      String? @db.Text
+  cover       String? @db.Text
+  url         String? @db.Text
+
+  accoutnId String  @db.Text
+  account   Account @relation(fields: [accoutnId], references: [id])
+
+  categories CategoryCollection[]
+
+  NFTS NFT[]
+}
+
+model CategoryCollection {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  categoryId   String     @db.Text
+  category     Category   @relation(fields: [categoryId], references: [id])
+  collectionId String     @db.Text
+  collection   Collection @relation(fields: [collectionId], references: [id])
+
+  @@id([categoryId, collectionId])
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String @db.Text
+
+  collections CategoryCollection[]
+}
+
+model NFT {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  validate     Boolean    @default(false) @db.Boolean
+  policyId     String     @unique() @db.Text
+  assetName    String     @unique() @db.Text
+  collectionId String     @db.Text
+  collection   Collection @relation(fields: [collectionId], references: [id])
+
+  carts NFTCart[]
+}
+
+model NFTCart {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  cartId String @db.Text
+  cart   Cart   @relation(fields: [cartId], references: [id])
+
+  nftId String @db.Text
+  nft   NFT    @relation(fields: [nftId], references: [id])
+
+  @@id([nftId, cartId])
+}
+
+model Cart {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  policyId  String @unique() @db.Text
+  assetName String @unique() @db.Text
+
+  accountId String  @unique()
+  account   Account @relation(fields: [accountId], references: [id])
+
+  nfts NFTCart[]
+}
+
+// 
+
+model SocialMedia {
+  id String @id @default(uuid()) @db.Text
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name String @db.Text
+  url  String @db.Text
+
+  accountId String  @db.Text
+  account   Account @relation(fields: [accountId], references: [id])
+
+  founderId String  @db.Text
+  founder   Founder @relation(fields: [founderId], references: [id])
+}
+
+model Guide {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  question    String @db.Text
+  title       String @db.Text
+  description String @db.Text
+  url         String @db.Text
+}
+
+model Blog {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Founder {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  fistName String @db.Text
+  lastName String @db.Text
+  role     String @db.Text
+
+  socialMedias SocialMedia[]
+}
+
+model Statitics {
+  id String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
