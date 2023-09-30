@@ -6,6 +6,7 @@ import express, { Express } from "express";
 import session from "express-session";
 
 import configs from "./configs";
+import router from "./routers/index.routes";
 import LogHandler from "./middlewares/LogHandler";
 import notFound from "./middlewares/NotFound";
 import errorHandler from "./middlewares/ErrorHandler";
@@ -31,14 +32,8 @@ const start = function () {
     app.use(express.urlencoded({ extended: true }));
     app.use(bodyParser.json());
 
-    app.get("/get-session", (req, res) => {
-        res.send(req.session);
-    });
-    app.get("/set-session", (req, res) => {
-        req.session.cookie;
-        res.send("OK");
-    });
-    // app.use();
+    router(app);
+
     app.use(errorHandler);
     app.use(notFound);
     app.listen(PORT, function () {

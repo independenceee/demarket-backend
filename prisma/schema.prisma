@@ -10,167 +10,149 @@ datasource db {
 }
 
 model Account {
-  id String @id @default(uuid())
-
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
-
-  policyId String? @unique @db.Text
-  address  String? @unique @db.Text
-
-  email       String? @unique @db.Text
-  name        String? @db.Text
-  description String? @db.Text
-  rating      Float?  @db.Real
-
-  cover    String?  @db.Text
-  avatar   String?  @db.Text
-  followed Int?     @default(0) @db.Integer
-  validate Boolean? @default(false) @db.Boolean
-
+  id           String        @id @default(uuid())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  policyId     String        @unique
+  address      String        @unique
+  email        String        @unique
+  name         String
+  description  String
+  rating       Float         @db.Real
+  cover        String
+  avatar       String
+  followed     Int           @default(0)
+  validate     Boolean       @default(false)
+  cart         Cart?
   collections  Collection[]
   socialMedias SocialMedia[]
-  cart         Cart?
 }
 
 model Collection {
-  id String @id @default(uuid())
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  title       String? @db.Text
-  description String? @db.Text
-  avatar      String? @db.Text
-  cover       String? @db.Text
-  url         String? @db.Text
-
-  accoutnId String  @db.Text
-  account   Account @relation(fields: [accoutnId], references: [id])
-
-  categories CategoryCollection[]
-
-  NFTS NFT[]
+  id          String               @id @default(uuid())
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  title       String?
+  description String?
+  avatar      String?
+  cover       String?
+  url         String?
+  accoutnId   String
+  categories  CategoryCollection[]
+  account     Account              @relation(fields: [accoutnId], references: [id])
+  NFTS        NFT[]
 }
 
 model CategoryCollection {
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  categoryId   String     @db.Text
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  categoryId   String
+  collectionId String
   category     Category   @relation(fields: [categoryId], references: [id])
-  collectionId String     @db.Text
   collection   Collection @relation(fields: [collectionId], references: [id])
 
   @@id([categoryId, collectionId])
 }
 
 model Category {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  name String @db.Text
-
+  id          String               @id @default(uuid())
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  name        String
   collections CategoryCollection[]
 }
 
 model NFT {
-  id String @id @default(uuid())
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  validate     Boolean    @default(false) @db.Boolean
-  policyId     String     @unique() @db.Text
-  assetName    String     @unique() @db.Text
-  collectionId String     @db.Text
+  id           String     @id @default(uuid())
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  validate     Boolean    @default(false)
+  policyId     String     @unique
+  assetName    String     @unique
+  collectionId String
+  
+  totalTransaction BigInt @default(0)
+  status       StatusNft     
+  countOfTransaction Int? @default(0)
   collection   Collection @relation(fields: [collectionId], references: [id])
-
-  carts NFTCart[]
+  carts        NFTCart[]
 }
 
 model NFTCart {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  cartId String @db.Text
-  cart   Cart   @relation(fields: [cartId], references: [id])
-
-  nftId String @db.Text
-  nft   NFT    @relation(fields: [nftId], references: [id])
+  cartId    String
+  nftId     String
+  cart      Cart     @relation(fields: [cartId], references: [id])
+  nft       NFT      @relation(fields: [nftId], references: [id])
 
   @@id([nftId, cartId])
 }
 
 model Cart {
-  id String @id @default(uuid())
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  policyId  String @unique() @db.Text
-  assetName String @unique() @db.Text
-
-  accountId String  @unique()
-  account   Account @relation(fields: [accountId], references: [id])
-
-  nfts NFTCart[]
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  policyId  String    @unique
+  assetName String    @unique
+  accountId String    @unique
+  account   Account   @relation(fields: [accountId], references: [id])
+  nfts      NFTCart[]
 }
 
-// 
-
 model SocialMedia {
-  id String @id @default(uuid()) @db.Text
-
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  name String @db.Text
-  url  String @db.Text
-
-  accountId String  @db.Text
-  account   Account @relation(fields: [accountId], references: [id])
-
-  staffId String  @db.Text
-  staff   Staff @relation(fields: [staffId], references: [id])
+  name      String
+  url       String
+  accountId String
+  founderId String
+  account   Account  @relation(fields: [accountId], references: [id])
+  Founder   Founder  @relation(fields: [founderId], references: [id])
 }
 
 model Guide {
-  id String @id @default(uuid())
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  question    String @db.Text
-  title       String @db.Text
-  description String @db.Text
-  url         String @db.Text
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  question    String
+  title       String
+  description String
+  url         String
 }
 
 model Blog {
-  id String @id @default(uuid())
-
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-}
-
-model Staff {
-  id String @id @default(uuid())
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  fistName String @db.Text
-  lastName String @db.Text
-  role     String @db.Text
-
-  socialMedias SocialMedia[]
 }
 
 model Statitics {
-  id String @id @default(uuid())
-
+  id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  totalProduct BigInt @default(0)
+  totalCollection BigInt @default(0)
+  totalTrending BigInt @default(0)
+  totalAuthor BigInt @default(0)
+}
+
+model Founder {
+  id          String        @id
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime
+  fistName    String
+  lastName    String
+  role        String
+  company     String        @default("BLOCKALPHA")
+  SocialMedia SocialMedia[]
+}
+
+
+enum StatusNft {
+  SOLDOUT
+  COMMINGSOON
+  SELLING
 }

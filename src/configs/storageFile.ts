@@ -1,9 +1,9 @@
 import multer, { StorageEngine } from "multer";
 
-const storageFile = function (root?: string): StorageEngine {
+const storageFile = function (): StorageEngine {
     const storage: StorageEngine = multer.diskStorage({
         destination: function (request, response, callback) {
-            callback(null, `public/${root}`);
+            callback(null, `public`);
         },
         filename: function (request, file, callback) {
             callback(null, Date.now().toString + "-" + file.originalname);

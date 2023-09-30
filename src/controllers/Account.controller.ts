@@ -4,12 +4,8 @@ import { InternalServerError } from "../errors";
 import prisma from "../models";
 
 class AccountController {
-    
+    constructor() {}
 
-    constructor() {
-
-    }
-    
     async getAllAccounts(request: Request, response: Response) {
         try {
         } catch (error) {
@@ -34,6 +30,15 @@ class AccountController {
 
     async createAccount(request: Request, response: Response) {
         try {
+            const { policyId, address, email, name, description } =
+                request.body;
+            console.log(request.body);
+
+            const files = request.files;
+            console.log(files);
+            console.log(request.files);
+            console.log(request.file);
+            response.status(200).json(request.file);
         } catch (error) {
             response
                 .status(StatusCodes.INTERNAL_SERVER_ERROR)

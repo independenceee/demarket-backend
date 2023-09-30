@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "StatusNft" AS ENUM ('SOLDOUT', 'COMMINGSOON', 'SELLING');
+
 -- CreateTable
 CREATE TABLE "Account" (
     "id" TEXT NOT NULL,
@@ -61,6 +64,9 @@ CREATE TABLE "NFT" (
     "policyId" TEXT NOT NULL,
     "assetName" TEXT NOT NULL,
     "collectionId" TEXT NOT NULL,
+    "totalTransaction" BIGINT NOT NULL DEFAULT 0,
+    "status" "StatusNft" NOT NULL,
+    "countOfTransaction" INTEGER DEFAULT 0,
 
     CONSTRAINT "NFT_pkey" PRIMARY KEY ("id")
 );
@@ -123,6 +129,19 @@ CREATE TABLE "Blog" (
 );
 
 -- CreateTable
+CREATE TABLE "Statitics" (
+    "id" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "totalProduct" BIGINT NOT NULL DEFAULT 0,
+    "totalCollection" BIGINT NOT NULL DEFAULT 0,
+    "totalTrending" BIGINT NOT NULL DEFAULT 0,
+    "totalAuthor" BIGINT NOT NULL DEFAULT 0,
+
+    CONSTRAINT "Statitics_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Founder" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -130,17 +149,9 @@ CREATE TABLE "Founder" (
     "fistName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "role" TEXT NOT NULL,
+    "company" TEXT NOT NULL DEFAULT 'BLOCKALPHA',
 
     CONSTRAINT "Founder_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "Statitics" (
-    "id" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "Statitics_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex

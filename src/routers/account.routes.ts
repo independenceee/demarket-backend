@@ -5,12 +5,13 @@ import AccountController from "../controllers/Account.controller";
 const router = Router();
 
 router.route("/").get(AccountController.getAllAccounts);
-router
-    .route("/")
-    .post(
-        UploadFile("account").single("file"),
-        AccountController.createAccount,
-    );
+router.route("/").post(
+    UploadFile.fields([
+        { name: "avatar", maxCount: 1 },
+        { name: "cover", maxCount: 1 },
+    ]),
+    AccountController.createAccount,
+);
 router.route("/:id").patch(AccountController.updateAccountById);
 router.route("/:id").get(AccountController.getAccountById);
 router.route("/:id").delete(AccountController.deleteAccountById);
