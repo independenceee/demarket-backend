@@ -1,6 +1,6 @@
 class ApiError {
-    message: string;
-    constructor(message: string) {
+    message?: string | any;
+    constructor(message?: string | any) {
         this.message = message;
     }
 }

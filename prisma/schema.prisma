@@ -12,21 +12,21 @@ datasource db {
 model Account {
   id String @id @default(uuid())
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
 
-  policyId String @unique @db.Text
-  address  String @unique @db.Text
+  policyId String? @unique @db.Text
+  address  String? @unique @db.Text
 
-  email       String @unique @db.Text
-  name        String @db.Text
-  description String @db.Text
-  rating      Float  @db.Real
+  email       String? @unique @db.Text
+  name        String? @db.Text
+  description String? @db.Text
+  rating      Float?  @db.Real
 
-  cover    String  @db.Text
-  avatar   String  @db.Text
-  followed Int     @default(0) @db.Integer
-  validate Boolean @default(false) @db.Boolean
+  cover    String?  @db.Text
+  avatar   String?  @db.Text
+  followed Int?     @default(0) @db.Integer
+  validate Boolean? @default(false) @db.Boolean
 
   collections  Collection[]
   socialMedias SocialMedia[]
@@ -132,8 +132,8 @@ model SocialMedia {
   accountId String  @db.Text
   account   Account @relation(fields: [accountId], references: [id])
 
-  founderId String  @db.Text
-  founder   Founder @relation(fields: [founderId], references: [id])
+  staffId String  @db.Text
+  staff   Staff @relation(fields: [staffId], references: [id])
 }
 
 model Guide {
@@ -155,7 +155,7 @@ model Blog {
   updatedAt DateTime @updatedAt
 }
 
-model Founder {
+model Staff {
   id String @id @default(uuid())
 
   createdAt DateTime @default(now())

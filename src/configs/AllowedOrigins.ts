@@ -1,3 +1,3 @@
-const AllowedOrigins: string[] = ["http://localhost:5000"];
+const allowedOrigins: string[] = ["http://localhost:5000"];
 
-export default AllowedOrigins;
+export default allowedOrigins;
