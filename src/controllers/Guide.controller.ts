@@ -74,7 +74,7 @@ class GuideController {
                     .json(new ApiError("Guide already exist."));
             }
 
-            const guide = await prisma.guide.create({
+            await prisma.guide.create({
                 data: {
                     description: description ? description : "",
                     question: question ? question : "",

@@ -112,6 +112,7 @@ model Guide {
   url         String
 }
 
+
 model Blog {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
@@ -123,10 +124,10 @@ model Statistics {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  totalProduct    BigInt @default(0)
-  totalCollection BigInt @default(0)
-  totalTrending   BigInt @default(0)
-  totalAuthor     BigInt @default(0)
+  totalProduct    Int @default(0)
+  totalCollection Int @default(0)
+  totalTrending   Int @default(0)
+  totalAuthor     Int @default(0)
 }
 
 model Founder {

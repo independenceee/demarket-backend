@@ -13,35 +13,33 @@ import searchRouter from "../routers/search.routes";
 
 const router = function (app: Express) {
     //
-    app.use("/api/account", accountRouter);
+    app.use("/api/v1/account", accountRouter);
 
     //
-    app.use("/api/cart", cartRouter);
-
-    // => success
-    app.use("/api/guide", guideRouter);
+    app.use("/api/v1/cart", cartRouter);
+    app.use("/api/v1/guide", guideRouter);
 
     //
-    app.use("/api/collection", collectionRouter);
+    app.use("/api/v1/collection", collectionRouter);
 
     //
-    app.use("/api/category", categoryRouter);
+    app.use("/api/v1/category", categoryRouter);
 
     //
-    app.use("/api/nft", nftRouter);
+    app.use("/api/v1/nft", nftRouter);
 
     //
-    app.use("/api/blog", blogRouter);
+    app.use("/api/v1/blog", blogRouter);
 
     //
-    app.use("/api/founder", founderRouter);
+    app.use("/api/v1/founder", founderRouter);
 
     //
-    app.use("/api/statistics", statisticsRouter);
+    app.use("/api/v1/statistics", statisticsRouter);
 
     //
 
-    app.use("/api/search", searchRouter);
+    app.use("/api/v1/search", searchRouter);
 };
 
 export default router;
