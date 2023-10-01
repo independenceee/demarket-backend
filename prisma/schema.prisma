@@ -63,19 +63,19 @@ model Category {
 }
 
 model NFT {
-  id           String     @id @default(uuid())
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  validate     Boolean    @default(false)
-  policyId     String     @unique
-  assetName    String     @unique
+  id           String   @id @default(uuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  validate     Boolean  @default(false)
+  policyId     String   @unique
+  assetName    String   @unique
   collectionId String
-  
-  totalTransaction BigInt @default(0)
-  status       StatusNft     
-  countOfTransaction Int? @default(0)
-  collection   Collection @relation(fields: [collectionId], references: [id])
-  carts        NFTCart[]
+
+  totalTransaction   BigInt     @default(0)
+  status             StatusNft
+  countOfTransaction Int?       @default(0)
+  collection         Collection @relation(fields: [collectionId], references: [id])
+  carts              NFTCart[]
 }
 
 model NFTCart {
@@ -128,15 +128,15 @@ model Blog {
   updatedAt DateTime @updatedAt
 }
 
-model Statitics {
+model Statistics {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  totalProduct BigInt @default(0)
+  totalProduct    BigInt @default(0)
   totalCollection BigInt @default(0)
-  totalTrending BigInt @default(0)
-  totalAuthor BigInt @default(0)
+  totalTrending   BigInt @default(0)
+  totalAuthor     BigInt @default(0)
 }
 
 model Founder {
@@ -147,9 +147,9 @@ model Founder {
   lastName    String
   role        String
   company     String        @default("BLOCKALPHA")
+  avatar      String        @db.Text
   SocialMedia SocialMedia[]
 }
-
 
 enum StatusNft {
   SOLDOUT
