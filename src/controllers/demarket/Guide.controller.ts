@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { InternalServerError, BadRequest, ApiError, NotFound } from "../errors";
-import guideService from "../services/Guide.service";
-import prisma from "../models";
+import { InternalServerError, BadRequest, ApiError, NotFound } from "../../errors";
+import guideService from "../../services/demarket/Guide.service";
+import prisma from "../../models";
 
 class GuideController {
     constructor() {}

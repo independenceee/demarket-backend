@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { ApiError, InternalServerError, NotFound } from "../errors";
-import statisticService from "../services/Statistic.service";
-import prisma from "../models";
+import { ApiError, InternalServerError, NotFound } from "../../errors";
+import statisticService from "../../services/demarket/Statistic.service";
+import prisma from "../../models";
 
 class StatisticsController {
     constructor() {}

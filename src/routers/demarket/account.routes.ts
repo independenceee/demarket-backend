@@ -1,6 +1,6 @@
 import { Router } from "express";
-import UploadFile from "../middlewares/Upload";
-import AccountController from "../controllers/Account.controller";
+import UploadFile from "../../middlewares/Upload";
+import AccountController from "../../controllers/demarket/Account.controller";
 
 const router = Router();
 

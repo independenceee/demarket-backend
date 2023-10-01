@@ -1,5 +1,5 @@
-import { ApiError } from "../errors";
-import prisma, { Founder } from "../models";
+import { ApiError } from "../../errors";
+import prisma, { Founder } from "../../models";
 
 class FounderService {
     PER_PAGE = 12;

@@ -1,5 +1,5 @@
-import { ApiError } from "../errors";
-import prisma, { Statistics } from "../models";
+import { ApiError } from "../../errors";
+import prisma, { Statistics } from "../../models";
 
 class StatisticsService {
     async findStatisticById(id: string): Promise<Statistics | null> {

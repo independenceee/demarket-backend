@@ -1,7 +1,7 @@
 import { Router } from "express";
 
-import founderController from "../controllers/Founder.controller";
-import UploadFile from "../middlewares/Upload";
+import founderController from "../../controllers/demarket/Founder.controller";
+import UploadFile from "../../middlewares/Upload";
 
 const router = Router();
 

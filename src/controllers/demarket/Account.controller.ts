@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { InternalServerError } from "../errors";
-import prisma from "../models";
+import { InternalServerError } from "../../errors";
+import prisma from "../../models";
 
 class AccountController {
     constructor() {}
@@ -30,8 +30,7 @@ class AccountController {
 
     async createAccount(request: Request, response: Response) {
         try {
-            const { policyId, address, email, name, description } =
-                request.body;
+            const { policyId, address, email, name, description } = request.body;
             console.log(request.body);
 
             const files = request.files;

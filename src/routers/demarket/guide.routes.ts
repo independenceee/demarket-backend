@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import guideController from "../controllers/Guide.controller";
+import guideController from "../../controllers/demarket/Guide.controller";
 
 const router = Router();
 

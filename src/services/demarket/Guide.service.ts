@@ -1,5 +1,5 @@
-import { ApiError } from "../errors";
-import prisma, { Guide } from "../models";
+import { ApiError } from "../../errors";
+import prisma, { Guide } from "../../models";
 
 class GuideService {
     async findGuideById(id: string): Promise<Guide | null> {
