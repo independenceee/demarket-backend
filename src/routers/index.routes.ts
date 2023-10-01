@@ -6,20 +6,19 @@ import guideRouter from "../routers/guide.routes";
 import collectionRouter from "../routers/collection.routes";
 import blogRouter from "../routers/blog.routes";
 import categoryRouter from "../routers/category.routes";
-import socialMediaRouter from "../routers/socialmedia.routes";
 import nftRouter from "../routers/nft.routes";
 import founderRouter from "../routers/founder.routes";
 import statisticsRouter from "../routers/statistics.routes";
+import searchRouter from "../routers/search.routes";
 
 const router = function (app: Express) {
-
-    // 
+    //
     app.use("/api/account", accountRouter);
 
-    // 
+    //
     app.use("/api/cart", cartRouter);
 
-    // => progress
+    // => success
     app.use("/api/guide", guideRouter);
 
     //
@@ -27,9 +26,6 @@ const router = function (app: Express) {
 
     //
     app.use("/api/category", categoryRouter);
-    
-    //
-    app.use("/api/social-media", socialMediaRouter);
 
     //
     app.use("/api/nft", nftRouter);
@@ -42,6 +38,10 @@ const router = function (app: Express) {
 
     //
     app.use("/api/statistics", statisticsRouter);
+
+    //
+
+    app.use("/api/search", searchRouter);
 };
 
 export default router;

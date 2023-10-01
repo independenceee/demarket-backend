@@ -1,0 +1,15 @@
+20231001	16:36:32	8053a163-a606-4663-b2b7-96626b276f9b	GET	/api/guide	undefined
+20231001	16:37:40	efa799a7-f6e1-4f3b-b2cc-84934dad2f05	GET	/api/guide/1	undefined
+20231001	16:40:32	64a568b3-7ceb-45c1-90a3-51d87971177e	POST	/api/guide	undefined
+20231001	16:40:37	f738b0ad-d326-437d-8f8e-8968c0607bc8	POST	/api/guide	undefined
+20231001	16:40:48	bafa25a2-7d4b-4b20-a1cf-d9856a0998b1	GET	/api/guide	undefined
+20231001	16:41:00	385b522a-1452-48d8-8a0e-93296e8d3356	GET	/api/guide/90787f71-8513-420a-a471-aedc1a31c1e6	undefined
+20231001	16:41:51	503599cd-fc87-4dc5-9992-e039ef118d4c	PATCH	/api/guide/90787f71-8513-420a-a471-aedc1a31c1e6	undefined
+20231001	16:42:23	2e9a13fa-a073-4cad-8f07-eb07b656afe2	PATCH	/api/guide/90787f71-8513-420a-a471-aedc1a31c1e6	undefined
+20231001	16:43:47	fa97af87-bb04-4566-9eea-d303a6e3ebf4	DELETE	/api/guide/90787f71-8513-420a-a471-aedc1a31c1e6	undefined
+20231001	16:57:08	e3a8f138-1f93-4d68-bf97-3afe38abc24b	POST	/api/guide	undefined
+20231001	16:57:16	60d0d981-c9f4-434d-9e79-f58215b80d03	POST	/api/guide	undefined
+20231001	16:57:23	4d57f65f-e859-4234-b7ee-2e3ae360f83e	DELETE	/api/guide/90787f71-8513-420a-a471-aedc1a31c1e6	undefined
+20231001	16:57:28	da9c4f9e-f549-4f7e-86f5-5e79b5365c58	GET	/api/guide	undefined
+20231001	16:57:43	d2c94bf1-215a-498b-b98e-d3a1314b67a0	POST	/api/guide	undefined
+20231001	16:58:08	2347664e-9dea-4c65-aca0-97b05aa87938	GET	/api/guide/e3127e96-83cc-4524-99f9-3eb99e5cceb7	undefined

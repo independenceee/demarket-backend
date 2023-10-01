@@ -21,11 +21,11 @@ model Account {
   rating       Float         @db.Real
   cover        String
   avatar       String
+  socialMediaUrl String[]
   followed     Int           @default(0)
   validate     Boolean       @default(false)
   cart         Cart?
   collections  Collection[]
-  socialMedias SocialMedia[]
 }
 
 model Collection {
@@ -100,17 +100,7 @@ model Cart {
   nfts      NFTCart[]
 }
 
-model SocialMedia {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name      String
-  url       String
-  accountId String
-  founderId String
-  account   Account  @relation(fields: [accountId], references: [id])
-  Founder   Founder  @relation(fields: [founderId], references: [id])
-}
+
 
 model Guide {
   id          String   @id @default(uuid())
@@ -148,7 +138,7 @@ model Founder {
   role        String
   company     String        @default("BLOCKALPHA")
   avatar      String        @db.Text
-  SocialMedia SocialMedia[]
+  socialMediaUrl String[]
 }
 
 enum StatusNft {

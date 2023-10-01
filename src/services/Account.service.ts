@@ -1,3 +1,5 @@
-class AccountService {}
+class AccountService {
+    
+}
 
 export default new AccountService();
