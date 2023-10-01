@@ -14,6 +14,7 @@ CREATE TABLE "Account" (
     "rating" REAL NOT NULL,
     "cover" TEXT NOT NULL,
     "avatar" TEXT NOT NULL,
+    "socialMediaUrl" TEXT[],
     "followed" INTEGER NOT NULL DEFAULT 0,
     "validate" BOOLEAN NOT NULL DEFAULT false,
 
@@ -94,19 +95,6 @@ CREATE TABLE "Cart" (
 );
 
 -- CreateTable
-CREATE TABLE "SocialMedia" (
-    "id" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "name" TEXT NOT NULL,
-    "url" TEXT NOT NULL,
-    "accountId" TEXT NOT NULL,
-    "founderId" TEXT NOT NULL,
-
-    CONSTRAINT "SocialMedia_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Guide" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -129,7 +117,7 @@ CREATE TABLE "Blog" (
 );
 
 -- CreateTable
-CREATE TABLE "Statitics" (
+CREATE TABLE "Statistics" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -138,7 +126,7 @@ CREATE TABLE "Statitics" (
     "totalTrending" BIGINT NOT NULL DEFAULT 0,
     "totalAuthor" BIGINT NOT NULL DEFAULT 0,
 
-    CONSTRAINT "Statitics_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Statistics_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -150,6 +138,8 @@ CREATE TABLE "Founder" (
     "lastName" TEXT NOT NULL,
     "role" TEXT NOT NULL,
     "company" TEXT NOT NULL DEFAULT 'BLOCKALPHA',
+    "avatar" TEXT NOT NULL,
+    "socialMediaUrl" TEXT[],
 
     CONSTRAINT "Founder_pkey" PRIMARY KEY ("id")
 );
@@ -198,9 +188,3 @@ ALTER TABLE "NFTCart" ADD CONSTRAINT "NFTCart_nftId_fkey" FOREIGN KEY ("nftId") 
 
 -- AddForeignKey
 ALTER TABLE "Cart" ADD CONSTRAINT "Cart_accountId_fkey" FOREIGN KEY ("accountId") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "SocialMedia" ADD CONSTRAINT "SocialMedia_accountId_fkey" FOREIGN KEY ("accountId") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "SocialMedia" ADD CONSTRAINT "SocialMedia_founderId_fkey" FOREIGN KEY ("founderId") REFERENCES "Founder"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

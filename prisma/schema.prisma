@@ -130,9 +130,9 @@ model Statistics {
 }
 
 model Founder {
-  id          String        @id
+  id          String        @id @default(uuid())
   createdAt   DateTime      @default(now())
-  updatedAt   DateTime
+  updatedAt   DateTime @updatedAt
   fistName    String
   lastName    String
   role        String

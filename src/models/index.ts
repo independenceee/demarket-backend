@@ -13,4 +13,4 @@ import {
 const prisma = new PrismaClient();
 
 export default prisma;
-export { Account, Guide };
+export { Account, Guide, Founder };
