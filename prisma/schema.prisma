@@ -63,17 +63,21 @@ model Category {
 }
 
 model NFT {
-  id           String   @id @default(uuid())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  validate     Boolean  @default(false)
-  policyId     String   @unique
-  assetName    String   @unique
-  collectionId String
+  id String @id @default(uuid())
 
-  totalTransaction   BigInt     @default(0)
-  status             StatusNft
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  validate Boolean @default(false)
+
+  policyId     String    @unique
+  assetName    String    @unique
+
+  status       StatusNft?
+  collectionId String
+  totalTransaction   Int?     @default(0)
   countOfTransaction Int?       @default(0)
+  
   collection         Collection @relation(fields: [collectionId], references: [id])
   carts              NFTCart[]
 }
@@ -93,7 +97,7 @@ model Cart {
   id        String    @id @default(uuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  address   String    @unique  
+  address   String    @unique
   account   Account   @relation(fields: [address], references: [address])
   nfts      NFTCart[]
 }

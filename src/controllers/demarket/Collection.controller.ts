@@ -4,6 +4,7 @@ import { InternalServerError } from "../../errors";
 class CollectionController {
     async getAllCollections(request: Request, response: Response) {
         try {
+            
         } catch (error) {
             response
                 .status(StatusCodes.INTERNAL_SERVER_ERROR)

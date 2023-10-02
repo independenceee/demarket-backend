@@ -38,6 +38,24 @@ class NftService {
 
         return null;
     }
+
+    async findNftByPolicyIdAndAssetName(policyId: string, assetName: string) {
+        try {
+            const nft = await prisma.nFT.findFirst({
+                where: {
+                    policyId: policyId,
+                    assetName: assetName,
+                },
+            });
+            if (nft) {
+                return nft;
+            }
+        } catch (error) {
+            throw new ApiError(error);
+        }
+
+        return null;
+    }
 }
 
 export default new NftService();

@@ -55,7 +55,7 @@ class StatisticsController {
 
     async updateStatistics(request: Request, response: Response) {
         try {
-            const { address, collection, trending, product } = request.body;
+            const { address, collection, trending, policyId, assetName } = request.body;
 
             const existStatistics = await statisticService.findManyStatistics();
             if (!existStatistics) {
@@ -72,9 +72,10 @@ class StatisticsController {
                     totalCollection: collection
                         ? existStatistics[0].totalAuthor + 1
                         : existStatistics[0].totalCollection,
-                    totalProduct: product
-                        ? existStatistics[0].totalProduct + 1
-                        : existStatistics[0].totalProduct,
+                    totalProduct:
+                        policyId && assetName
+                            ? existStatistics[0].totalProduct + 1
+                            : existStatistics[0].totalProduct,
 
                     totalTrending: trending
                         ? existStatistics[0].totalTrending + 1

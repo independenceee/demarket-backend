@@ -44,7 +44,7 @@ class FounderController {
             const { firstName, lastName, role, company, socialMediaUrl } = request.body;
             const files: Express.Multer.File[] | any = request.files;
 
-            const founder = await prisma.founder.create({
+            await prisma.founder.create({
                 data: {
                     fistName: firstName,
                     lastName: lastName,
@@ -54,6 +54,7 @@ class FounderController {
                     socialMediaUrl: socialMediaUrl,
                 },
             });
+
             response.status(StatusCodes.CREATED).json({
                 message: "founder created successfully!",
             });
