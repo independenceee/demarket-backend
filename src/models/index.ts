@@ -16,4 +16,4 @@ import {
 const prisma = new PrismaClient();
 
 export default prisma;
-export { Account, Guide, Founder, Statistics };
+export { Account, Guide, Founder, Statistics, NFT };

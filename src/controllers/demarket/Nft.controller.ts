@@ -4,6 +4,7 @@ import { InternalServerError } from "../../errors";
 class NftController {
     async getAllNfts(request: Request, response: Response) {
         try {
+            const {page} = request.query;
             
         } catch (error) {
             response
