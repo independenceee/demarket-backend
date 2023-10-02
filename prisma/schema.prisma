@@ -10,22 +10,22 @@ datasource db {
 }
 
 model Account {
-  id           String        @id @default(uuid())
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  policyId     String        @unique
-  address      String        @unique
-  email        String        @unique
-  name         String
-  description  String
-  rating       Float         @db.Real
-  cover        String
-  avatar       String
+  id             String       @id @default(uuid())
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  policyId       String
+  address        String       @unique
+  email          String       @unique
+  name           String
+  description    String
+  rating         Float?       @db.Real
+  cover          String
+  avatar         String
   socialMediaUrl String[]
-  followed     Int           @default(0)
-  validate     Boolean       @default(false)
-  cart         Cart?
-  collections  Collection[]
+  followed       Int?         @default(0)
+  validate       Boolean      @default(false)
+  cart           Cart?
+  collections    Collection[]
 }
 
 model Collection {
@@ -93,14 +93,10 @@ model Cart {
   id        String    @id @default(uuid())
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
-  policyId  String    @unique
-  assetName String    @unique
-  accountId String    @unique
-  account   Account   @relation(fields: [accountId], references: [id])
+  address   String    @unique  
+  account   Account   @relation(fields: [address], references: [address])
   nfts      NFTCart[]
 }
-
-
 
 model Guide {
   id          String   @id @default(uuid())
@@ -111,7 +107,6 @@ model Guide {
   description String
   url         String
 }
-
 
 model Blog {
   id        String   @id @default(uuid())
@@ -131,14 +126,14 @@ model Statistics {
 }
 
 model Founder {
-  id          String        @id @default(uuid())
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime @updatedAt
-  fistName    String
-  lastName    String
-  role        String
-  company     String        @default("BLOCKALPHA")
-  avatar      String        @db.Text
+  id             String   @id @default(uuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  fistName       String
+  lastName       String
+  role           String
+  company        String   @default("BLOCKALPHA")
+  avatar         String   @db.Text
   socialMediaUrl String[]
 }
 

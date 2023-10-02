@@ -2,13 +2,9 @@ import { ApiError } from "../../errors";
 import prisma, { Statistics } from "../../models";
 
 class StatisticsService {
-    async findStatisticById(id: string): Promise<Statistics | null> {
+    async findManyStatistics(): Promise<Statistics[] | null> {
         try {
-            const statistic = await prisma.statistics.findFirst({
-                where: {
-                    id: id,
-                },
-            });
+            const statistic = await prisma.statistics.findMany({});
 
             if (statistic) {
                 return statistic;

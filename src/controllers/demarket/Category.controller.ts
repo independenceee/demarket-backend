@@ -1,3 +1,5 @@
-class CategoryController {}
+class CategoryController {
+    
+}
 
 export default new CategoryController();

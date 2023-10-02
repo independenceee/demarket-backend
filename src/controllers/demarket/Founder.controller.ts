@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import fsExtra from "fs-extra";
-import { InternalServerError, NotFound } from "../errors";
-import founderService from "../services/Founder.service";
-import prisma from "../models";
+import { InternalServerError, NotFound } from "../../errors";
+import founderService from "../../services/demarket/Founder.service";
+import prisma from "../../models";
 
 class FounderController {
     async getAllFounders(request: Request, response: Response) {

@@ -7,23 +7,9 @@ import prisma from "../../models";
 class StatisticsController {
     constructor() {}
 
-    async getAllStatistics(request: Request, response: Response) {
+    async getStatistics(request: Request, response: Response) {
         try {
-            const statistics = await prisma.statistics.findMany({});
-
-            response.status(StatusCodes.OK).json(statistics);
-        } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
-        }
-    }
-
-    async getStatisticsById(request: Request, response: Response) {
-        try {
-            const { id } = request.params;
-
-            const statistic = await statisticService.findStatisticById(id);
+            const statistic = await statisticService.findManyStatistics();
 
             if (!statistic) {
                 return response
@@ -41,7 +27,7 @@ class StatisticsController {
 
     async createStatistics(request: Request, response: Response) {
         try {
-            const statistics = await prisma.statistics.findMany({});
+            const statistics = await statisticService.findManyStatistics();
 
             if (statistics) {
                 return response
@@ -67,12 +53,11 @@ class StatisticsController {
         }
     }
 
-    async updateStatisticsById(request: Request, response: Response) {
+    async updateStatistics(request: Request, response: Response) {
         try {
-            const { id } = request.params;
-            const { author, collection, trending, product } = request.query;
+            const { address, collection, trending, product } = request.body;
 
-            const existStatistics = await statisticService.findStatisticById(id);
+            const existStatistics = await statisticService.findManyStatistics();
             if (!existStatistics) {
                 return response
                     .status(StatusCodes.NOT_FOUND)
@@ -81,24 +66,20 @@ class StatisticsController {
 
             await prisma.statistics.updateMany({
                 data: {
-                    totalAuthor: author
-                        ? existStatistics.totalAuthor + 1
-                        : existStatistics.totalAuthor,
+                    totalAuthor: address
+                        ? existStatistics[0].totalAuthor + 1
+                        : existStatistics[0].totalAuthor,
                     totalCollection: collection
-                        ? existStatistics.totalAuthor + 1
-                        : existStatistics.totalCollection,
+                        ? existStatistics[0].totalAuthor + 1
+                        : existStatistics[0].totalCollection,
                     totalProduct: product
-                        ? existStatistics.totalProduct + 1
-                        : existStatistics.totalProduct,
+                        ? existStatistics[0].totalProduct + 1
+                        : existStatistics[0].totalProduct,
 
                     totalTrending: trending
-                        ? existStatistics.totalTrending + 1
-                        : existStatistics.totalTrending,
+                        ? existStatistics[0].totalTrending + 1
+                        : existStatistics[0].totalTrending,
                 },
-            });
-
-            response.status(StatusCodes.OK).json({
-                message: "Update statistics successfully.",
             });
         } catch (error) {
             response
@@ -107,21 +88,16 @@ class StatisticsController {
         }
     }
 
-    async deleteStatisticsById(request: Request, response: Response) {
+    async deleteStatistics(request: Request, response: Response) {
         try {
-            const { id } = request.params;
-            const existStatistics = await statisticService.findStatisticById(id);
+            const existStatistics = await statisticService.findManyStatistics();
             if (!existStatistics) {
                 return response
                     .status(StatusCodes.NOT_FOUND)
                     .json(new NotFound("Statistics is not found."));
             }
 
-            await prisma.statistics.delete({
-                where: {
-                    id: id,
-                },
-            });
+            await prisma.statistics.deleteMany();
 
             response.status(StatusCodes.OK).json({
                 message: "Delete statistics successfully.",

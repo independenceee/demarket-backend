@@ -3,10 +3,9 @@ import statisticsController from "../../controllers/demarket/Statistics.controll
 
 const router = Router();
 
-router.route("/").get(statisticsController.getAllStatistics);
+router.route("/").get(statisticsController.getStatistics);
 router.route("/").post(statisticsController.createStatistics);
-router.route("/:id").get(statisticsController.getStatisticsById);
-router.route("/:id").patch(statisticsController.updateStatisticsById);
-router.route("/:id").delete(statisticsController.deleteStatisticsById);
+router.route("/").patch(statisticsController.updateStatistics);
+router.route("/").delete(statisticsController.deleteStatistics);
 
 export default router;

@@ -22,9 +22,9 @@ const router = function (app: Express) {
     app.use("/api/v1/founder", founderRouter);
     app.use("/api/v1/statistics", statisticsRouter);
     app.use("/api/v1/search", searchRouter);
-    app.use("/api/v1/blockfrost/transaction");
-    app.use("/api/v1/blockfrost/assets");
-    app.use("/api/v1/koios/assets");
+    // app.use("/api/v1/blockfrost/transaction");
+    // app.use("/api/v1/blockfrost/assets");
+    // app.use("/api/v1/koios/assets");
 };
 
 export default router;
