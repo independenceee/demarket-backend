@@ -11,11 +11,11 @@ CREATE TABLE "Account" (
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
-    "rating" REAL NOT NULL,
+    "rating" REAL,
     "cover" TEXT NOT NULL,
     "avatar" TEXT NOT NULL,
     "socialMediaUrl" TEXT[],
-    "followed" INTEGER NOT NULL DEFAULT 0,
+    "followed" INTEGER DEFAULT 0,
     "validate" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "Account_pkey" PRIMARY KEY ("id")
@@ -64,9 +64,9 @@ CREATE TABLE "NFT" (
     "validate" BOOLEAN NOT NULL DEFAULT false,
     "policyId" TEXT NOT NULL,
     "assetName" TEXT NOT NULL,
+    "status" "StatusNft",
     "collectionId" TEXT NOT NULL,
-    "totalTransaction" BIGINT NOT NULL DEFAULT 0,
-    "status" "StatusNft" NOT NULL,
+    "totalTransaction" INTEGER DEFAULT 0,
     "countOfTransaction" INTEGER DEFAULT 0,
 
     CONSTRAINT "NFT_pkey" PRIMARY KEY ("id")
@@ -87,9 +87,7 @@ CREATE TABLE "Cart" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "policyId" TEXT NOT NULL,
-    "assetName" TEXT NOT NULL,
-    "accountId" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
 
     CONSTRAINT "Cart_pkey" PRIMARY KEY ("id")
 );
@@ -121,10 +119,10 @@ CREATE TABLE "Statistics" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "totalProduct" BIGINT NOT NULL DEFAULT 0,
-    "totalCollection" BIGINT NOT NULL DEFAULT 0,
-    "totalTrending" BIGINT NOT NULL DEFAULT 0,
-    "totalAuthor" BIGINT NOT NULL DEFAULT 0,
+    "totalProduct" INTEGER NOT NULL DEFAULT 0,
+    "totalCollection" INTEGER NOT NULL DEFAULT 0,
+    "totalTrending" INTEGER NOT NULL DEFAULT 0,
+    "totalAuthor" INTEGER NOT NULL DEFAULT 0,
 
     CONSTRAINT "Statistics_pkey" PRIMARY KEY ("id")
 );
@@ -145,9 +143,6 @@ CREATE TABLE "Founder" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Account_policyId_key" ON "Account"("policyId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Account_address_key" ON "Account"("address");
 
 -- CreateIndex
@@ -160,13 +155,7 @@ CREATE UNIQUE INDEX "NFT_policyId_key" ON "NFT"("policyId");
 CREATE UNIQUE INDEX "NFT_assetName_key" ON "NFT"("assetName");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Cart_policyId_key" ON "Cart"("policyId");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Cart_assetName_key" ON "Cart"("assetName");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Cart_accountId_key" ON "Cart"("accountId");
+CREATE UNIQUE INDEX "Cart_address_key" ON "Cart"("address");
 
 -- AddForeignKey
 ALTER TABLE "Collection" ADD CONSTRAINT "Collection_accoutnId_fkey" FOREIGN KEY ("accoutnId") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -187,4 +176,4 @@ ALTER TABLE "NFTCart" ADD CONSTRAINT "NFTCart_cartId_fkey" FOREIGN KEY ("cartId"
 ALTER TABLE "NFTCart" ADD CONSTRAINT "NFTCart_nftId_fkey" FOREIGN KEY ("nftId") REFERENCES "NFT"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Cart" ADD CONSTRAINT "Cart_accountId_fkey" FOREIGN KEY ("accountId") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Cart" ADD CONSTRAINT "Cart_address_fkey" FOREIGN KEY ("address") REFERENCES "Account"("address") ON DELETE RESTRICT ON UPDATE CASCADE;

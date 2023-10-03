@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { ApiError, InternalServerError, NotFound } from "../../errors";
-
-import statisticsController from "./Statistics.controller";
+import statisticService from "../../services/demarket/Statistic.service";
 import nftService from "../../services/demarket/Nft.service";
 import prisma from "../../models";
 
@@ -59,14 +58,19 @@ class NftController {
             await prisma.nFT.create({
                 data: {
                     status: status ? status : "",
-
                     policyId: policyId,
                     assetName: assetName,
                     collectionId: collectionId ? String(collectionId) : "no_collection",
                 },
             });
 
-            await statisticsController.updateStatistics(request, response);
+            await statisticService.updateStatistics(
+                null,
+                null,
+                null,
+                policyId,
+                assetName,
+            );
 
             response.status(StatusCodes.OK).json({
                 mesage: "Nft add successfully.",

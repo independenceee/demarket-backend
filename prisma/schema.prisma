@@ -29,37 +29,27 @@ model Account {
 }
 
 model Collection {
-  id          String               @id @default(uuid())
-  createdAt   DateTime             @default(now())
-  updatedAt   DateTime             @updatedAt
+  id          String     @id @default(uuid())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
   title       String?
   description String?
   avatar      String?
   cover       String?
   url         String?
   accoutnId   String
-  categories  CategoryCollection[]
-  account     Account              @relation(fields: [accoutnId], references: [id])
+  account     Account    @relation(fields: [accoutnId], references: [id])
   NFTS        NFT[]
-}
-
-model CategoryCollection {
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  categoryId   String
-  collectionId String
-  category     Category   @relation(fields: [categoryId], references: [id])
-  collection   Collection @relation(fields: [collectionId], references: [id])
-
-  @@id([categoryId, collectionId])
+  category    Category[]
 }
 
 model Category {
-  id          String               @id @default(uuid())
-  createdAt   DateTime             @default(now())
-  updatedAt   DateTime             @updatedAt
-  name        String
-  collections CategoryCollection[]
+  id           String      @id @default(uuid())
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  name         String
+  collectionId String?
+  collection   Collection? @relation(fields: [collectionId], references: [id])
 }
 
 model NFT {
@@ -70,36 +60,26 @@ model NFT {
 
   validate Boolean @default(false)
 
-  policyId     String    @unique
-  assetName    String    @unique
+  policyId  String @unique
+  assetName String @unique
 
-  status       StatusNft?
-  collectionId String
-  totalTransaction   Int?     @default(0)
+  status             StatusNft?
+  collectionId       String
+  totalTransaction   Int?       @default(0)
   countOfTransaction Int?       @default(0)
-  
-  collection         Collection @relation(fields: [collectionId], references: [id])
-  carts              NFTCart[]
-}
 
-model NFTCart {
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  cartId    String
-  nftId     String
-  cart      Cart     @relation(fields: [cartId], references: [id])
-  nft       NFT      @relation(fields: [nftId], references: [id])
-
-  @@id([nftId, cartId])
+  collection Collection @relation(fields: [collectionId], references: [id])
+  cartId     String?
+  cart       Cart?      @relation(fields: [cartId], references: [id])
 }
 
 model Cart {
-  id        String    @id @default(uuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  address   String    @unique
-  account   Account   @relation(fields: [address], references: [address])
-  nfts      NFTCart[]
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  accountId String   @unique
+  account   Account  @relation(fields: [accountId], references: [id])
+  nfts      NFT[]
 }
 
 model Guide {

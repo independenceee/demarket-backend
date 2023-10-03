@@ -1,46 +1,55 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { InternalServerError } from "../../errors";
+import { InternalServerError, NotFound, BadRequest } from "../../errors";
+
+import statisticService from "../../services/demarket/Statistic.service";
+import collectionService from "../../services/demarket/Collection.service";
+import prisma from "../../models";
+
 class CollectionController {
-    async getAllCollections(request: Request, response: Response) {
-        try {
-            
-        } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
-        }
-    }
-
-    async getCollectionById(request: Request, response: Response) {
-        try {
-        } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
-        }
-    }
-
     async createCollection(request: Request, response: Response) {
         try {
-        } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
-        }
-    }
+            const { accountId } = request.query;
+            const { title, description, url } = request.body;
 
-    async updateCollectionById(request: Request, response: Response) {
-        try {
-        } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
-        }
-    }
+            /**
+             * Handle file
+             */
+            const files = request.files;
 
-    async deleteCollectionById(request: Request, response: Response) {
-        try {
+            if (!title || !description || !url || !accountId) {
+                return response
+                    .status(StatusCodes.BAD_REQUEST)
+                    .json(
+                        new BadRequest(
+                            "Title , description, url, accountId has required.",
+                        ),
+                    );
+            }
+
+            await prisma.collection.create({
+                data: {
+                    title: title,
+                    description: description,
+                    accoutnId: String(accountId),
+                    url: url,
+                    avatar: "",
+                    cover: "",
+                },
+            });
+
+            await statisticService.updateStatistics(
+                null,
+                title,
+                description,
+                null,
+                null,
+                null,
+            );
+
+            response.status(StatusCodes.OK).json({
+                message: "collection create successfully.",
+            });
         } catch (error) {
             response
                 .status(StatusCodes.INTERNAL_SERVER_ERROR)

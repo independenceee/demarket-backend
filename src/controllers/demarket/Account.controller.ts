@@ -5,15 +5,12 @@ import { ApiError, BadRequest, InternalServerError, NotFound } from "../../error
 import prisma from "../../models";
 
 import accountService from "../../services/demarket/Account.service";
-import statisticsController from "./Statistics.controller";
+import cartService from "../../services/demarket/Cart.service";
+import statisticsService from "../../services/demarket/Statistic.service";
 
 class AccountController {
     constructor() {}
 
-    /**
-     * @param request
-     * @param response
-     */
     async getAllAccounts(request: Request, response: Response) {
         try {
             const accounts = await prisma.account.findMany({});
@@ -31,9 +28,7 @@ class AccountController {
     async getAccountById(request: Request, response: Response) {
         try {
             const { address } = request.query;
-            const account = await accountService.findAccountByAddress(
-                address?.toString(),
-            );
+            const account = await accountService.findAccountByAddress(String(address));
             if (!account) {
                 return response
                     .status(StatusCodes.NOT_FOUND)
@@ -68,7 +63,7 @@ class AccountController {
                     .json(new ApiError("Account has already exist."));
             }
 
-            await prisma.account.create({
+            const account = await prisma.account.create({
                 data: {
                     name: name ? name : "",
                     address: address,
@@ -81,7 +76,8 @@ class AccountController {
                 },
             });
 
-            await statisticsController.updateStatistics(request, response);
+            await cartService.createCartByAccountId(account.id);
+            await statisticsService.updateStatistics(address);
 
             response.status(StatusCodes.OK).json({
                 message: "Account created successfully.",
