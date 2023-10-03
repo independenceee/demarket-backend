@@ -4,7 +4,6 @@ import AccountController from "../../controllers/demarket/Account.controller";
 
 const router = Router();
 
-router.route("/").get(AccountController.getAllAccounts);
 router.route("/").post(
     UploadFile.fields([
         { name: "avatar", maxCount: 1 },
@@ -12,8 +11,8 @@ router.route("/").post(
     ]),
     AccountController.createAccount,
 );
-router.route("/:id").patch(AccountController.updateAccountById);
 router.route("/:id").get(AccountController.getAccountById);
+router.route("/:id").patch(AccountController.updateAccountById);
 router.route("/:id").delete(AccountController.deleteAccountById);
 
 export default router;

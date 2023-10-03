@@ -11,20 +11,6 @@ import statisticsService from "../../services/demarket/Statistic.service";
 class AccountController {
     constructor() {}
 
-    async getAllAccounts(request: Request, response: Response) {
-        try {
-            const accounts = await prisma.account.findMany({});
-
-            response.status(StatusCodes.OK).json(accounts);
-        } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
-        } finally {
-            await prisma.$disconnect();
-        }
-    }
-
     async getAccountById(request: Request, response: Response) {
         try {
             const { address } = request.query;
@@ -49,39 +35,40 @@ class AccountController {
         try {
             const { policyId, address, email, name, description } = request.body;
             const files = request.files;
+            console.log(files);
 
-            if (!address) {
-                return response
-                    .status(StatusCodes.BAD_REQUEST)
-                    .json(new BadRequest("Address has been required!"));
-            }
+            // if (!address) {
+            //     return response
+            //         .status(StatusCodes.BAD_REQUEST)
+            //         .json(new BadRequest("Address has been required!"));
+            // }
 
-            const existAddress = await accountService.findAccountByAddress(address);
-            if (existAddress) {
-                return response
-                    .status(StatusCodes.FORBIDDEN)
-                    .json(new ApiError("Account has already exist."));
-            }
+            // const existAddress = await accountService.findAccountByAddress(address);
+            // if (existAddress) {
+            //     return response
+            //         .status(StatusCodes.FORBIDDEN)
+            //         .json(new ApiError("Account has already exist."));
+            // }
 
-            const account = await prisma.account.create({
-                data: {
-                    name: name ? name : "",
-                    address: address,
-                    avatar: "",
-                    cover: "",
-                    description: description ? description : "",
-                    email: email ? email : "",
-                    policyId: policyId ? policyId : "",
-                    rating: 0,
-                },
-            });
+            // const account = await prisma.account.create({
+            //     data: {
+            //         name: name ? name : "",
+            //         address: address,
+            //         avatar: "",
+            //         cover: "",
+            //         description: description ? description : "",
+            //         email: email ? email : "",
+            //         policyId: policyId ? policyId : "",
+            //         rating: 0,
+            //     },
+            // });
 
-            await cartService.createCartByAccountId(account.id);
-            await statisticsService.updateStatistics(address);
+            // await cartService.createCartByAccountId(account.id);
+            // await statisticsService.updateStatistics(address);
 
-            response.status(StatusCodes.OK).json({
-                message: "Account created successfully.",
-            });
+            // response.status(StatusCodes.OK).json({
+            //     message: "Account created successfully.",
+            // });
         } catch (error) {
             response
                 .status(StatusCodes.INTERNAL_SERVER_ERROR)
