@@ -15,6 +15,7 @@ class StatisticsService {
 
         return null;
     }
+
     async createStatistic() {
         try {
             await prisma.statistics.create({

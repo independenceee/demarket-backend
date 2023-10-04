@@ -4,6 +4,49 @@ import { InternalServerError } from "../../errors";
 import prisma from "../../models";
 
 class CartController {
+    async addNftToCart(request: Request, response: Response) {
+        try {
+            const { nftId, cartId } = request.query;
+            await prisma.cartNft.create({
+                data: {
+                    cartId: String(cartId),
+                    nftId: String(nftId),
+                },
+            });
+
+            response.status(StatusCodes.OK).json({
+                message: "Add nft to cart successfully",
+            });
+        } catch (error) {
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+        }
+    }
+
+    async remoteNftFromCart(request: Request, response: Response) {
+        try {
+            const { nftId, cartId } = request.query;
+            await prisma.cartNft.delete({
+                where: {
+                    cartId_nftId: {
+                        cartId: String(cartId),
+                        nftId: String(nftId),
+                    },
+                },
+            });
+
+            response.status(StatusCodes.OK).json({
+                message: "Remove nft from cart successfully",
+            });
+        } catch (error) {
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+        }
+    }
+
+    /**
+     *
+     * @param request
+     * @param response
+     */
     async getCartById(request: Request, response: Response) {
         try {
             const { id } = request.params;
@@ -18,12 +61,15 @@ class CartController {
 
             response.status(StatusCodes.OK).json(cart);
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     */
     async createCart(request: Request, response: Response) {
         try {
             const { accountId } = request.query;
@@ -36,12 +82,15 @@ class CartController {
                 message: "Create cart successfully",
             });
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     */
     async updateCartById(request: Request, response: Response) {
         try {
             const { id } = request.params;
@@ -55,12 +104,15 @@ class CartController {
                 },
             });
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     */
     async deleteCartById(request: Request, response: Response) {
         try {
             const { id } = request.params;
@@ -72,14 +124,9 @@ class CartController {
                 },
             });
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
-
-    
-    
 }
 
 export default new CartController();

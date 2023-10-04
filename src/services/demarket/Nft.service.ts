@@ -1,10 +1,11 @@
 import prisma, { Nft } from "../../models";
 import { ApiError } from "../../errors";
+import generics from "../../constants/generics";
 
 class NftService {
     async findAllNfts(page: number): Promise<Nft[] | null> {
         try {
-            const PER_PAGE = 12;
+            const PER_PAGE = generics.PER_PAGE;
             const currentPage = Math.max(Number(page || 1), 1);
 
             const nfts = await prisma.nft.findMany({
