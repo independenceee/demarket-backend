@@ -2,7 +2,7 @@ import * as dotenv from "dotenv";
 import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-import express, { Express } from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
 import session from "express-session";
 
 import configs from "./configs";
@@ -25,12 +25,19 @@ const start = function () {
 
     app.use(cors(configs.corsOptions));
     app.use(session(configs.sessionOptions));
-    app.use(cookieParser());
 
-    app.use(express.static("public"));
+    app.use(cookieParser());
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }));
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use(bodyParser.json());
+
+    // app.use(function (request: Request, response: Response, next: NextFunction) {
+    //     response.locals.session = request.session;
+    //     next();
+    // });
+
+    app.use(express.static("public"));
 
     router(app);
 

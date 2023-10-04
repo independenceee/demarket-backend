@@ -11,8 +11,6 @@ router.route("/").post(
     ]),
     AccountController.createAccount,
 );
-router.route("/:id").get(AccountController.getAccountById);
 router.route("/:id").patch(AccountController.updateAccountById);
-router.route("/:id").delete(AccountController.deleteAccountById);
 
 export default router;

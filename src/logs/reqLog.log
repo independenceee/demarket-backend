@@ -216,3 +216,16 @@
 20231003	17:02:26	4ddf5877-ca73-432d-b260-d3ad3c9a700c	POST	/api/v1/account	http://localhost:3000
 20231003	17:04:17	643edc52-ceb6-4094-9536-c2bd66d3a302	POST	/api/v1/account?destination=/images/account	http://localhost:3000
 20231003	17:06:07	08da68de-bdb9-4b4c-9b00-ecafafc8cbfc	POST	/api/v1/account?destination=/images/account	http://localhost:3000
+20231003	17:23:49	41137dcf-5f7c-4ad0-bace-450e4e9f720a	POST	/api/v1/account?destination=/images/account	http://localhost:3000
+20231003	17:24:35	6f01e091-73a9-41cd-95a5-519dba4275db	GET	/public/images/account/1696328629137-background-1.jpg	undefined
+20231003	17:24:40	14bfeb40-db85-4641-bd44-0a5f8fe071a2	GET	/images/account/1696328629137-background-1.jpg	undefined
+20231003	17:39:21	c72ff8e1-2caf-4722-bad2-6c1e7c102fad	POST	/api/v1/account?destination=/images/account	http://localhost:3000
+20231003	17:39:35	81f0a862-f10b-4805-a96f-2b80f8f04dd9	POST	/api/v1/account?destination=/images/account	http://localhost:3000
+20231004	10:09:38	d3b41a06-4000-4a1e-85cc-7a4b4eee4d5c	POST	/api/v1/account	undefined
+20231004	10:10:34	10fe6c4e-bfa8-4061-a52c-4f3df3a3b7ce	POST	/api/v1/account	undefined
+20231004	10:10:38	5433cd6a-641c-4fdb-94d0-fd5b22dae846	POST	/api/v1/account	undefined
+20231004	10:10:43	98ba4384-43f5-41ca-9c5e-9348b0266288	POST	/api/v1/account	undefined
+20231004	10:12:29	f365b925-67d7-4f6a-b122-fc6c3614d523	POST	/api/v1/account	undefined
+20231004	10:13:13	ac5472c5-21af-4798-9292-4c20abb09529	POST	/api/v1/account	undefined
+20231004	10:13:49	2531f566-a5fc-444c-8861-92018acac4a9	GET	/api/v1/statistics	undefined
+20231004	10:13:52	86b79fdf-0f49-4e11-8903-8df80989736e	GET	/favicon.ico	undefined

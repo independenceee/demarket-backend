@@ -37,21 +37,12 @@ CREATE TABLE "Collection" (
 );
 
 -- CreateTable
-CREATE TABLE "CategoryCollection" (
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "categoryId" TEXT NOT NULL,
-    "collectionId" TEXT NOT NULL,
-
-    CONSTRAINT "CategoryCollection_pkey" PRIMARY KEY ("categoryId","collectionId")
-);
-
--- CreateTable
 CREATE TABLE "Category" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "name" TEXT NOT NULL,
+    "collectionId" TEXT,
 
     CONSTRAINT "Category_pkey" PRIMARY KEY ("id")
 );
@@ -68,18 +59,9 @@ CREATE TABLE "NFT" (
     "collectionId" TEXT NOT NULL,
     "totalTransaction" INTEGER DEFAULT 0,
     "countOfTransaction" INTEGER DEFAULT 0,
+    "cartId" TEXT,
 
     CONSTRAINT "NFT_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
-CREATE TABLE "NFTCart" (
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-    "cartId" TEXT NOT NULL,
-    "nftId" TEXT NOT NULL,
-
-    CONSTRAINT "NFTCart_pkey" PRIMARY KEY ("nftId","cartId")
 );
 
 -- CreateTable
@@ -87,7 +69,7 @@ CREATE TABLE "Cart" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "address" TEXT NOT NULL,
+    "accountId" TEXT NOT NULL,
 
     CONSTRAINT "Cart_pkey" PRIMARY KEY ("id")
 );
@@ -155,25 +137,19 @@ CREATE UNIQUE INDEX "NFT_policyId_key" ON "NFT"("policyId");
 CREATE UNIQUE INDEX "NFT_assetName_key" ON "NFT"("assetName");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Cart_address_key" ON "Cart"("address");
+CREATE UNIQUE INDEX "Cart_accountId_key" ON "Cart"("accountId");
 
 -- AddForeignKey
 ALTER TABLE "Collection" ADD CONSTRAINT "Collection_accoutnId_fkey" FOREIGN KEY ("accoutnId") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "CategoryCollection" ADD CONSTRAINT "CategoryCollection_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "CategoryCollection" ADD CONSTRAINT "CategoryCollection_collectionId_fkey" FOREIGN KEY ("collectionId") REFERENCES "Collection"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Category" ADD CONSTRAINT "Category_collectionId_fkey" FOREIGN KEY ("collectionId") REFERENCES "Collection"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "NFT" ADD CONSTRAINT "NFT_collectionId_fkey" FOREIGN KEY ("collectionId") REFERENCES "Collection"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "NFTCart" ADD CONSTRAINT "NFTCart_cartId_fkey" FOREIGN KEY ("cartId") REFERENCES "Cart"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "NFT" ADD CONSTRAINT "NFT_cartId_fkey" FOREIGN KEY ("cartId") REFERENCES "Cart"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "NFTCart" ADD CONSTRAINT "NFTCart_nftId_fkey" FOREIGN KEY ("nftId") REFERENCES "NFT"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Cart" ADD CONSTRAINT "Cart_address_fkey" FOREIGN KEY ("address") REFERENCES "Account"("address") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Cart" ADD CONSTRAINT "Cart_accountId_fkey" FOREIGN KEY ("accountId") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
