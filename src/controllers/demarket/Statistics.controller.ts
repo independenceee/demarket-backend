@@ -16,7 +16,7 @@ class StatisticsController {
                     .status(StatusCodes.NOT_FOUND)
                     .json(new NotFound("Statistic is not found."));
             }
-
+            await statisticService.updateStatistics();
             response.status(StatusCodes.OK).json(statistic[0]);
         } catch (error) {
             response

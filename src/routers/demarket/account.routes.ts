@@ -11,6 +11,15 @@ router.route("/").post(
     ]),
     AccountController.createAccount,
 );
-router.route("/:id").patch(AccountController.updateAccountById);
+
+router.route("/:id").patch(
+    UploadFile.fields([
+        { name: "avatar", maxCount: 1 },
+        { name: "cover", maxCount: 1 },
+    ]),
+    AccountController.updateAccountById,
+);
+
+router.route("/:id").get(AccountController.getAccountById);
 
 export default router;

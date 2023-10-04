@@ -1,15 +1,19 @@
-import prisma, { NFT } from "../../models";
+import prisma, { Nft } from "../../models";
 import { ApiError } from "../../errors";
 
 class NftService {
-    async findAllNfts(page: number): Promise<NFT[] | null> {
+    async findAllNfts(page: number): Promise<Nft[] | null> {
         try {
             const PER_PAGE = 12;
             const currentPage = Math.max(Number(page || 1), 1);
 
-            const nfts = await prisma.nFT.findMany({
+            const nfts = await prisma.nft.findMany({
                 take: PER_PAGE,
                 skip: (currentPage - 1) * PER_PAGE,
+                orderBy: {
+                    createdAt: "desc",
+                    updatedAt: "desc",
+                },
             });
 
             if (nfts) {
@@ -22,9 +26,9 @@ class NftService {
         return null;
     }
 
-    async findNftById(id: string): Promise<NFT | null> {
+    async findNftById(id: string): Promise<Nft | null> {
         try {
-            const nft = await prisma.nFT.findFirst({
+            const nft = await prisma.nft.findFirst({
                 where: {
                     id: id,
                 },
@@ -41,7 +45,7 @@ class NftService {
 
     async findNftByPolicyIdAndAssetName(policyId: string, assetName: string) {
         try {
-            const nft = await prisma.nFT.findFirst({
+            const nft = await prisma.nft.findFirst({
                 where: {
                     policyId: policyId,
                     assetName: assetName,

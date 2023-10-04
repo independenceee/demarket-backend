@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { ApiError, InternalServerError, NotFound } from "../../errors";
-import statisticService from "../../services/demarket/Statistic.service";
+
 import nftService from "../../services/demarket/Nft.service";
 import prisma from "../../models";
 
@@ -55,17 +55,14 @@ class NftController {
                     .json(new ApiError("Nft already exists."));
             }
 
-            await prisma.nFT.create({
+            await prisma.nft.create({
                 data: {
-                    status: status ? status : "",
+                    status: status ? "COMMINGSOON" : "SELLING",
                     policyId: policyId,
                     assetName: assetName,
-                    collectionId: collectionId ? String(collectionId) : "no_collection",
+                    collectionId: String(collectionId),
                 },
             });
-
-            await statisticService.updateStatistics({ policyId, assetName });
-
             response.status(StatusCodes.OK).json({
                 mesage: "Nft add successfully.",
             });
@@ -89,7 +86,7 @@ class NftController {
                     .json(new NotFound("Nft is not found."));
             }
 
-            await prisma.nFT.update({
+            await prisma.nft.update({
                 where: {
                     id: id,
                 },
@@ -127,7 +124,7 @@ class NftController {
                     .json(new NotFound("Nft is not found."));
             }
 
-            await prisma.nFT.delete({ where: { id: id } });
+            await prisma.nft.delete({ where: { id: id } });
 
             response.status(StatusCodes.OK).json({
                 message: "delete nft successfully.",

@@ -78,49 +78,8 @@ class CartController {
         }
     }
 
-    /**
-     * @param request
-     * @param response
-     */
-    async addNftTocart(request: Request, response: Response) {
-        try {
-            const { id } = request.params;
-            const { policyId, assetName } = request.body;
-
-            await prisma.nFT.update({
-                where: {
-                    policyId: policyId,
-                    assetName: assetName,
-                },
-                data: {
-                    cartId: id,
-                },
-            });
-        } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
-        }
-    }
-    async removeNftFromCart(request: Request, response: Response) {
-        try {
-            const { policyId, assetName } = request.body;
-
-            await prisma.nFT.update({
-                where: {
-                    policyId: policyId,
-                    assetName: assetName,
-                },
-                data: {
-                    cartId: null,
-                },
-            });
-        } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
-        }
-    }
+    
+    
 }
 
 export default new CartController();

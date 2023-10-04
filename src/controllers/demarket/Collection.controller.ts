@@ -2,11 +2,16 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { InternalServerError, NotFound, BadRequest } from "../../errors";
 
-import statisticService from "../../services/demarket/Statistic.service";
 import collectionService from "../../services/demarket/Collection.service";
 import prisma from "../../models";
 
 class CollectionController {
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
     async createCollection(request: Request, response: Response) {
         try {
             const { accountId } = request.query;
@@ -37,8 +42,6 @@ class CollectionController {
                     cover: "",
                 },
             });
-
-            await statisticService.updateStatistics({ description, title });
 
             response.status(StatusCodes.OK).json({
                 message: "collection create successfully.",

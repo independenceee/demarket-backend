@@ -15,29 +15,14 @@ class StatisticsService {
 
         return null;
     }
-
-    async createStatistic({
-        address,
-        title,
-        description,
-        trending,
-        policyId,
-        assetName,
-    }: {
-        address?: string | null;
-        title?: string | null;
-        description?: string | null;
-        trending?: string | null;
-        policyId?: string | null;
-        assetName?: string | null;
-    }) {
+    async createStatistic() {
         try {
             await prisma.statistics.create({
                 data: {
-                    totalAuthor: address ? 1 : 0,
-                    totalCollection: title && description ? 1 : 0,
-                    totalTrending: trending ? 1 : 0,
-                    totalProduct: policyId && assetName ? 1 : 0,
+                    totalAuthor: await prisma.account.count(),
+                    totalCollection: await prisma.collection.count(),
+                    totalTrending: await prisma.nft.count(),
+                    totalProduct: await prisma.nft.count(),
                 },
             });
         } catch (error) {
@@ -45,50 +30,18 @@ class StatisticsService {
         }
     }
 
-    async updateStatistics({
-        address,
-        title,
-        description,
-        trending,
-        policyId,
-        assetName,
-    }: {
-        address?: string | null;
-        title?: string | null;
-        description?: string | null;
-        trending?: string | null;
-        policyId?: string | null;
-        assetName?: string | null;
-    }) {
+    async updateStatistics() {
         try {
             const existStatistics = await this.findManyStatistics();
             if (existStatistics?.length === 0 || !existStatistics) {
-                this.createStatistic({
-                    address,
-                    assetName,
-                    description,
-                    policyId,
-                    title,
-                    trending,
-                });
+                this.createStatistic();
             } else {
                 await prisma.statistics.updateMany({
                     data: {
-                        totalAuthor: address
-                            ? existStatistics[0].totalAuthor + 1
-                            : existStatistics[0].totalAuthor,
-                        totalCollection:
-                            title && description
-                                ? existStatistics[0].totalCollection + 1
-                                : existStatistics[0].totalCollection,
-                        totalProduct:
-                            policyId && assetName
-                                ? existStatistics[0].totalProduct + 1
-                                : existStatistics[0].totalProduct,
-
-                        totalTrending: trending
-                            ? existStatistics[0].totalTrending + 1
-                            : existStatistics[0].totalTrending,
+                        totalAuthor: await prisma.account.count(),
+                        totalCollection: await prisma.collection.count(),
+                        totalTrending: await prisma.nft.count(),
+                        totalProduct: await prisma.nft.count(),
                     },
                 });
             }
