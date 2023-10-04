@@ -29,30 +29,40 @@ model Account {
 }
 
 model Collection {
-  id          String     @id @default(uuid())
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id          String               @id @default(uuid())
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
   title       String?
   description String?
   avatar      String?
   cover       String?
   url         String?
   accoutnId   String
-  account     Account    @relation(fields: [accoutnId], references: [id])
-  NFTS        NFT[]
-  category    Category[]
+  account     Account              @relation(fields: [accoutnId], references: [id])
+  nfts        Nft[]
+  categories  CollectionCategory[]
+}
+
+model CollectionCategory {
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  collectionId String
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  categoryId   String
+  category     Category   @relation(fields: [categoryId], references: [id])
+
+  @@id([categoryId, collectionId])
 }
 
 model Category {
-  id           String      @id @default(uuid())
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  name         String
-  collectionId String?
-  collection   Collection? @relation(fields: [collectionId], references: [id])
+  id          String               @id @default(uuid())
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  name        String
+  collections CollectionCategory[]
 }
 
-model NFT {
+model Nft {
   id String @id @default(uuid())
 
   createdAt DateTime @default(now())
@@ -69,17 +79,27 @@ model NFT {
   countOfTransaction Int?       @default(0)
 
   collection Collection @relation(fields: [collectionId], references: [id])
-  cartId     String?
-  cart       Cart?      @relation(fields: [cartId], references: [id])
+  cart       CartNft[]
+}
+
+model CartNft {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  cartId    String
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  nftId     String
+  nft       Nft      @relation(fields: [nftId], references: [id], onDelete: Cascade)
+
+  @@id([cartId, nftId])
 }
 
 model Cart {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  accountId String   @unique
-  account   Account  @relation(fields: [accountId], references: [id])
-  nfts      NFT[]
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  accountId String    @unique
+  account   Account   @relation(fields: [accountId], references: [id])
+  nfts      CartNft[]
 }
 
 model Guide {
