@@ -64,13 +64,7 @@ class NftController {
                 },
             });
 
-            await statisticService.updateStatistics(
-                null,
-                null,
-                null,
-                policyId,
-                assetName,
-            );
+            await statisticService.updateStatistics({ policyId, assetName });
 
             response.status(StatusCodes.OK).json({
                 mesage: "Nft add successfully.",

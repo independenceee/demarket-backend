@@ -229,3 +229,10 @@
 20231004	10:13:13	ac5472c5-21af-4798-9292-4c20abb09529	POST	/api/v1/account	undefined
 20231004	10:13:49	2531f566-a5fc-444c-8861-92018acac4a9	GET	/api/v1/statistics	undefined
 20231004	10:13:52	86b79fdf-0f49-4e11-8903-8df80989736e	GET	/favicon.ico	undefined
+20231004	10:24:15	237ed249-3e0e-4e4c-b9d9-e2753c7e67d5	GET	/api/v1/statistics	undefined
+20231004	10:24:28	8ea9cb0f-8432-4809-9776-ab7a60f4717a	POST	/api/v1/account	undefined
+20231004	10:24:33	9f186bec-8fd5-4f04-a1ac-9eb15e0aff5b	GET	/api/v1/statistics	undefined
+20231004	10:25:07	5cffb8fb-1eed-4930-8806-9845cec1efd3	POST	/api/v1/collection?accountId=afcecdda-561f-4e57-bacd-bbdf3a5c4f1f	undefined
+20231004	10:25:12	7549547b-4aac-4471-b9c5-601c0fdf1cd0	GET	/api/v1/statistics	undefined
+20231004	10:26:07	1d21b476-9ac7-4366-b00a-14bfdf3b96a5	POST	/api/v1/collection?accountId=afcecdda-561f-4e57-bacd-bbdf3a5c4f1f	undefined
+20231004	10:26:12	41b3657c-668d-460c-b34b-e5268a19d98b	GET	/api/v1/statistics	undefined

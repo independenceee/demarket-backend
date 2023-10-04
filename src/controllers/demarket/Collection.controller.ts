@@ -38,14 +38,7 @@ class CollectionController {
                 },
             });
 
-            await statisticService.updateStatistics(
-                null,
-                title,
-                description,
-                null,
-                null,
-                null,
-            );
+            await statisticService.updateStatistics({ description, title });
 
             response.status(StatusCodes.OK).json({
                 message: "collection create successfully.",

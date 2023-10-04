@@ -16,14 +16,21 @@ class StatisticsService {
         return null;
     }
 
-    async createStatistic(
-        address?: string | null,
-        title?: string | null,
-        description?: string | null,
-        trending?: string | null,
-        policyId?: string | null,
-        assetName?: string | null,
-    ) {
+    async createStatistic({
+        address,
+        title,
+        description,
+        trending,
+        policyId,
+        assetName,
+    }: {
+        address?: string | null;
+        title?: string | null;
+        description?: string | null;
+        trending?: string | null;
+        policyId?: string | null;
+        assetName?: string | null;
+    }) {
         try {
             await prisma.statistics.create({
                 data: {
@@ -38,27 +45,32 @@ class StatisticsService {
         }
     }
 
-    async updateStatistics(
-        address?: string | null,
-
-        title?: string | null,
-        description?: string | null,
-
-        trending?: string | null,
-        policyId?: string | null,
-        assetName?: string | null,
-    ) {
+    async updateStatistics({
+        address,
+        title,
+        description,
+        trending,
+        policyId,
+        assetName,
+    }: {
+        address?: string | null;
+        title?: string | null;
+        description?: string | null;
+        trending?: string | null;
+        policyId?: string | null;
+        assetName?: string | null;
+    }) {
         try {
             const existStatistics = await this.findManyStatistics();
             if (existStatistics?.length === 0 || !existStatistics) {
-                this.createStatistic(
+                this.createStatistic({
                     address,
-                    title,
-                    description,
-                    trending,
-                    policyId,
                     assetName,
-                );
+                    description,
+                    policyId,
+                    title,
+                    trending,
+                });
             } else {
                 await prisma.statistics.updateMany({
                     data: {

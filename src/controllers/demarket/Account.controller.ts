@@ -13,7 +13,7 @@ class AccountController {
         try {
             const { policyId, address, email, name, description } = request.body;
             const files: any = request.files;
-            console.log(request.body);
+
 
             if (!address || !name || !description) {
                 return response
@@ -44,7 +44,7 @@ class AccountController {
             });
 
             await cartService.createCartByAccountId(account.id);
-            await statisticsService.updateStatistics(address);
+            await statisticsService.updateStatistics({ address });
 
             response.status(StatusCodes.OK).json(account);
         } catch (error) {
