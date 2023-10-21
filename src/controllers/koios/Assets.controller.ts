@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { Request, Response } from "express";
-import { get } from "../../utils/koios";
+import { get, post } from "../../utils/koios";
 import stringToHex from "../../helpers/convertHex";
 
 class AssetsController {
@@ -92,6 +92,31 @@ class AssetsController {
 
             const data = await get(`/policy_asset_list?_asset_policy=${policyId}`, {});
 
+            response.status(StatusCodes.OK).json(data);
+        } catch (error) {
+            response.status(StatusCodes.BAD_REQUEST).json({
+                message: error,
+            });
+        }
+    }
+
+    async accountList(request: Request, response: Response) {
+        try {
+            const data = await get("/account_list", {});
+            response.status(StatusCodes.OK).json(data);
+        } catch (error) {
+            response.status(StatusCodes.BAD_REQUEST).json({
+                message: error,
+            });
+        }
+    }
+
+    async addressAsset(request: Request, response: Response) {
+        try {
+            const { _addresses } = request.body;
+            const data = await post("/address_assets", {
+                _addresses,
+            });
             response.status(StatusCodes.OK).json(data);
         } catch (error) {
             response.status(StatusCodes.BAD_REQUEST).json({

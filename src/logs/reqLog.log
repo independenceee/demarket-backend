@@ -17,3 +17,12 @@
 20231021	12:59:49	c3f522f3-b249-4dd3-bd44-c906a91629ad	POST	/api/v1/blockfrost/assets/information	undefined
 20231021	13:27:18	346d08aa-7ac6-470b-80e1-07e4c2c439cb	POST	/api/v1/blockfrost/assets/address	undefined
 20231021	13:30:29	05621e2a-5ff8-4216-a5a9-232077c3a89c	POST	/api/v1/blockfrost/assets/address	undefined
+20231021	15:08:38	1bf020f3-7cfd-4bd7-8de3-a39d44d3adf9	POST	/api/v1/koios/assets/account-list	undefined
+20231021	15:18:58	68535ed4-2888-4ec3-9b99-407b2bf88ba3	POST	/api/v1/koios/assets/address-assets	undefined
+20231021	15:20:27	9c371362-d42e-4f64-91ae-652e0bc4b9a6	POST	/api/v1/koios/assets/address-assets	undefined
+20231021	15:27:20	808a3480-52a6-490f-a685-f8c8c39c8729	POST	/api/v1/koios/assets/address-assets	undefined
+20231021	15:27:42	f21dc889-2a1c-4df3-a2c1-0c7c255d93fb	POST	/api/v1/koios/assets/address-assets	undefined
+20231021	15:46:12	a912fa3b-cf98-4852-82dd-570002b5662f	POST	/api/v1/koios/assets/address-assets	undefined
+20231021	15:48:17	4a8e9756-54f7-4b35-b206-125a267d25b3	POST	/api/v1/koios/assets/address-assets	undefined
+20231021	15:48:31	9b8c07be-4ec4-4caf-b46a-aa25185beeb9	POST	/api/v1/koios/assets/address-assets	undefined
+20231021	15:49:07	d14206aa-09dc-4bc1-9910-def3e2afb1d1	POST	/api/v1/koios/assets/address-assets	undefined
