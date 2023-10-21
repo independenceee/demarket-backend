@@ -112,12 +112,12 @@ class AccountController {
                     id: id,
                 },
                 data: {
-                    // avatar: files ? files.avatar[0].filename : existAccount.avatar,
-                    // cover: files ? files.cover[0].filename : existAccount.cover,
-                    avatar: files.avatar[0].filename
-                        ? files.avatar[0].filename
-                        : existAccount.avatar,
-                    cover: files.cover[0].filename ? files.cover[0].filename : existAccount.cover,
+                    avatar: "files ? files.avatar[0].filename : existAccount.avatar",
+                    cover: "files ? files.cover[0].filename : existAccount.cover",
+                    // avatar: files.avatar[0].filename
+                    //     ? files.avatar[0].filename
+                    //     : existAccount.avatar,
+                    // cover: files.cover[0].filename ? files.cover[0].filename : existAccount.cover,
                     description: description ? description : existAccount.description,
                     email: email ? email : existAccount.email,
                     name: name ? name : existAccount.name,
@@ -126,6 +126,31 @@ class AccountController {
 
             response.status(StatusCodes.OK).json({
                 message: "update account successfully",
+            });
+        } catch (error) {
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
+    async deleteAccountById(request: Request, response: Response) {
+        try {
+            const { id } = request.params;
+            const existAccount = await accountService.findAccountById(String(id));
+            if (!existAccount) {
+                return response
+                    .status(StatusCodes.NOT_FOUND)
+                    .json(new NotFound("Account is not found."));
+            }
+            await prisma.account.delete({
+                where: {
+                    id: id,
+                },
+            });
+
+            response.status(StatusCodes.OK).json({
+                message: "Delete account successfully",
             });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));

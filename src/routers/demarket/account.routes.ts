@@ -20,5 +20,6 @@ router.route("/:id").patch(
     ]),
     accountController.updateAccountById,
 );
+router.route("/:id").delete(accountController.deleteAccountById);
 
 export default router;

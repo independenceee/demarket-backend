@@ -18,7 +18,7 @@ class StatisticsService {
 
     async createStatistic() {
         try {
-            await prisma.statistics.create({
+            const statistics = await prisma.statistics.create({
                 data: {
                     totalAuthor: await prisma.account.count(),
                     totalCollection: await prisma.collection.count(),
@@ -26,6 +26,8 @@ class StatisticsService {
                     totalProduct: await prisma.nft.count(),
                 },
             });
+
+            return statistics;
         } catch (error) {
             throw new ApiError(error);
         }

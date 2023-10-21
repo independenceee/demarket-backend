@@ -47,9 +47,9 @@ model CollectionCategory {
   createdAt    DateTime   @default(now())
   updatedAt    DateTime   @updatedAt
   collectionId String
-  collection   Collection @relation(fields: [collectionId], references: [id])
+  collection   Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
   categoryId   String
-  category     Category   @relation(fields: [categoryId], references: [id])
+  category     Category   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@id([categoryId, collectionId])
 }
@@ -75,10 +75,9 @@ model Nft {
 
   status             StatusNft?
   collectionId       String
-  totalTransaction   Int?       @default(0)
   countOfTransaction Int?       @default(0)
 
-  collection Collection @relation(fields: [collectionId], references: [id])
+  collection Collection @relation(fields: [collectionId], references: [id], onDelete: Cascade)
   cart       CartNft[]
 }
 
@@ -98,7 +97,7 @@ model Cart {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   accountId String    @unique
-  account   Account   @relation(fields: [accountId], references: [id])
+  account   Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
   nfts      CartNft[]
 }
 
@@ -122,7 +121,7 @@ model Statistics {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
+  totalTransaction Int @default(0)
   totalProduct    Int @default(0)
   totalCollection Int @default(0)
   totalTrending   Int @default(0)
@@ -143,6 +142,5 @@ model Founder {
 
 enum StatusNft {
   SOLDOUT
-  COMMINGSOON
   SELLING
 }

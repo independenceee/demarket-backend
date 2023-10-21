@@ -7,7 +7,6 @@ import prisma from "../../models";
 
 class CollectionController {
     /**
-     *
      * @param request
      * @param response
      * @returns
@@ -24,7 +23,6 @@ class CollectionController {
     }
 
     /**
-     *
      * @param request
      * @param response
      * @returns

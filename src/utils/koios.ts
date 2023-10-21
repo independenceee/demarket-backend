@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 const instants = axios.create({
-    baseURL: process.env.KOIOS_RPC_URL!,
+    baseURL: process.env.KOIOS_RPC_URL_PREPROD!,
     withCredentials: true,
 });
 

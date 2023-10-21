@@ -9,19 +9,17 @@ class StatisticsController {
 
     async getStatistics(request: Request, response: Response) {
         try {
-            const statistic = await statisticService.findManyStatistics();
+            const statistics = await statisticService.findManyStatistics();
 
-            if (!statistic) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("Statistic is not found."));
+            if (statistics?.length === 0 || !statistics) {
+                const statistic = await statisticService.createStatistic();
+                return response.status(StatusCodes.OK).json(statistic);
             }
+
             await statisticService.updateStatistics();
-            response.status(StatusCodes.OK).json(statistic[0]);
+            response.status(StatusCodes.OK).json(statistics[0]);
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
@@ -40,9 +38,7 @@ class StatisticsController {
                 message: "Delete statistics successfully.",
             });
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 }

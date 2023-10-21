@@ -8,7 +8,7 @@ const router = Router();
 router.route("/").get(founderController.getAllFounders);
 router.route("/:id").get(founderController.getFounderById);
 router.route("/").post(UploadFile.single("avatar"), founderController.createFounder);
-router.route("/:id").patch(founderController.updateFounderById);
+router.route("/:id").patch(UploadFile.single("avatar"), founderController.updateFounderById);
 router.route("/:id").delete(founderController.deleteFounderById);
 
 export default router;

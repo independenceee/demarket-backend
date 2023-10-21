@@ -5,7 +5,8 @@ import { StatusCodes } from "http-status-codes";
 
 class TransactionController {
     /**
-     * @description GET DETAILS UTXOs BLOCK
+     * @title GET DETAILS UTXOs BLOCK
+     * @description 
      * @param request
      * @param response
      */

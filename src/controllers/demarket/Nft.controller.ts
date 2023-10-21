@@ -14,9 +14,7 @@ class NftController {
 
             response.status(StatusCodes.OK).json(nfts);
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
@@ -34,9 +32,7 @@ class NftController {
 
             response.status(StatusCodes.OK).json(nft);
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
@@ -44,10 +40,7 @@ class NftController {
         try {
             const { policyId, assetName, status } = request.body;
             const { collectionId } = request.query;
-            const existNft = await nftService.findNftByPolicyIdAndAssetName(
-                policyId,
-                assetName,
-            );
+            const existNft = await nftService.findNftByPolicyIdAndAssetName(policyId, assetName);
 
             if (existNft) {
                 return response
@@ -57,7 +50,7 @@ class NftController {
 
             await prisma.nft.create({
                 data: {
-                    status: status ? "COMMINGSOON" : "SELLING",
+                    status: status == "SELLING" ? status : "SOLDOUT",
                     policyId: policyId,
                     assetName: assetName,
                     collectionId: String(collectionId),
@@ -67,9 +60,7 @@ class NftController {
                 mesage: "Nft add successfully.",
             });
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
@@ -93,9 +84,6 @@ class NftController {
                 data: {
                     status: status ? status : existNft.status,
                     collectionId: collectionId ? collectionId : existNft.collectionId,
-                    totalTransaction: transaction
-                        ? Number(existNft.totalTransaction) + 1
-                        : existNft.totalTransaction,
                     countOfTransaction: transaction
                         ? Number(existNft.countOfTransaction) + 1
                         : existNft.countOfTransaction,
@@ -106,9 +94,7 @@ class NftController {
                 message: "Update nft successfully.",
             });
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
@@ -130,9 +116,7 @@ class NftController {
                 message: "delete nft successfully.",
             });
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 }

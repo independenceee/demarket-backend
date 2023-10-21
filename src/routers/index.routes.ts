@@ -11,6 +11,10 @@ import founderRouter from "./demarket/founder.routes";
 import statisticsRouter from "./demarket/statistics.routes";
 import searchRouter from "./demarket/search.routes";
 
+import blockfrostAssetsRouter from "./blockfrost/assets.routes";
+import blockfrostTransactionRouter from "./blockfrost/transaction.routes";
+import koiosAssetsRouter from "./koios/assets.routes";
+
 const router = function (app: Express) {
     app.use("/api/v1/account", accountRouter);
     app.use("/api/v1/cart", cartRouter);
@@ -22,9 +26,9 @@ const router = function (app: Express) {
     app.use("/api/v1/founder", founderRouter);
     app.use("/api/v1/statistics", statisticsRouter);
     app.use("/api/v1/search", searchRouter);
-    // app.use("/api/v1/blockfrost/transaction");
-    // app.use("/api/v1/blockfrost/assets");
-    // app.use("/api/v1/koios/assets");
+    app.use("/api/v1/blockfrost/transaction", blockfrostTransactionRouter);
+    app.use("/api/v1/blockfrost/assets", blockfrostAssetsRouter);
+    app.use("/api/v1/koios/assets", koiosAssetsRouter);
 };
 
 export default router;
