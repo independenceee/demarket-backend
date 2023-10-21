@@ -26,6 +26,7 @@ const router = function (app: Express) {
     app.use("/api/v1/founder", founderRouter);
     app.use("/api/v1/statistics", statisticsRouter);
     app.use("/api/v1/search", searchRouter);
+
     app.use("/api/v1/blockfrost/transaction", blockfrostTransactionRouter);
     app.use("/api/v1/blockfrost/assets", blockfrostAssetsRouter);
     app.use("/api/v1/koios/assets", koiosAssetsRouter);

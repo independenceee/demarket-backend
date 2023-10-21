@@ -20,7 +20,7 @@ class AssetsController {
         try {
             const { policyId, assetName } = request.body;
 
-            if (!policyId && !assetName) {
+            if (!policyId || !assetName) {
                 return response.status(StatusCodes.BAD_REQUEST).json({
                     message: "",
                 });
@@ -30,7 +30,7 @@ class AssetsController {
             const data = await apiBlockfrost.assetsById(policyId + assetHex);
             response.status(StatusCodes.OK).json(data);
         } catch (error) {
-            response.status(StatusCodes.BAD_REQUEST).json({
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 message: error,
             });
         }
