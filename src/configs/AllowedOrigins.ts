@@ -1,6 +1,3 @@
-const allowedOrigins: string[] = [
-    "http://localhost:5000",
-    "http://localhost:3000",
-];
+const allowedOrigins: string[] = ["https://demarket-frontend.vercel.app", "http://localhost:3000"];
 
 export default allowedOrigins;

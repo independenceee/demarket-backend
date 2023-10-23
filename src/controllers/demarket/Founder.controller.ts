@@ -9,13 +9,11 @@ class FounderController {
         try {
             const { page } = request.query;
 
-            const founders = founderService.findAllFounder(Number(page));
-
+            const founders = await founderService.findAllFounder(Number(page));
+            console.log(founders);
             response.status(StatusCodes.OK).json(founders);
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
@@ -33,9 +31,7 @@ class FounderController {
 
             response.status(StatusCodes.OK).json(founder);
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
@@ -59,9 +55,7 @@ class FounderController {
                 message: "founder created successfully!",
             });
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
@@ -81,9 +75,7 @@ class FounderController {
                 message: "Update founder successfully!",
             });
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
@@ -103,9 +95,7 @@ class FounderController {
                 message: "Delete founder successfully.",
             });
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 }

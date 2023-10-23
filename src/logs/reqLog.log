@@ -26,3 +26,12 @@
 20231021	15:48:17	4a8e9756-54f7-4b35-b206-125a267d25b3	POST	/api/v1/koios/assets/address-assets	undefined
 20231021	15:48:31	9b8c07be-4ec4-4caf-b46a-aa25185beeb9	POST	/api/v1/koios/assets/address-assets	undefined
 20231021	15:49:07	d14206aa-09dc-4bc1-9910-def3e2afb1d1	POST	/api/v1/koios/assets/address-assets	undefined
+20231021	17:59:40	ac0dfe8d-efbd-432b-b2d5-3f7edd11dd3a	POST	/api/v1/koios/assets/address-assets	undefined
+20231021	19:46:25	c3e5a7c2-29bb-4f75-9a2f-74638f76c2c4	GET	/api/v1/statistics	undefined
+20231021	19:46:57	3a2c4055-0e58-4b09-83c5-d131dcfb1334	POST	/api/koios/assets/nft-address	undefined
+20231021	19:46:59	4f961926-bed2-48c4-abd9-22734a6f22a1	POST	/api/koios/assets/nft-address	undefined
+20231023	00:30:07	0e819dd3-e17a-46ba-a09d-074b06456ffd	GET	/	undefined
+20231023	00:30:09	79110c8d-60ea-4571-a7b4-410f20b7155a	GET	/favicon.ico	undefined
+20231023	00:30:18	1d33b8ef-8cb3-4f50-adbc-3a25f14eded9	GET	/api/v1/founder	undefined
+20231023	00:33:59	8dbccede-0e01-4fba-bfa5-393b21521574	GET	/api/v1/founder	undefined
+20231023	00:35:08	0621f189-098b-4267-9cbe-87ea1355ff15	GET	/api/v1/founder	undefined
