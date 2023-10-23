@@ -137,7 +137,8 @@ CREATE TABLE "Founder" (
     "role" TEXT NOT NULL,
     "company" TEXT NOT NULL DEFAULT 'BLOCKALPHA',
     "avatar" TEXT NOT NULL,
-    "socialMediaUrl" TEXT[],
+    "linkedin" TEXT NOT NULL,
+    "twitter" TEXT NOT NULL,
 
     CONSTRAINT "Founder_pkey" PRIMARY KEY ("id")
 );

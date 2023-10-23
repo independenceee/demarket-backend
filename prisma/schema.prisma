@@ -137,7 +137,8 @@ model Founder {
   role           String
   company        String   @default("BLOCKALPHA")
   avatar         String   @db.Text
-  socialMediaUrl String[]
+  linkedin       String @db.Text
+  twitter        String @db.Text
 }
 
 enum StatusNft {
