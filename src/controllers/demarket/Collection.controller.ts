@@ -50,9 +50,8 @@ class CollectionController {
      */
     async createCollection(request: Request, response: Response) {
         try {
-            const { accountId } = request.query;
-            const { title, description, url } = request.body;
-            const { files } = request;
+            const { title, description, url, accountId } = request.body;
+            const files: Express.Multer.File[] | any = request.files;
 
             if (!title || !description || !url || !accountId) {
                 return response
@@ -77,10 +76,10 @@ class CollectionController {
                     description: description,
                     accoutnId: String(accountId),
                     url: url,
-                    avatar: "files.avatar[0].filename",
-                    cover: "files.cover[0].filename",
-                    // avatar: files.avatar[0].filename,
-                    // cover: files.cover[0].filename,
+                    avatar:
+                        process.env.DOMAIN_NAME + "/images/collection/" + files.avatar[0].filename,
+                    cover:
+                        process.env.DOMAIN_NAME + "/images/collection/" + files.cover[0].filename,
                 },
             });
 

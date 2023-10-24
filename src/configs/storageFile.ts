@@ -1,7 +1,6 @@
 import multer, { FileFilterCallback } from "multer";
 import { Request } from "express";
 
-
 type DestinationCallback = (error: Error | null, destination: string) => void;
 type FileNameCallback = (error: Error | null, filename: string) => void;
 
@@ -28,7 +27,6 @@ const storage = multer.diskStorage({
         callback: DestinationCallback,
     ): void {
         const { destination } = request.query;
-
         if (destination) {
             callback(null, `public${destination}`);
         } else {

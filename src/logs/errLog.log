@@ -1,0 +1,4 @@
+20231024	17:00:03	9157a64e-345b-41c5-8e6c-b3265a4ecb1a	Error: Error	POST	/api/v1/collection?destination=%22/images/collection%22	http://localhost:3000
+20231024	17:01:40	92c17ea8-2bd0-43a5-9e9f-6b290f94120d	Error: Error	POST	/api/v1/collection?destination=%22/images/collection%22	http://localhost:3000
+20231024	17:01:45	759e1bf2-491c-43aa-ae58-2990967a7868	Error: Error	POST	/api/v1/collection?destination=%22/images/collection%22	http://localhost:3000
+20231024	17:10:41	a9439d3a-8f1e-48f6-9454-55901db90334	Error: Error	POST	/api/v1/collection?destination=%22/images/collection/%22	http://localhost:3000
