@@ -54,7 +54,7 @@ class AccountController {
             const { policyId, address, email, name, description } = request.body;
             const files: any = request.files;
 
-            if (!address || !name || !description) {
+            if (!address) {
                 return response
                     .status(StatusCodes.BAD_REQUEST)
                     .json(new BadRequest("Address has been required!"));
@@ -69,10 +69,8 @@ class AccountController {
                 data: {
                     name: name ? name : "",
                     address: address,
-                    avatar: "files.avatar[0].filename",
-                    cover: "files.cover[0].filename",
-                    // avatar: files.avatar[0].filename,
-                    // cover: files.cover[0].filename,
+                    avatar: "",
+                    cover: "",
                     description: description ? description : "",
                     email: email ? email : "",
                     policyId: policyId ? policyId : "",
