@@ -26,8 +26,7 @@ class AssetsController {
                 });
             }
 
-            const assetHex = stringToHex(assetName);
-            const data = await apiBlockfrost.assetsById(policyId + assetHex);
+            const data = await apiBlockfrost.assetsById(policyId + assetName);
             response.status(StatusCodes.OK).json(data);
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

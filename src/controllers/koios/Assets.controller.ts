@@ -8,9 +8,8 @@ class AssetsController {
         try {
             const { policyId, assetName } = request.body;
 
-            const assetHex = stringToHex(assetName);
             const data = await get(
-                `/asset_nft_address?_asset_policy=${policyId}&_asset_name=${assetHex}`,
+                `/asset_nft_address?_asset_policy=${policyId}&_asset_name=${assetName}`,
                 {},
             );
 
@@ -26,9 +25,8 @@ class AssetsController {
         try {
             const { policyId, assetName } = request.body;
 
-            const assetHex = stringToHex(assetName);
             const data = await get(
-                `/asset_info?_asset_policy=${policyId}&_asset_name=${assetHex}`,
+                `/asset_info?_asset_policy=${policyId}&_asset_name=${assetName}`,
                 {},
             );
 
@@ -72,9 +70,8 @@ class AssetsController {
         try {
             const { policyId, assetName } = request.body;
 
-            const assetHex = stringToHex(assetName);
             const data = await get(
-                `/asset_summary?_asset_policy=${policyId}&_asset_name=${assetHex}`,
+                `/asset_summary?_asset_policy=${policyId}&_asset_name=${assetName}`,
                 {},
             );
 
@@ -103,6 +100,7 @@ class AssetsController {
     async accountList(request: Request, response: Response) {
         try {
             const data = await get("/account_list", {});
+
             response.status(StatusCodes.OK).json(data);
         } catch (error) {
             response.status(StatusCodes.BAD_REQUEST).json({

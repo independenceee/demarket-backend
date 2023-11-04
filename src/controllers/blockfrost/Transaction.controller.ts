@@ -6,7 +6,7 @@ import { StatusCodes } from "http-status-codes";
 class TransactionController {
     /**
      * @title GET DETAILS UTXOs BLOCK
-     * @description 
+     * @description
      * @param request
      * @param response
      */
@@ -54,8 +54,7 @@ class TransactionController {
             });
         }
 
-        const assetHex = stringToHex(assetName);
-        const data = await apiBlockfrost.assetsTransactions(policyId + assetHex);
+        const data = await apiBlockfrost.assetsTransactions(policyId + assetName);
         response.status(StatusCodes.OK).json(data);
     }
 }
