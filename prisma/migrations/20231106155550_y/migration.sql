@@ -14,7 +14,9 @@ CREATE TABLE "Account" (
     "rating" REAL,
     "cover" TEXT NOT NULL,
     "avatar" TEXT NOT NULL,
-    "socialMediaUrl" TEXT[],
+    "telegram" TEXT NOT NULL,
+    "linkedin" TEXT NOT NULL,
+    "twitter" TEXT NOT NULL,
     "followed" INTEGER DEFAULT 0,
     "validate" BOOLEAN NOT NULL DEFAULT false,
 
@@ -140,7 +142,7 @@ CREATE TABLE "Founder" (
     "role" TEXT NOT NULL,
     "company" TEXT NOT NULL DEFAULT 'BLOCKALPHA',
     "avatar" TEXT NOT NULL,
-    "linkTelegram" TEXT NOT NULL,
+    "telegram" TEXT NOT NULL,
     "linkedin" TEXT NOT NULL,
     "twitter" TEXT NOT NULL,
 

@@ -11,6 +11,7 @@ import founderRouter from "./demarket/founder.routes";
 import statisticsRouter from "./demarket/statistics.routes";
 import searchRouter from "./demarket/search.routes";
 import followRouter from "./demarket/follow.routes";
+import likeRouter from "./demarket/like.routes";
 
 import blockfrostAssetsRouter from "./blockfrost/assets.routes";
 import blockfrostTransactionRouter from "./blockfrost/transaction.routes";
