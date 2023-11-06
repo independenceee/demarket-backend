@@ -1,4 +1,4 @@
-import allowedOrigins from "./allowedOrigins";
+import allowedOrigins from "./AllowedOrigins";
 import corsOptions from "./corsOptions";
 import storageFile from "./storageFile";
 import sessionOptions from "./sessionOptions";
