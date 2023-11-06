@@ -5,7 +5,6 @@ import {
     Blog,
     Account,
     Nft,
-    Collection,
     Founder,
     Guide,
     Statistics,
@@ -14,4 +13,4 @@ import {
 const prisma = new PrismaClient();
 
 export default prisma;
-export { Account, Guide, Founder, Statistics, Nft, Collection, Category, Cart };
+export { Account, Guide, Founder, Statistics, Nft, Category, Cart };

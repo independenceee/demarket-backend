@@ -1,3 +1,4 @@
+import slugify from "slugify";
 import { ApiError } from "../../errors";
 import prisma, { Category } from "../../models";
 
@@ -56,6 +57,7 @@ class CategoryService {
             await prisma.category.create({
                 data: {
                     name: name,
+                    slug: slugify(name),
                 },
             });
         } catch (error) {

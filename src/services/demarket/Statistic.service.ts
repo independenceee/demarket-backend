@@ -21,7 +21,7 @@ class StatisticsService {
             const statistics = await prisma.statistics.create({
                 data: {
                     totalAuthor: await prisma.account.count(),
-                    totalCollection: await prisma.collection.count(),
+                    // totalCollection: await prisma.collection.count(),
                     totalTrending: await prisma.nft.count(),
                     totalProduct: await prisma.nft.count(),
                 },
@@ -42,7 +42,7 @@ class StatisticsService {
                 await prisma.statistics.updateMany({
                     data: {
                         totalAuthor: await prisma.account.count(),
-                        totalCollection: await prisma.collection.count(),
+                        // totalCollection: await prisma.collection.count(),
                         totalTrending: await prisma.nft.count(),
                         totalProduct: await prisma.nft.count(),
                     },

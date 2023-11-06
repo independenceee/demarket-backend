@@ -51,8 +51,8 @@ class AccountController {
      */
     async createAccount(request: Request, response: Response) {
         try {
-            const { policyId, address, email, name, description } = request.body;
-            const files: any = request.files;
+            const { policyId, address, email, name, description, linkedin, telegram, twitter } =
+                request.body;
 
             if (!address) {
                 return response
@@ -74,6 +74,9 @@ class AccountController {
                     description: description ? description : "",
                     email: email ? email : "",
                     policyId: policyId ? policyId : "",
+                    linkedin: linkedin ? linkedin : "",
+                    telegram: telegram ? telegram : "",
+                    twitter: twitter ? twitter : "",
                 },
             });
 
@@ -95,7 +98,7 @@ class AccountController {
     async updateAccountById(request: Request, response: Response) {
         try {
             const { id } = request.params;
-            const { email, name, description } = request.body;
+            const { email, name, description, linkedin, telegram, twitter } = request.body;
             const files: any = request.files;
 
             const existAccount = await accountService.findAccountById(String(id));
@@ -119,6 +122,9 @@ class AccountController {
                     description: description ? description : existAccount.description,
                     email: email ? email : existAccount.email,
                     name: name ? name : existAccount.name,
+                    linkedin: linkedin ? linkedin : "",
+                    telegram: telegram ? telegram : "",
+                    twitter: twitter ? twitter : "",
                 },
             });
 

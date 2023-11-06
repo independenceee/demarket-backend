@@ -10,6 +10,7 @@ import nftRouter from "./demarket/nft.routes";
 import founderRouter from "./demarket/founder.routes";
 import statisticsRouter from "./demarket/statistics.routes";
 import searchRouter from "./demarket/search.routes";
+import followRouter from "./demarket/follow.routes";
 
 import blockfrostAssetsRouter from "./blockfrost/assets.routes";
 import blockfrostTransactionRouter from "./blockfrost/transaction.routes";
@@ -17,10 +18,11 @@ import koiosAssetsRouter from "./koios/assets.routes";
 import stakekeyRouter from "./emurgo/stakekey.routes";
 
 const router = function (app: Express) {
+    app.use("/api/v1/follow", followRouter);
     app.use("/api/v1/account", accountRouter);
     app.use("/api/v1/cart", cartRouter);
     app.use("/api/v1/guide", guideRouter);
-    app.use("/api/v1/collection", collectionRouter);
+    // app.use("/api/v1/collection", collectionRouter);
     app.use("/api/v1/category", categoryRouter);
     app.use("/api/v1/nft", nftRouter);
     app.use("/api/v1/blog", blogRouter);

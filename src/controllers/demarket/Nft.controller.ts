@@ -39,7 +39,7 @@ class NftController {
     async createNft(request: Request, response: Response) {
         try {
             const { policyId, assetName, status } = request.body;
-            const { collectionId } = request.query;
+            const { accountId } = request.query;
             const existNft = await nftService.findNftByPolicyIdAndAssetName(policyId, assetName);
 
             if (existNft) {
@@ -53,7 +53,7 @@ class NftController {
                     status: status == "SELLING" ? status : "SOLDOUT",
                     policyId: policyId,
                     assetName: assetName,
-                    collectionId: String(collectionId),
+                    accountId: String(accountId),
                 },
             });
             response.status(StatusCodes.OK).json({
@@ -67,7 +67,7 @@ class NftController {
     async updateNftById(request: Request, response: Response) {
         try {
             const { id } = request.params;
-            const { status, collectionId, transaction } = request.body;
+            const { status, accountId, transaction } = request.body;
 
             const existNft = await nftService.findNftById(id);
 
@@ -83,7 +83,7 @@ class NftController {
                 },
                 data: {
                     status: status ? status : existNft.status,
-                    collectionId: collectionId ? collectionId : existNft.collectionId,
+                    accountId: accountId ? accountId : existNft.accountId,
                     countOfTransaction: transaction
                         ? Number(existNft.countOfTransaction) + 1
                         : existNft.countOfTransaction,

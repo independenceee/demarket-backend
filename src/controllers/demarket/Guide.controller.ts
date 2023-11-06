@@ -19,9 +19,7 @@ class GuideController {
 
             response.status(StatusCodes.OK).json(guides);
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
@@ -39,30 +37,25 @@ class GuideController {
 
             response.status(StatusCodes.OK).json(guide);
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
     async createGuide(request: Request, response: Response) {
         try {
-            const { description, question, title, url } = request.body;
+            const { description, question, title, imageUrl, videoUrl } = request.body;
 
-            if (!description && !question && !title && !url) {
+            if (!description && !question && !title && !imageUrl && !videoUrl) {
                 return response
                     .status(StatusCodes.BAD_REQUEST)
-                    .json(
-                        new BadRequest(
-                            "description, question, title, url has required !",
-                        ),
-                    );
+                    .json(new BadRequest("description, question, title, url has required !"));
             }
 
             const existGuide = await prisma.guide.findFirst({
                 where: {
                     title: title,
-                    url: url,
+                    imageUrl: imageUrl,
+                    videoUrl: videoUrl,
                     description: description,
                     question: question,
                 },
@@ -79,23 +72,20 @@ class GuideController {
                     description: description ? description : "",
                     question: question ? question : "",
                     title: title ? title : "",
-                    url: url ? url : "",
+                    videoUrl: videoUrl ? videoUrl : "",
+                    imageUrl: imageUrl ? imageUrl : "",
                 },
             });
 
-            response
-                .status(StatusCodes.OK)
-                .json(new ApiError("Guide created successfully."));
+            response.status(StatusCodes.OK).json(new ApiError("Guide created successfully."));
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
     async updateGuide(request: Request, response: Response) {
         try {
-            const { description, question, title, url } = request.body;
+            const { description, question, title, videoUrl, imageUrl } = request.body;
             const { id } = request.params;
 
             const existGuide = await guideService.findGuideById(id);
@@ -113,15 +103,14 @@ class GuideController {
                     description: description ? description : existGuide?.description,
                     title: title ? title : existGuide?.title,
                     question: question ? question : existGuide.question,
-                    url: url ? url : existGuide.url,
+                    videoUrl: videoUrl ? videoUrl : existGuide.videoUrl,
+                    imageUrl: imageUrl ? imageUrl : existGuide.imageUrl,
                 },
             });
 
             response.status(StatusCodes.OK).json("Update guide successfully.");
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
@@ -142,13 +131,9 @@ class GuideController {
                 },
             });
 
-            response
-                .status(StatusCodes.OK)
-                .json(new ApiError("Guide delete successfully."));
+            response.status(StatusCodes.OK).json(new ApiError("Guide delete successfully."));
         } catch (error) {
-            response
-                .status(StatusCodes.INTERNAL_SERVER_ERROR)
-                .json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 }

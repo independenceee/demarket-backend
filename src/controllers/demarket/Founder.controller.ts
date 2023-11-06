@@ -37,7 +37,8 @@ class FounderController {
 
     async createFounder(request: Request, response: Response) {
         try {
-            const { firstName, lastName, role, company, linkedin, twitter } = request.body;
+            const { firstName, lastName, role, company, linkedin, twitter, telegram } =
+                request.body;
             const files: Express.Multer.File[] | any = request.files;
 
             await prisma.founder.create({
@@ -49,6 +50,7 @@ class FounderController {
                     company: company ? company : "BLOCKALPHA",
                     linkedin: linkedin ? linkedin : "",
                     twitter: twitter ? twitter : "",
+                    telegram: telegram ? telegram : "",
                 },
             });
 

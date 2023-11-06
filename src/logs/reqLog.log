@@ -149,3 +149,12 @@
 20231031	01:30:10	72e7658c-38bc-45e4-9f49-829f58f4325f	GET	/api/v1/emurgo/stakekey/address	undefined
 20231031	01:31:19	69396da9-6d9c-4b52-8244-13e18f2a244e	GET	/api/v1/emurgo/stakekey/address	undefined
 20231031	01:33:08	329e31b3-cf70-4d7c-8708-7057e870db97	POST	/api/v1/emurgo/stakekey/address	undefined
+20231106	22:19:48	a163acef-0be5-4069-ab3e-448fa74bdb93	GET	/api/v1/follow?followingId=ebf2dbe7-0b74-4828-8446-c20062be07fa	undefined
+20231106	22:21:11	b6561e12-7cbf-4789-b780-368435ac3979	GET	/api/v1/follow?followingId=ebf2dbe7-0b74-4828-8446-c20062be07fa	undefined
+20231106	22:21:28	157af39e-0590-4914-a431-8322d02234fe	GET	/api/v1/follow?followingId=de349b92-2f20-463b-90f2-625c112e6477	undefined
+20231106	22:22:46	3b9c307e-9c47-4851-9510-208b14abe2e0	GET	/api/v1/follow?followingId=de349b92-2f20-463b-90f2-625c112e6477	undefined
+20231106	22:25:32	caa8a893-a791-4461-b3ba-4052b1c79321	GET	/api/v1/follow?followingId=6f4ff39a-179e-411d-9c52-355c8aae6681	undefined
+20231106	22:25:39	86a70a76-e175-4306-884c-42d39a2b9701	GET	/api/v1/follow?followingId=da1a4140-6b11-4541-a6bc-7aa6acdf574c	undefined
+20231106	22:31:21	051e016e-24fb-40e3-a8c9-a66cd48d5289	GET	/api/v1/follow?followingId=da1a4140-6b11-4541-a6bc-7aa6acdf574c	undefined
+20231106	22:34:58	aee5d9b3-e45a-4782-b4df-528d81bd8459	POST	/api/v1/follow	undefined
+20231106	22:35:14	65b2f26f-b482-4100-93b2-07ece7e8300d	GET	/api/v1/follow?followingId=da1a4140-6b11-4541-a6bc-7aa6acdf574c	undefined
