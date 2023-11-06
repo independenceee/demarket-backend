@@ -56,6 +56,9 @@ class AssetsController {
     async policyAssetInfomation(request: Request, response: Response) {
         try {
             const { policyId } = request.body;
+            if (!policyId) {
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("policyId  has been required."));
+            }
 
             const data = await get(`/policy_asset_info?_asset_policy=${policyId}`, {});
 
@@ -71,6 +74,10 @@ class AssetsController {
         try {
             const { policyId } = request.body;
 
+            if (!policyId) {
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("policyId  has been required."));
+            }
+
             const data = await get(`/asset_policy_info?_asset_policy=${policyId}`, {});
 
             response.status(StatusCodes.OK).json(data);
@@ -85,6 +92,12 @@ class AssetsController {
         try {
             const { policyId, assetName } = request.body;
 
+            if (!policyId && !assetName) {
+                return response
+                    .status(StatusCodes.NOT_FOUND)
+                    .json(new NotFound("policyId and assetName has been required."));
+            }
+
             const data = await get(`/asset_summary?_asset_policy=${policyId}&_asset_name=${assetName}`, {});
 
             response.status(StatusCodes.OK).json(data);
@@ -98,6 +111,9 @@ class AssetsController {
     async policyAssetList(request: Request, response: Response) {
         try {
             const { policyId } = request.body;
+            if (!policyId) {
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("policyId  has been required."));
+            }
 
             const data = await get(`/policy_asset_list?_asset_policy=${policyId}`, {});
 
