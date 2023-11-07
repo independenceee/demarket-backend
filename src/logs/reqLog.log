@@ -194,3 +194,14 @@
 20231107	13:42:00	092144a3-f5b5-47dd-99d6-2a221e0d8239	GET	/api/v1/koios/assets/account-list	undefined
 20231107	13:42:05	c355f33e-281e-4088-886b-2eed8d944b77	POST	/api/v1/koios/assets/address-assets	undefined
 20231107	13:46:28	db452a10-d623-492f-a276-b314938a6a6f	POST	/api/v1/emurgo/stakekey/address	undefined
+20231107	13:59:11	1b0fcb1f-932f-45a9-93b6-71571035ea7f	POST	/api/v1/blockfrost/assets/information	undefined
+20231107	14:00:42	7daa97f9-cfea-4397-b51c-320c3b1d93e5	POST	/api/v1/blockfrost/assets/address	undefined
+20231107	14:13:21	78b9fed8-037b-4dd5-b2c9-c43e2976db9c	POST	/api/v1/blockfrost/assets/address	undefined
+20231107	14:14:57	357266b0-158b-4fe5-ab18-2a070b7c4ac3	POST	/api/v1/blockfrost/assets/address	undefined
+20231107	14:15:05	b1c98be0-715d-4f11-9b2e-4687b2d6b8ab	POST	/api/v1/blockfrost/assets/address	undefined
+20231107	14:15:54	7af0e63f-43a9-44df-a153-4f302627bdbd	POST	/api/v1/blockfrost/assets/address	undefined
+20231107	14:16:11	2676065a-b126-44a5-ba3d-eb332f64a25b	POST	/api/v1/blockfrost/assets/address	undefined
+20231107	14:16:17	13a30826-6f69-45bc-8ec3-13559bd0b8fb	POST	/api/v1/blockfrost/assets/address	undefined
+20231107	14:16:22	ce8c87d6-1fd0-4c93-8f2c-83a75fa2a940	POST	/api/v1/blockfrost/assets/address	undefined
+20231107	14:25:24	dffc646b-a76e-4e48-91a1-325aace35a99	POST	/api/v1/blockfrost/assets/information	undefined
+20231107	14:25:48	fd9269c2-711d-4333-8445-d8a1a57f98da	POST	/api/v1/blockfrost/assets/mint	undefined
