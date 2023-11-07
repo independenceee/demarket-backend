@@ -9,6 +9,7 @@ router.route("/policy-assets-information").post(assetsController.policyAssetInfo
 router.route("/assets-policy-information").post(assetsController.assetPolicyInfomation);
 router.route("/summary").post(assetsController.assetSummary);
 router.route("/policy-list").post(assetsController.policyAssetList);
-router.route("/account-list").post(assetsController.accountList);
+router.route("/account-list").get(assetsController.accountList);
 router.route("/address-assets").post(assetsController.addressAsset);
+
 export default router;
