@@ -1,61 +1,113 @@
 import { Request, Response } from "express";
 import apiBlockfrost from "../../utils/blockfrost";
-import stringToHex from "../../helpers/convertHex";
 import { StatusCodes } from "http-status-codes";
+import { BadRequest } from "../../errors";
+import paginate from "../../utils/paginate";
 
 class TransactionController {
     /**
-     * @title GET DETAILS UTXOs BLOCK
-     * @description
-     * @param request
-     * @param response
+     * @method POST => DONE
+     * @description Get details utxo block
+     * @param request  body: { transactionHash : required}
+     * @param response json: { description transaction}
      */
     async getUTXOsTransaction(request: Request, response: Response) {
-        const { transactionHash } = request.body;
+        try {
+            const { transactionHash } = request.body;
 
-        const data = await apiBlockfrost.txsUtxos(transactionHash);
-        response.status(StatusCodes.OK).json(data);
-    }
-
-    /**
-     * @description GET DETAILS TRANSACTION BLOCK
-     * @param request
-     * @param response
-     */
-    async getDetailsTransactions(request: Request, response: Response) {
-        const { transactionHash } = request.body;
-
-        const data = await apiBlockfrost.txs(transactionHash);
-        response.status(StatusCodes.OK).json(data);
-    }
-
-    /**
-     * @description GET TRANSACTION ACCOUNT
-     * @param request
-     * @param response
-     */
-    async getTransactionAccount(request: Request, response: Response) {
-        const { address } = request.body;
-        const data = await apiBlockfrost.addressesTransactions(address);
-        response.status(StatusCodes.OK).json(data);
-    }
-
-    /**
-     * @description GET TRANSACTION ASSET
-     * @param request
-     * @param response
-     */
-    async getTransactionAsset(request: Request, response: Response) {
-        const { policyId, assetName } = request.body;
-
-        if (!policyId && !assetName) {
-            return response.status(StatusCodes.BAD_REQUEST).json({
-                message: "PolicyId and assetName is required",
+            if (!transactionHash) {
+                return response
+                    .status(StatusCodes.BAD_REQUEST)
+                    .json(new BadRequest("Transaction hash has been required."));
+            }
+            const data = await apiBlockfrost.txsUtxos(transactionHash);
+            response.status(StatusCodes.OK).json(data);
+        } catch (error) {
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: error,
             });
         }
+    }
 
-        const data = await apiBlockfrost.assetsTransactions(policyId + assetName);
-        response.status(StatusCodes.OK).json(data);
+    /**
+     * @method POST => DONE
+     * @description Get details transaction block
+     * @param request body: { transactionHash : required}
+     * @param response json: { description transaction}
+     */
+    async getDetailsTransactions(request: Request, response: Response) {
+        try {
+            const { transactionHash } = request.body;
+            if (!transactionHash) {
+                return response
+                    .status(StatusCodes.BAD_REQUEST)
+                    .json(new BadRequest("Transaction hash has been required."));
+            }
+
+            const data = await apiBlockfrost.txs(transactionHash);
+            response.status(StatusCodes.OK).json(data);
+        } catch (error) {
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: error,
+            });
+        }
+    }
+
+    /**
+     * @method POST => DONE
+     * @description Get transaction from account address
+     * @param request body: {address: require}, , query: { page, pageSize }
+     * @param response json: array[{ tx_hash }]
+     */
+    async getTransactionAccount(request: Request, response: Response) {
+        try {
+            const { address } = request.body;
+            const { page, pageSize } = request.query;
+
+            if (!address) {
+                return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("Address has been required."));
+            }
+            const data = await apiBlockfrost.addressesTransactions(address);
+            const results = paginate({ data: data, page: Number(page || 1), pageSize: Number(pageSize || 8) });
+            response.status(StatusCodes.OK).json(results);
+        } catch (error) {
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: error,
+            });
+        }
+    }
+
+    /**
+     * @method POST => DONE
+     * @description Get transaction from assets
+     * @param request body: { policyId: required, assetName: required }, query: { page, pageSize }
+     * @param response json: { firstTransaction, currentTransaction, array [allTracsaction]}
+     * @returns
+     */
+    async getTransactionAsset(request: Request, response: Response) {
+        try {
+            const { policyId, assetName } = request.body;
+            const { page, pageSize } = request.query;
+
+            if (!policyId && !assetName) {
+                return response
+                    .status(StatusCodes.BAD_REQUEST)
+                    .json(new BadRequest("PolicyId and assetName has been required."));
+            }
+
+            const data = await apiBlockfrost.assetsTransactions(policyId + assetName);
+            const allTransaction = paginate({ data: data, page: Number(page || 1), pageSize: Number(pageSize || 8) });
+
+            response.status(StatusCodes.OK).json({
+                firstTransaction: data[0],
+                currentTransaction: data[data.length - 1],
+                allTransaction: allTransaction,
+            });
+        } catch (error) {
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+                message: error,
+            });
+        }
     }
 }
 
