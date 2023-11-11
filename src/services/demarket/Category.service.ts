@@ -67,6 +67,19 @@ class CategoryService {
         }
     }
 
+    async updateCategory({ id, name, existCategory }: { id: string; name: string; existCategory: Category }) {
+        try {
+            await prisma.category.update({
+                where: { id: id },
+                data: { name: name ? name : existCategory.name, slug: name ? slugify(name) : existCategory.slug },
+            });
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            prisma.$disconnect();
+        }
+    }
+
     async deleteCategory(id: string) {
         try {
             await prisma.category.delete({
