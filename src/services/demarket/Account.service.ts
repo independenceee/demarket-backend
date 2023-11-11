@@ -39,16 +39,21 @@ class AccountService {
         return null;
     }
 
-    async checkDuplicateAccount(address: string | any): Promise<Account | null> {
+    async checkDuplicateAccount(address: string | any): Promise<any | null> {
         try {
             const account = await prisma.account.findFirst({
                 where: {
                     address: address,
                 },
+                include: {
+                    cart: true,
+                },
             });
 
             if (account) {
-                return account;
+                return {
+                    account,
+                };
             }
         } catch (error) {
             throw new ApiError(error);
