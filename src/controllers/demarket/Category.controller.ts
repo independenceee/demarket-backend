@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { BadRequest, InternalServerError, NotFound } from "../../errors";
 import categoryService from "../../services/demarket/Category.service";
-import prisma from "../../models";
 
 class CategoryController {
     async getAllCategores(request: Request, response: Response) {
@@ -10,7 +9,7 @@ class CategoryController {
             const categories = await categoryService.findAllCategories();
             response.status(StatusCodes.OK).json(categories);
         } catch (error) {
-            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError({ error }));
         }
     }
 
@@ -24,7 +23,7 @@ class CategoryController {
 
             response.status(StatusCodes.OK).json(existCategory);
         } catch (error) {
-            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError({ error }));
         }
     }
 
@@ -43,7 +42,7 @@ class CategoryController {
                 message: "Category created successfully.",
             });
         } catch (error) {
-            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError({ error }));
         }
     }
 
@@ -61,7 +60,7 @@ class CategoryController {
                 message: "Update category successfully.",
             });
         } catch (error) {
-            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError({ error }));
         }
     }
 
@@ -77,7 +76,7 @@ class CategoryController {
                 message: "Delete category successfully.",
             });
         } catch (error) {
-            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError({ error }));
         }
     }
 }
