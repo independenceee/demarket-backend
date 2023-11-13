@@ -4,10 +4,6 @@ import { get, post } from "../../utils/koios";
 import { BadRequest, NotFound } from "../../errors";
 import paginate from "../../utils/paginate";
 
-
-/**
- * 
- */
 class AssetsController {
     /**
      * @method POST => DONE
@@ -36,7 +32,7 @@ class AssetsController {
             response.status(StatusCodes.OK).json({ address: data[0].payment_address });
         } catch (error) {
             response.status(StatusCodes.BAD_REQUEST).json({
-                message: error,
+                error,
             });
         }
     }
@@ -63,7 +59,7 @@ class AssetsController {
             response.status(StatusCodes.OK).json(data);
         } catch (error) {
             response.status(StatusCodes.BAD_REQUEST).json({
-                message: error,
+                error,
             });
         }
     }
@@ -90,7 +86,7 @@ class AssetsController {
             response.status(StatusCodes.OK).json(results);
         } catch (error) {
             response.status(StatusCodes.BAD_REQUEST).json({
-                message: error,
+                error,
             });
         }
     }
@@ -118,7 +114,7 @@ class AssetsController {
             response.status(StatusCodes.OK).json(results);
         } catch (error) {
             response.status(StatusCodes.BAD_REQUEST).json({
-                message: error,
+                error,
             });
         }
     }
@@ -146,7 +142,7 @@ class AssetsController {
             response.status(StatusCodes.OK).json(data);
         } catch (error) {
             response.status(StatusCodes.BAD_REQUEST).json({
-                message: error,
+                error,
             });
         }
     }
@@ -171,7 +167,7 @@ class AssetsController {
             response.status(StatusCodes.OK).json(results);
         } catch (error) {
             response.status(StatusCodes.BAD_REQUEST).json({
-                message: error,
+                error,
             });
         }
     }
@@ -192,7 +188,7 @@ class AssetsController {
             response.status(StatusCodes.OK).json(results);
         } catch (error) {
             response.status(StatusCodes.BAD_REQUEST).json({
-                message: error,
+                error,
             });
         }
     }
@@ -221,10 +217,10 @@ class AssetsController {
                 page: Number(page || 1),
                 pageSize: Number(pageSize || 8),
             });
-            response.status(StatusCodes.OK).json(results);
+            response.status(StatusCodes.OK).json(data);
         } catch (error) {
             response.status(StatusCodes.BAD_REQUEST).json({
-                message: error,
+                error,
             });
         }
     }

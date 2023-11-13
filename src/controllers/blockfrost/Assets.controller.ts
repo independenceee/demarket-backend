@@ -48,7 +48,7 @@ class AssetsController {
             response.status(StatusCodes.OK).json(data);
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: error,
+                error,
             });
         }
     }
@@ -71,7 +71,7 @@ class AssetsController {
             response.status(StatusCodes.OK).json(results);
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-                message: error,
+                error,
             });
         }
     }

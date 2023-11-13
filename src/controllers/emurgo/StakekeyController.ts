@@ -32,7 +32,7 @@ class StakekeyController {
 
             response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("Address is incorrect"));
         } catch (error) {
-            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError({ error }));
         }
     }
 }
