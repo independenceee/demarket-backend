@@ -13,14 +13,14 @@ model Account {
   id          String     @id @default(uuid())
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
-  policyId    String
-  address     String     @unique
-  email       String     @unique
-  name        String
-  description String
+  address     String     @unique @db.Text
+  stakeKey    String?     @db.Text
+  email       String     @unique @db.Text
+  name        String     @db.Text
+  description String     @db.Text
   rating      Float?     @db.Real
-  cover       String
-  avatar      String
+  cover       String     @db.Text
+  avatar      String     @db.Text
   telegram    String     @db.Text
   linkedin    String     @db.Text
   twitter     String     @db.Text
@@ -37,9 +37,9 @@ model Follows {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   follower    Account  @relation("follower", fields: [followerId], references: [id])
-  followerId  String
+  followerId  String   @db.Text
   following   Account  @relation("following", fields: [followingId], references: [id])
-  followingId String
+  followingId String   @db.Text
 
   @@id([followerId, followingId])
 }

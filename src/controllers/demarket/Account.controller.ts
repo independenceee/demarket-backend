@@ -10,6 +10,7 @@ class AccountController {
      *
      * @param request
      * @param response
+     * @returns
      */
     async getAllAccounts(request: Request, response: Response) {
         try {
@@ -32,9 +33,7 @@ class AccountController {
 
             const existAccount = await accountService.findAccountById(String(id));
             if (!existAccount) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("Account is not found."));
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Account is not found."));
             }
 
             response.status(StatusCodes.OK).json(existAccount);
@@ -51,18 +50,15 @@ class AccountController {
      */
     async createAccount(request: Request, response: Response) {
         try {
-            const { policyId, address, email, name, description, linkedin, telegram, twitter } =
-                request.body;
+            const { policyId, address, email, name, description, linkedin, telegram, twitter } = request.body;
 
             if (!address) {
-                return response
-                    .status(StatusCodes.BAD_REQUEST)
-                    .json(new BadRequest("Address has been required!"));
+                return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("Address has been required!"));
             }
 
             const existAccount = await accountService.checkDuplicateAccount(String(address));
             if (existAccount) {
-                return response.status(StatusCodes.OK).json(existAccount);
+                return response.status(StatusCodes.OK).json({ ...existAccount });
             }
 
             const account = await prisma.account.create({
@@ -73,15 +69,14 @@ class AccountController {
                     cover: "",
                     description: description ? description : "",
                     email: email ? email : "",
-                    policyId: policyId ? policyId : "",
                     linkedin: linkedin ? linkedin : "",
                     telegram: telegram ? telegram : "",
                     twitter: twitter ? twitter : "",
                 },
             });
 
-            await cartService.createCartByAccountId(account.id);
-            response.status(StatusCodes.OK).json(account);
+            const cart = await cartService.createCartByAccountId(account.id);
+            response.status(StatusCodes.OK).json({ ...account, cartId: cart.id });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         } finally {
@@ -103,9 +98,7 @@ class AccountController {
 
             const existAccount = await accountService.findAccountById(String(id));
             if (!existAccount) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("Account is not found."));
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Account is not found."));
             }
 
             await prisma.account.update({
@@ -115,10 +108,6 @@ class AccountController {
                 data: {
                     avatar: "files ? files.avatar[0].filename : existAccount.avatar",
                     cover: "files ? files.cover[0].filename : existAccount.cover",
-                    // avatar: files.avatar[0].filename
-                    //     ? files.avatar[0].filename
-                    //     : existAccount.avatar,
-                    // cover: files.cover[0].filename ? files.cover[0].filename : existAccount.cover,
                     description: description ? description : existAccount.description,
                     email: email ? email : existAccount.email,
                     name: name ? name : existAccount.name,
@@ -143,9 +132,7 @@ class AccountController {
             const { id } = request.params;
             const existAccount = await accountService.findAccountById(String(id));
             if (!existAccount) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("Account is not found."));
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Account is not found."));
             }
             await prisma.account.delete({
                 where: {

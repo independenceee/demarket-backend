@@ -32,9 +32,7 @@ class CollectionController {
             const { id } = request.params;
             const existCollection = await collectionService.findCollectionById(id);
             if (!existCollection) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("Collection is not found."));
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Collection is not found."));
             }
 
             response.status(StatusCodes.OK).json(existCollection);
@@ -70,19 +68,6 @@ class CollectionController {
                 });
             }
 
-            await prisma.collection.create({
-                data: {
-                    title: title,
-                    description: description,
-                    accoutnId: String(accountId),
-                    url: url,
-                    avatar:
-                        process.env.DOMAIN_NAME + "/images/collection/" + files.avatar[0].filename,
-                    cover:
-                        process.env.DOMAIN_NAME + "/images/collection/" + files.cover[0].filename,
-                },
-            });
-
             response.status(StatusCodes.OK).json({
                 message: "collection create successfully.",
             });
@@ -105,27 +90,8 @@ class CollectionController {
 
             const existCollection = await collectionService.findCollectionById(id);
             if (!existCollection) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("Collection is not found."));
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Collection is not found."));
             }
-
-            await prisma.collection.update({
-                where: {
-                    id: id,
-                },
-                data: {
-                    title: title ? title : existCollection.title,
-                    description: description ? description : existCollection.description,
-                    url: url ? url : existCollection.url,
-                    avatar: files.avatar[0].filename
-                        ? files.avatar[0].filename
-                        : existCollection.avatar,
-                    cover: files.cover[0].filename
-                        ? files.files.cover[0].filename
-                        : existCollection.cover,
-                },
-            });
 
             response.status(StatusCodes.OK).json({
                 message: "Update collection successfully.",
@@ -146,9 +112,7 @@ class CollectionController {
             const { id } = request.params;
             const existCollection = await collectionService.findCollectionById(id);
             if (!existCollection) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("Collection is not found."));
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Collection is not found."));
             }
             await collectionService.deleteCollectionById(id);
             response.status(StatusCodes.OK).json({

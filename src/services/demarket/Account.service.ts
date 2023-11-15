@@ -51,8 +51,10 @@ class AccountService {
             });
 
             if (account) {
+                const { cart, ...existAccountWithoutCart } = account;
                 return {
-                    account,
+                    ...existAccountWithoutCart,
+                    cartId: cart?.id,
                 };
             }
         } catch (error) {
