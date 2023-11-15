@@ -25,9 +25,25 @@ class NftController {
             const nft = await nftService.findNftById(id);
 
             if (nft) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("Nft is not found."));
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Nft is not found."));
+            }
+
+            response.status(StatusCodes.OK).json(nft);
+        } catch (error) {
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+        }
+    }
+
+    async getNftByPolicyIdAndAssetName(request: Request, response: Response) {
+        try {
+            const { policyId, assetName } = request.query;
+            const nft = await nftService.findNftByPolicyIdAndAssetName({
+                policyId: String(policyId),
+                assetName: String(assetName),
+            });
+
+            if (nft) {
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Nft is not found."));
             }
 
             response.status(StatusCodes.OK).json(nft);
@@ -40,12 +56,10 @@ class NftController {
         try {
             const { policyId, assetName, status } = request.body;
             const { accountId } = request.query;
-            const existNft = await nftService.findNftByPolicyIdAndAssetName(policyId, assetName);
+            const existNft = await nftService.findNftByPolicyIdAndAssetName({ policyId, assetName });
 
             if (existNft) {
-                return response
-                    .status(StatusCodes.FORBIDDEN)
-                    .json(new ApiError("Nft already exists."));
+                return response.status(StatusCodes.FORBIDDEN).json(new ApiError("Nft already exists."));
             }
 
             await prisma.nft.create({
@@ -66,20 +80,18 @@ class NftController {
 
     async updateNftById(request: Request, response: Response) {
         try {
-            const { id } = request.params;
-            const { status, accountId, transaction } = request.body;
+            const { status, accountId, transaction, policyId, assetName } = request.body;
 
-            const existNft = await nftService.findNftById(id);
+            const existNft = await nftService.findNftByPolicyIdAndAssetName({ policyId, assetName });
 
             if (!existNft) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("Nft is not found."));
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Nft is not found."));
             }
 
             await prisma.nft.update({
                 where: {
-                    id: id,
+                    policyId: policyId,
+                    assetName: assetName,
                 },
                 data: {
                     status: status ? status : existNft.status,
@@ -100,17 +112,15 @@ class NftController {
 
     async deleteNftById(request: Request, response: Response) {
         try {
-            const { id } = request.params;
+            const { policyId, assetName } = request.body;
 
-            const existNft = await nftService.findNftById(id);
+            const existNft = await nftService.findNftByPolicyIdAndAssetName({ policyId, assetName });
 
             if (!existNft) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("Nft is not found."));
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Nft is not found."));
             }
 
-            await prisma.nft.delete({ where: { id: id } });
+            await prisma.nft.delete({ where: { policyId: policyId, assetName: assetName } });
 
             response.status(StatusCodes.OK).json({
                 message: "delete nft successfully.",

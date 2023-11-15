@@ -35,14 +35,14 @@
         "@types/uuid": "^9.0.4",
         "dotenv": "^16.3.1",
         "nodemon": "^3.0.1",
-        "prisma": "^5.5.2",
+        "prisma": "^5.6.0",
         "ts-node": "^10.9.1",
         "typescript": "^5.2.2"
     },
     "dependencies": {
         "@blockfrost/blockfrost-js": "^5.4.0",
         "@emurgo/cardano-serialization-lib-nodejs": "^11.5.0",
-        "@prisma/client": "^5.5.2",
+        "@prisma/client": "^5.6.0",
         "axios": "^1.5.1",
         "bcrypt": "^5.1.1",
         "body-parser": "^1.20.2",

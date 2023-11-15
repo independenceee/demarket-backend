@@ -63,7 +63,6 @@ CREATE TABLE "Nft" (
     "assetName" TEXT NOT NULL,
     "status" "StatusNft",
     "countOfTransaction" INTEGER DEFAULT 0,
-    "accountId" TEXT NOT NULL,
 
     CONSTRAINT "Nft_pkey" PRIMARY KEY ("id")
 );
@@ -195,9 +194,6 @@ ALTER TABLE "Comments" ADD CONSTRAINT "Comments_accountId_fkey" FOREIGN KEY ("ac
 
 -- AddForeignKey
 ALTER TABLE "Comments" ADD CONSTRAINT "Comments_nftId_fkey" FOREIGN KEY ("nftId") REFERENCES "Nft"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Nft" ADD CONSTRAINT "Nft_accountId_fkey" FOREIGN KEY ("accountId") REFERENCES "Account"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "NftCategory" ADD CONSTRAINT "NftCategory_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE CASCADE ON UPDATE CASCADE;
