@@ -10,28 +10,27 @@ datasource db {
 }
 
 model Account {
-  id             String     @id @default(uuid())
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
-  policyId       String
-  address        String     @unique
-  email          String     @unique
-  name           String
-  description    String
-  rating         Float?     @db.Real
-  cover          String
-  avatar         String
-  telegram String   @db.Text
-  linkedin     String   @db.Text
-  twitter      String   @db.Text
-  nfts           Nft[]
-  followed       Int?       @default(0)
-  validate       Boolean    @default(false)
-  cart           Cart?
-  like           Likes[]
-  followers      Follows[]  @relation("following")
-  following      Follows[]  @relation("follower")
-  Comments       Comments[]
+  id          String     @id @default(uuid())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  policyId    String
+  address     String     @unique
+  email       String     @unique
+  name        String
+  description String
+  rating      Float?     @db.Real
+  cover       String
+  avatar      String
+  telegram    String     @db.Text
+  linkedin    String     @db.Text
+  twitter     String     @db.Text
+  followed    Int?       @default(0)
+  validate    Boolean    @default(false)
+  cart        Cart?
+  like        Likes[]
+  followers   Follows[]  @relation("following")
+  following   Follows[]  @relation("follower")
+  Comments    Comments[]
 }
 
 model Follows {
@@ -78,8 +77,6 @@ model Nft {
   assetName          String        @unique
   status             StatusNft?
   countOfTransaction Int?          @default(0)
-  account            Account       @relation(fields: [accountId], references: [id])
-  accountId          String
   cart               CartNft[]
   NftCategory        NftCategory[]
   like               Likes[]
@@ -149,17 +146,17 @@ model Guide {
 }
 
 model Founder {
-  id           String   @id @default(uuid())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  fistName     String
-  lastName     String
-  role         String
-  company      String   @default("BLOCKALPHA")
-  avatar       String   @db.Text
-  telegram String   @db.Text
-  linkedin     String   @db.Text
-  twitter      String   @db.Text
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  fistName  String
+  lastName  String
+  role      String
+  company   String   @default("BLOCKALPHA")
+  avatar    String   @db.Text
+  telegram  String   @db.Text
+  linkedin  String   @db.Text
+  twitter   String   @db.Text
 }
 
 model Statistics {
