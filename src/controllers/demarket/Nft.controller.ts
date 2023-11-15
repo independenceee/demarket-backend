@@ -6,6 +6,11 @@ import nftService from "../../services/demarket/Nft.service";
 import prisma from "../../models";
 
 class NftController {
+    /**
+     *
+     * @param request
+     * @param response
+     */
     async getAllNfts(request: Request, response: Response) {
         try {
             const { page } = request.query;
@@ -17,6 +22,12 @@ class NftController {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
 
     async getNftById(request: Request, response: Response) {
         try {
@@ -34,6 +45,12 @@ class NftController {
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
     async getNftByPolicyIdAndAssetName(request: Request, response: Response) {
         try {
             const { policyId, assetName } = request.query;
@@ -55,7 +72,6 @@ class NftController {
     async createNft(request: Request, response: Response) {
         try {
             const { policyId, assetName, status } = request.body;
-            const { accountId } = request.query;
             const existNft = await nftService.findNftByPolicyIdAndAssetName({ policyId, assetName });
 
             if (existNft) {
@@ -67,7 +83,6 @@ class NftController {
                     status: status == "SELLING" ? status : "SOLDOUT",
                     policyId: policyId,
                     assetName: assetName,
-                    accountId: String(accountId),
                 },
             });
             response.status(StatusCodes.OK).json({
@@ -80,7 +95,7 @@ class NftController {
 
     async updateNftById(request: Request, response: Response) {
         try {
-            const { status, accountId, transaction, policyId, assetName } = request.body;
+            const { status, transaction, policyId, assetName } = request.body;
 
             const existNft = await nftService.findNftByPolicyIdAndAssetName({ policyId, assetName });
 
@@ -95,7 +110,6 @@ class NftController {
                 },
                 data: {
                     status: status ? status : existNft.status,
-                    accountId: accountId ? accountId : existNft.accountId,
                     countOfTransaction: transaction
                         ? Number(existNft.countOfTransaction) + 1
                         : existNft.countOfTransaction,

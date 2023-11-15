@@ -11,11 +11,13 @@ class CartService {
 
     async createCartByAccountId(accountId: string) {
         try {
-            await prisma.cart.create({
+            const cart = await prisma.cart.create({
                 data: {
                     accountId: accountId,
                 },
             });
+
+            return cart;
         } catch (error) {
             throw new ApiError(error);
         }
