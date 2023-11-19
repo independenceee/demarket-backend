@@ -75,10 +75,10 @@ class NftController {
             const existNft = await nftService.findNftByPolicyIdAndAssetName({ policyId, assetName });
 
             if (existNft) {
-                return response.status(StatusCodes.FORBIDDEN).json(new ApiError("Nft already exists."));
+                return response.status(StatusCodes.OK).json({ ...existNft });
             }
 
-            await prisma.nft.create({
+            const nft = await prisma.nft.create({
                 data: {
                     status: status == "SELLING" ? status : "SOLDOUT",
                     policyId: policyId,
@@ -86,7 +86,7 @@ class NftController {
                 },
             });
             response.status(StatusCodes.OK).json({
-                mesage: "Nft add successfully.",
+                ...nft,
             });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
@@ -110,9 +110,7 @@ class NftController {
                 },
                 data: {
                     status: status ? status : existNft.status,
-                    countOfTransaction: transaction
-                        ? Number(existNft.countOfTransaction) + 1
-                        : existNft.countOfTransaction,
+                    countOfTransaction: transaction ? Number(existNft.countOfTransaction) + 1 : existNft.countOfTransaction,
                 },
             });
 

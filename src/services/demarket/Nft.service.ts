@@ -11,10 +11,6 @@ class NftService {
             const nfts = await prisma.nft.findMany({
                 take: PER_PAGE,
                 skip: (currentPage - 1) * PER_PAGE,
-                orderBy: {
-                    createdAt: "desc",
-                    updatedAt: "desc",
-                },
             });
 
             if (nfts) {
@@ -27,13 +23,7 @@ class NftService {
         return null;
     }
 
-    async findNftByPolicyIdAndAssetName({
-        policyId,
-        assetName,
-    }: {
-        policyId: string;
-        assetName: string;
-    }): Promise<Nft | null> {
+    async findNftByPolicyIdAndAssetName({ policyId, assetName }: { policyId: string; assetName: string }): Promise<Nft | null> {
         try {
             const nft = await prisma.nft.findFirst({
                 where: {
