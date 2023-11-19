@@ -111,6 +111,7 @@ class AccountController {
                     description: description ? description : existAccount.description,
                     email: email ? email : existAccount.email,
                     name: name ? name : existAccount.name,
+                    
                     linkedin: linkedin ? linkedin : "",
                     telegram: telegram ? telegram : "",
                     twitter: twitter ? twitter : "",

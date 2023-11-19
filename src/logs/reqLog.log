@@ -8,3 +8,17 @@
 20231115	17:04:49	b2d3c699-5f91-41de-92df-006ca0b272ea	POST	/api/v1/account	undefined
 20231115	17:04:55	86f4f07b-d94e-4f02-bac3-9dc19a58cebe	POST	/api/v1/account	undefined
 20231115	17:05:02	921f7d91-fca5-4204-88b9-daec397e984e	POST	/api/v1/account	undefined
+20231116	00:03:55	fda14a4c-9a4b-4d4c-a6ee-f7c476146622	GET	/	undefined
+20231116	00:03:57	ada0b54b-c23c-40d8-8ef4-1e3d4a0b54a4	GET	/favicon.ico	undefined
+20231116	00:04:05	af07da19-f9ad-4fc0-a073-18d010d7e80b	GET	/api/v1/nft	undefined
+20231116	00:05:26	b535ac23-f42d-4ee3-929b-589ae7b9a198	GET	/api/v1/nft	undefined
+20231116	00:05:29	71ec2b9c-2f33-4f86-afee-0d59094af872	GET	/api/v1/nft	undefined
+20231116	00:06:26	52688b86-9b2e-4f16-8966-7d8988e121af	GET	/api/v1/nft	undefined
+20231116	00:07:50	33d92edc-a91d-4f3b-a1be-1e6a66f12bc3	GET	/api/v1/nft	undefined
+20231116	00:08:15	3da71911-cd68-4dac-b26b-b66a569513af	GET	/api/v1/nft	undefined
+20231116	00:10:02	8ce72ff6-be4e-40e6-8491-6d0f32a7ac77	GET	/api/v1/nft	undefined
+20231116	00:10:58	a370fa4b-e3d6-46b8-a503-5d1d71477d54	GET	/api/v1/nft	undefined
+20231119	15:39:36	7dd8757f-5a0f-42f3-a739-5c02c396fa92	POST	/api/v1/nft	undefined
+20231119	15:39:42	f24533f1-ee78-4682-8ae8-16531a8cfc64	POST	/api/v1/nft	undefined
+20231119	15:39:43	26c8b66b-55ce-47a8-9e6a-109af80952b9	POST	/api/v1/nft	undefined
+20231119	15:39:45	fe5f34c7-d422-47e2-8717-feb57440ac0d	POST	/api/v1/nft	undefined
