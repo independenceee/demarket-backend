@@ -3,7 +3,6 @@ import { StatusCodes } from "http-status-codes";
 import { BadRequest, InternalServerError, NotFound } from "../../errors";
 import prisma, { Account } from "../../models";
 import accountService from "../../services/demarket/Account.service";
-import cartService from "../../services/demarket/Cart.service";
 import generics from "../../constants/generics";
 class AccountController {
     /**
@@ -52,8 +51,7 @@ class AccountController {
             const existAccount = await accountService.checkDuplicateAccount(String(address));
             if (existAccount) return response.status(StatusCodes.OK).json({ ...existAccount });
             const account: Account = await accountService.createAccount({ address, name, description, email, linkedin, telegram, twitter });
-            const cart = await cartService.createCartByAccountId(account.id);
-            response.status(StatusCodes.OK).json({ ...account, cartId: cart.id });
+            response.status(StatusCodes.OK).json({ ...account });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         } finally {
