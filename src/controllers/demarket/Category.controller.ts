@@ -4,6 +4,11 @@ import { BadRequest, InternalServerError, NotFound } from "../../errors";
 import categoryService from "../../services/demarket/Category.service";
 
 class CategoryController {
+    /**
+     *
+     * @param request
+     * @param response
+     */
     async getAllCategores(request: Request, response: Response) {
         try {
             const categories = await categoryService.findAllCategories();
@@ -13,6 +18,12 @@ class CategoryController {
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
     async getCategory(request: Request, response: Response) {
         try {
             const { id } = request.params;
@@ -26,6 +37,13 @@ class CategoryController {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError({ error }));
         }
     }
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
 
     async createCategory(request: Request, response: Response) {
         try {
@@ -46,6 +64,13 @@ class CategoryController {
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
+
     async updateCategory(request: Request, response: Response) {
         try {
             const { id } = request.params;
@@ -64,6 +89,12 @@ class CategoryController {
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
     async deleteCategory(request: Request, response: Response) {
         try {
             const { id } = request.params;

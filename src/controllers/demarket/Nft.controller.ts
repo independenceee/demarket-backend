@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { ApiError, InternalServerError, NotFound } from "../../errors";
+import { InternalServerError, NotFound } from "../../errors";
 
 import nftService from "../../services/demarket/Nft.service";
 import prisma from "../../models";
+import generics from "../../constants/generics";
 
 class NftController {
     /**
@@ -54,13 +55,14 @@ class NftController {
     async getNftByPolicyIdAndAssetName(request: Request, response: Response) {
         try {
             const { policyId, assetName } = request.query;
+
             const nft = await nftService.findNftByPolicyIdAndAssetName({
                 policyId: String(policyId),
                 assetName: String(assetName),
             });
 
-            if (nft) {
-                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Nft is not found."));
+            if (!nft) {
+                return response.status(StatusCodes.OK).json(nft);
             }
 
             response.status(StatusCodes.OK).json(nft);
@@ -69,6 +71,12 @@ class NftController {
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
     async createNft(request: Request, response: Response) {
         try {
             const { policyId, assetName, status } = request.body;
@@ -93,16 +101,19 @@ class NftController {
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
     async updateNftById(request: Request, response: Response) {
         try {
             const { status, transaction, policyId, assetName } = request.body;
-
             const existNft = await nftService.findNftByPolicyIdAndAssetName({ policyId, assetName });
-
             if (!existNft) {
                 return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Nft is not found."));
             }
-
             await prisma.nft.update({
                 where: {
                     policyId: policyId,
@@ -122,21 +133,44 @@ class NftController {
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
     async deleteNftById(request: Request, response: Response) {
         try {
             const { policyId, assetName } = request.body;
-
             const existNft = await nftService.findNftByPolicyIdAndAssetName({ policyId, assetName });
-
             if (!existNft) {
                 return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Nft is not found."));
             }
-
             await prisma.nft.delete({ where: { policyId: policyId, assetName: assetName } });
-
             response.status(StatusCodes.OK).json({
                 message: "delete nft successfully.",
             });
+        } catch (error) {
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+        }
+    }
+
+    /**
+     * @method GET => DONE
+     * @description Get all nft from cartId
+     * @param request
+     * @param response
+     */
+    async getNftsFromCart(request: Request, response: Response) {
+        try {
+            const { cartId, page, pageSize } = request.query;
+            const nfts = await nftService.findNftsByCartId({
+                page: Number(page),
+                pageSize: Number(pageSize || generics.PER_PAGE),
+                cartId: String(cartId),
+            });
+            console.log(nfts);
+            response.status(StatusCodes.OK).json({ ...nfts });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }

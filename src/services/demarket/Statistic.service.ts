@@ -5,14 +5,14 @@ class StatisticsService {
     async findManyStatistics(): Promise<Statistics[] | null> {
         try {
             const statistic = await prisma.statistics.findMany({});
-
             if (statistic) {
                 return statistic;
             }
         } catch (error) {
             throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
         }
-
         return null;
     }
 
@@ -21,7 +21,6 @@ class StatisticsService {
             const statistics = await prisma.statistics.create({
                 data: {
                     totalAuthor: await prisma.account.count(),
-                    // totalCollection: await prisma.collection.count(),
                     totalTrending: await prisma.nft.count(),
                     totalProduct: await prisma.nft.count(),
                 },
@@ -30,6 +29,8 @@ class StatisticsService {
             return statistics;
         } catch (error) {
             throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
         }
     }
 
@@ -42,7 +43,6 @@ class StatisticsService {
                 await prisma.statistics.updateMany({
                     data: {
                         totalAuthor: await prisma.account.count(),
-                        // totalCollection: await prisma.collection.count(),
                         totalTrending: await prisma.nft.count(),
                         totalProduct: await prisma.nft.count(),
                     },
@@ -50,6 +50,18 @@ class StatisticsService {
             }
         } catch (error) {
             throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
+    async deleteStatistics() {
+        try {
+            await prisma.statistics.deleteMany();
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
         }
     }
 }

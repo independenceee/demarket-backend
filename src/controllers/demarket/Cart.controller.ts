@@ -4,6 +4,12 @@ import { InternalServerError } from "../../errors";
 import prisma from "../../models";
 
 class CartController {
+    /**
+     * @method
+     * @description
+     * @param request
+     * @param response
+     */
     async addNftToCart(request: Request, response: Response) {
         try {
             const { nftId, cartId } = request.query;
@@ -21,6 +27,12 @@ class CartController {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
+
+    /**
+     *
+     * @param request
+     * @param response
+     */
 
     async remoteNftFromCart(request: Request, response: Response) {
         try {

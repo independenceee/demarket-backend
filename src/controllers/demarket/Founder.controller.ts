@@ -5,10 +5,14 @@ import founderService from "../../services/demarket/Founder.service";
 import prisma from "../../models";
 
 class FounderController {
+    /**
+     *
+     * @param request
+     * @param response
+     */
     async getAllFounders(request: Request, response: Response) {
         try {
             const { page } = request.query;
-
             const founders = await founderService.findAllFounder(Number(page));
             console.log(founders);
             response.status(StatusCodes.OK).json(founders);
@@ -17,6 +21,12 @@ class FounderController {
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
     async getFounderById(request: Request, response: Response) {
         try {
             const { id } = request.params;
@@ -24,9 +34,7 @@ class FounderController {
             const founder = await founderService.findFounderById(id);
 
             if (!founder) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("Founder is not found."));
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Founder is not found."));
             }
 
             response.status(StatusCodes.OK).json(founder);
@@ -35,10 +43,14 @@ class FounderController {
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     */
     async createFounder(request: Request, response: Response) {
         try {
-            const { firstName, lastName, role, company, linkedin, twitter, telegram } =
-                request.body;
+            const { firstName, lastName, role, company, linkedin, twitter, telegram } = request.body;
             const files: Express.Multer.File[] | any = request.files;
 
             await prisma.founder.create({
@@ -62,6 +74,12 @@ class FounderController {
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
     async updateFounderById(request: Request, response: Response) {
         try {
             const { id } = request.params;
@@ -69,9 +87,7 @@ class FounderController {
 
             const existFounder = await founderService.findFounderById(id);
             if (!existFounder) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("Founder id not found."));
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Founder id not found."));
             }
 
             response.status(StatusCodes.OK).json({
@@ -82,6 +98,13 @@ class FounderController {
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
+
     async deleteFounderById(request: Request, response: Response) {
         try {
             const { id } = request.params;
@@ -89,9 +112,7 @@ class FounderController {
             const existFounder = await founderService.findFounderById(id);
 
             if (!existFounder) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("Founder id not found."));
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Founder id not found."));
             }
 
             response.status(StatusCodes.OK).json({
