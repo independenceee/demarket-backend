@@ -1,4 +1,3 @@
-
 import { ApiError } from "../../errors";
 import prisma, { Account } from "../../models";
 
@@ -7,9 +6,7 @@ class AccountService {
         try {
             const currentPage = Math.max(Number(page || 1), 1);
             const totalAccounts = await prisma.account.count();
-            console.log(pageSize);
             const totalPage = Math.ceil(totalAccounts / pageSize);
-            console.log(totalPage);
             const accounts = await prisma.account.findMany({ take: pageSize, skip: (currentPage - 1) * pageSize });
             return { accounts, totalPage };
         } catch (error) {

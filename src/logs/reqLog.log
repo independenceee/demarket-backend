@@ -42,3 +42,9 @@
 20231124	22:53:40	dafdf3fd-8f6f-434e-97e6-a9101bde7168	GET	/api/v1/account	undefined
 20231124	22:55:37	0cd3955e-6ce6-4a53-a1eb-a7ba867b850e	GET	/api/v1/account	undefined
 20231124	22:58:28	003fa44e-7482-4c74-bdd6-f02d1b945a48	GET	/api/v1/account	undefined
+20231125	10:26:52	062225af-5250-47db-8e65-b79bf236f077	GET	/api/v1/nft/nft_cart?cartId	undefined
+20231125	10:29:15	81b1501b-028c-4209-aa73-42c977c49ee1	GET	/api/v1/nft/nft_cart?cartId=f866f29e-0dcc-49a5-9a82-9723f707e218	undefined
+20231125	10:29:16	b8db660e-42a0-4774-986b-9b52d4350e37	GET	/api/v1/nft/nft_cart?cartId=f866f29e-0dcc-49a5-9a82-9723f707e218	undefined
+20231125	10:30:22	d708036f-220a-4f78-945e-2bd078f49cbd	GET	/api/v1/nft/nft_cart?cartId=f866f29e-0dcc-49a5-9a82-9723f707e218	undefined
+20231125	10:30:23	68825806-c08d-4755-b657-1a20d7c30eda	GET	/api/v1/nft/nft_cart?cartId=f866f29e-0dcc-49a5-9a82-9723f707e218	undefined
+20231125	10:31:14	7f3b1b3d-f639-4d31-aabb-4ca47c16d11b	GET	/api/v1/nft/nft_cart?cartId=f866f29e-0dcc-49a5-9a82-9723f707e218	undefined

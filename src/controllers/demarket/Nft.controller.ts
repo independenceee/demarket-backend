@@ -4,6 +4,7 @@ import { InternalServerError, NotFound } from "../../errors";
 
 import nftService from "../../services/demarket/Nft.service";
 import prisma from "../../models";
+import generics from "../../constants/generics";
 
 class NftController {
     /**
@@ -149,6 +150,27 @@ class NftController {
             response.status(StatusCodes.OK).json({
                 message: "delete nft successfully.",
             });
+        } catch (error) {
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+        }
+    }
+
+    /**
+     * @method GET => DONE
+     * @description Get all nft from cartId
+     * @param request
+     * @param response
+     */
+    async getNftsFromCart(request: Request, response: Response) {
+        try {
+            const { cartId, page, pageSize } = request.query;
+            const nfts = await nftService.findNftsByCartId({
+                page: Number(page),
+                pageSize: Number(pageSize || generics.PER_PAGE),
+                cartId: String(cartId),
+            });
+            console.log(nfts);
+            response.status(StatusCodes.OK).json({ ...nfts });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
