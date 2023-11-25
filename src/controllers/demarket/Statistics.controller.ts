@@ -1,12 +1,15 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { ApiError, InternalServerError, NotFound } from "../../errors";
+import { InternalServerError, NotFound } from "../../errors";
 import statisticService from "../../services/demarket/Statistic.service";
-import prisma from "../../models";
 
 class StatisticsController {
-    constructor() {}
-
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
     async getStatistics(request: Request, response: Response) {
         try {
             const statistics = await statisticService.findManyStatistics();
@@ -23,17 +26,19 @@ class StatisticsController {
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
     async deleteStatistics(request: Request, response: Response) {
         try {
             const existStatistics = await statisticService.findManyStatistics();
             if (!existStatistics) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("Statistics is not found."));
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Statistics is not found."));
             }
-
-            await prisma.statistics.deleteMany();
-
+            await statisticService.deleteStatistics();
             response.status(StatusCodes.OK).json({
                 message: "Delete statistics successfully.",
             });
