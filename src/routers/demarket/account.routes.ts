@@ -4,6 +4,7 @@ import accountController from "../../controllers/demarket/Account.controller";
 
 const router = Router();
 
+router.route("/other_account").get(accountController.getOtherAccounts);
 router.route("/").get(accountController.getAllAccounts);
 router.route("/:id").get(accountController.getAccountById);
 router.route("/").post(accountController.createAccount);

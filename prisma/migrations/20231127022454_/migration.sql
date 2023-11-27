@@ -6,19 +6,18 @@ CREATE TABLE "Account" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "address" TEXT NOT NULL,
+    "walletAddress" TEXT NOT NULL,
     "stakeKey" TEXT,
-    "email" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "description" TEXT NOT NULL,
+    "email" TEXT,
+    "userName" TEXT,
+    "description" TEXT,
     "rating" REAL,
-    "cover" TEXT NOT NULL,
-    "avatar" TEXT NOT NULL,
-    "telegram" TEXT NOT NULL,
-    "linkedin" TEXT NOT NULL,
-    "twitter" TEXT NOT NULL,
-    "followed" INTEGER DEFAULT 0,
-    "validate" BOOLEAN NOT NULL DEFAULT false,
+    "cover" TEXT,
+    "avatar" TEXT,
+    "telegram" TEXT,
+    "linkedin" TEXT,
+    "twitter" TEXT,
+    "validate" BOOLEAN DEFAULT false,
 
     CONSTRAINT "Account_pkey" PRIMARY KEY ("id")
 );
@@ -163,10 +162,7 @@ CREATE TABLE "Statistics" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Account_address_key" ON "Account"("address");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Account_email_key" ON "Account"("email");
+CREATE UNIQUE INDEX "Account_walletAddress_key" ON "Account"("walletAddress");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Nft_policyId_key" ON "Nft"("policyId");
