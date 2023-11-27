@@ -53,9 +53,7 @@ class CartController {
     async remoteNftFromCart(request: Request, response: Response) {
         try {
             const { nftId, accountId } = request.query;
-            const accountCart = await prisma.cart.findUnique({
-                where: { accountId: String(accountId) },
-            });
+            const accountCart = await prisma.cart.findUnique({ where: { accountId: String(accountId) } });
             if (!accountCart) {
                 const newCart = await cartService.createCartByAccountId(String(accountId));
                 await prisma.cartNft.delete({

@@ -16,6 +16,44 @@ class AccountService {
         }
     }
 
+    async findOtherAccount({ walletAddress, page, pageSize }: { walletAddress: string; page: number; pageSize: number }) {
+        try {
+            const currentPage = Math.max(Number(page || 1), 1);
+            const currentAccount = await prisma.account.findUnique({ where: { walletAddress: walletAddress } });
+            if (!currentAccount) return [];
+            const otherAccounts = await prisma.account.findMany({
+                where: { walletAddress: { not: walletAddress }, followers: { none: { followerId: currentAccount.id } } },
+                take: pageSize,
+                skip: (currentPage - 1) * pageSize,
+            });
+            const followingIds = await prisma.follows.findMany({
+                where: { followerId: currentAccount.id },
+                select: { followingId: true },
+            });
+            const followingIdsSet = new Set(followingIds.map((entry) => entry.followingId));
+            const accountsWithFollowStatus = otherAccounts.map((account) => ({
+                ...account,
+                isFollowed: followingIdsSet.has(account.id),
+            }));
+            const totalPage = Math.ceil(accountsWithFollowStatus.length / pageSize);
+            return { accountsWithFollowStatus, totalPage };
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
+    async findAccountByAddress(walletAddress: string) {
+        try {
+            return await prisma.account.findUnique({ where: { walletAddress: walletAddress } });
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
     async findAccountById(id: string | any): Promise<Account | null> {
         try {
             const account = await prisma.account.findFirst({ where: { id: id } });
@@ -30,10 +68,10 @@ class AccountService {
         return null;
     }
 
-    async checkDuplicateAccount(address: string | any): Promise<any | null> {
+    async checkDuplicateAccount(walletAddress: string | any): Promise<any | null> {
         try {
             const account = await prisma.account.findFirst({
-                where: { address: address },
+                where: { walletAddress: walletAddress },
                 include: { cart: true },
             });
 
@@ -50,35 +88,11 @@ class AccountService {
         return null;
     }
 
-    async createAccount({
-        address,
-        email,
-        name,
-        description,
-        linkedin,
-        telegram,
-        twitter,
-    }: {
-        address: string;
-        email: string;
-        name: string;
-        description: string;
-        linkedin: string;
-        telegram: string;
-        twitter: string;
-    }): Promise<Account> {
+    async createAccount({ walletAddress }: { walletAddress: string }): Promise<Account> {
         try {
             const account = await prisma.account.create({
                 data: {
-                    name: name ? name : "",
-                    address: address,
-                    avatar: "",
-                    cover: "",
-                    description: description ? description : "",
-                    email: email ? email : "",
-                    linkedin: linkedin ? linkedin : "",
-                    telegram: telegram ? telegram : "",
-                    twitter: twitter ? twitter : "",
+                    walletAddress: walletAddress,
                 },
             });
 
@@ -105,7 +119,7 @@ class AccountService {
         existAccount,
         id,
         email,
-        name,
+        userName,
         description,
         linkedin,
         telegram,
@@ -115,7 +129,7 @@ class AccountService {
         existAccount: Account;
         id: string;
         email: string;
-        name: string;
+        userName: string;
         description: string;
         linkedin: string;
         telegram: string;
@@ -130,7 +144,7 @@ class AccountService {
                 cover: "files ? files.cover[0].filename : existAccount.cover",
                 description: description ? description : existAccount.description,
                 email: email ? email : existAccount.email,
-                name: name ? name : existAccount.name,
+                userName: userName ? userName : existAccount.userName,
 
                 linkedin: linkedin ? linkedin : "",
                 telegram: telegram ? telegram : "",

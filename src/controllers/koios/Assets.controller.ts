@@ -15,20 +15,10 @@ class AssetsController {
     async assetNftAddress(request: Request, response: Response) {
         try {
             const { policyId, assetName } = request.body;
-            if (!policyId && !assetName) {
-                return response
-                    .status(StatusCodes.BAD_REQUEST)
-                    .json(new BadRequest("policyId and assetName has been required."));
-            }
-
+            if (!policyId && !assetName)
+                return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("policyId and assetName has been required."));
             const data = await get(`/asset_nft_address?_asset_policy=${policyId}&_asset_name=${assetName}`, {});
-
-            if (!data) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("assets from policyId and assetName not exist."));
-            }
-
+            if (!data) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("assets from policyId and assetName not exist."));
             response.status(StatusCodes.OK).json({ address: data[0].payment_address });
         } catch (error) {
             response.status(StatusCodes.BAD_REQUEST).json({
@@ -49,9 +39,7 @@ class AssetsController {
         try {
             const { policyId, assetName } = request.body;
             if (!policyId && !assetName) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("policyId and assetName has been required."));
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("policyId and assetName has been required."));
             }
 
             const data = await get(`/asset_info?_asset_policy=${policyId}&_asset_name=${assetName}`, {});
@@ -132,9 +120,7 @@ class AssetsController {
             const { policyId, assetName } = request.body;
 
             if (!policyId && !assetName) {
-                return response
-                    .status(StatusCodes.NOT_FOUND)
-                    .json(new NotFound("policyId and assetName has been required."));
+                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("policyId and assetName has been required."));
             }
 
             const data = await get(`/asset_summary?_asset_policy=${policyId}&_asset_name=${assetName}`, {});
@@ -203,25 +189,12 @@ class AssetsController {
         try {
             const { address } = request.body;
             const { page, pageSize } = request.query;
-
-            if (!address) {
-                return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("Address has been required."));
-            }
-
-            const data = await post("/address_assets", {
-                _addresses: [address],
-            });
-
-            const results = paginate({
-                data: data[0].asset_list,
-                page: Number(page || 1),
-                pageSize: Number(pageSize || 8),
-            });
-            response.status(StatusCodes.OK).json(data);
+            if (!address) return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("Address has been required."));
+            const data = await post("/address_assets", { _addresses: [address] });
+            const results = paginate({ data: data[0].asset_list, page: Number(page || 1), pageSize: Number(pageSize || 8) });
+            response.status(StatusCodes.OK).json(results);
         } catch (error) {
-            response.status(StatusCodes.BAD_REQUEST).json({
-                error,
-            });
+            response.status(StatusCodes.BAD_REQUEST).json({ error });
         }
     }
 }

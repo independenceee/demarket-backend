@@ -8,18 +8,19 @@ import generics from "../../constants/generics";
 
 class FoLLowController {
     /**
-     * DONE
+     *
      * @param request
      * @param response
+     * @returns
      */
     async getFolloweds(request: Request, response: Response) {
         try {
-            const { accountId, page, pageSize } = request.query;
-            if (!accountId) response.status(StatusCodes.NOT_FOUND).json(new NotFound("accountId has been required."));
-            const existAccount = await accountService.findAccountById(accountId);
-            if (!existAccount) response.status(StatusCodes.NOT_FOUND).json(new NotFound("accountId has been required."));
+            const { walletAddress, page, pageSize } = request.query;
+            if (!walletAddress) response.status(StatusCodes.NOT_FOUND).json(new NotFound("address has been required."));
+            const existAccount = await accountService.findAccountByAddress(String(walletAddress));
+            if (!existAccount) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("address has been required."));
             const followers = await followService.findAccountFollowedsByAccount({
-                accountId: String(accountId),
+                accountId: existAccount?.id,
                 page: Number(page),
                 pageSize: Number(pageSize || generics.PER_PAGE),
             });
@@ -30,14 +31,20 @@ class FoLLowController {
         }
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
     async getFollowings(request: Request, response: Response) {
         try {
-            const { accountId, page, pageSize } = request.query;
-            if (!accountId) response.status(StatusCodes.NOT_FOUND).json(new NotFound("accountId has been required."));
-            const existAccount = await accountService.findAccountById(accountId);
-            if (!existAccount) response.status(StatusCodes.NOT_FOUND).json(new NotFound("accountId has been required."));
+            const { walletAddress, page, pageSize } = request.query;
+            if (!walletAddress) response.status(StatusCodes.NOT_FOUND).json(new NotFound("address has been required."));
+            const existAccount = await accountService.findAccountByAddress(String(walletAddress));
+            if (!existAccount) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("address has been required."));
             const followings = await followService.findAccountFollowingsByAccount({
-                accountId: String(accountId),
+                accountId: existAccount.id,
                 page: Number(page),
                 pageSize: Number(pageSize || generics.PER_PAGE),
             });

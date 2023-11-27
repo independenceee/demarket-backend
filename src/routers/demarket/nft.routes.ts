@@ -4,6 +4,7 @@ const router = Router();
 
 router.route("/policyId_assetName").get(nftController.getNftByPolicyIdAndAssetName);
 router.route("/nft_cart").get(nftController.getNftsFromCart);
+
 router.route("/").get(nftController.getAllNfts);
 router.route("/").post(nftController.createNft);
 router.route("/:id").get(nftController.getNftById);

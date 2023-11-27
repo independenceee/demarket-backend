@@ -14,7 +14,7 @@ class FollowService {
             const accountsFollowed = following.map(function (follow) {
                 return follow.following;
             });
-            const totalPage = accountsFollowed.length;
+            const totalPage = Math.ceil(accountsFollowed.length / pageSize);
             return { accountsFollowed, totalPage };
         } catch (error) {
             throw new ApiError(error);
@@ -35,7 +35,7 @@ class FollowService {
             const accountsFollowing = following.map(function (follow) {
                 return follow.follower;
             });
-            const totalPage = accountsFollowing.length;
+            const totalPage = Math.ceil(accountsFollowing.length / pageSize);
             return { accountsFollowing, totalPage };
         } catch (error) {
             throw new ApiError(error);

@@ -4,6 +4,7 @@ import { BadRequest, InternalServerError, NotFound } from "../../errors";
 import prisma, { Account } from "../../models";
 import accountService from "../../services/demarket/Account.service";
 import generics from "../../constants/generics";
+
 class AccountController {
     /**
      * @method GET
@@ -21,6 +22,29 @@ class AccountController {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
+
+    /**
+     *
+     * @param request
+     * @param response
+     * @returns
+     */
+    async getOtherAccounts(request: Request, response: Response) {
+        try {
+            const { page, pageSize, walletAddress } = request.query;
+            if (!walletAddress) return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("Address has been required!"));
+
+            const accounts = await accountService.findOtherAccount({
+                walletAddress: String(walletAddress),
+                page: Number(page),
+                pageSize: Number(pageSize || generics.PER_PAGE),
+            });
+            response.status(StatusCodes.OK).json({ ...accounts });
+        } catch (error) {
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+        }
+    }
+
     /**
      *
      * @param request
@@ -46,11 +70,11 @@ class AccountController {
      */
     async createAccount(request: Request, response: Response) {
         try {
-            const { address, email, name, description, linkedin, telegram, twitter } = request.body;
-            if (!address) return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("Address has been required!"));
-            const existAccount = await accountService.checkDuplicateAccount(String(address));
+            const { walletAddress } = request.body;
+            if (!walletAddress) return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("Address has been required!"));
+            const existAccount = await accountService.checkDuplicateAccount(String(walletAddress));
             if (existAccount) return response.status(StatusCodes.OK).json({ ...existAccount });
-            const account: Account = await accountService.createAccount({ address, name, description, email, linkedin, telegram, twitter });
+            const account: Account = await accountService.createAccount({ walletAddress });
             response.status(StatusCodes.OK).json({ ...account });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
@@ -68,11 +92,11 @@ class AccountController {
     async updateAccountById(request: Request, response: Response) {
         try {
             const { id } = request.params;
-            const { email, name, description, linkedin, telegram, twitter } = request.body;
+            const { email, userName, description, linkedin, telegram, twitter } = request.body;
             const files: any = request.files;
             const existAccount = await accountService.findAccountById(String(id));
             if (!existAccount) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Account is not found."));
-            await accountService.updateAccount({ files, description, email, existAccount, id, linkedin, name, telegram, twitter });
+            await accountService.updateAccount({ files, description, email, existAccount, id, linkedin, userName, telegram, twitter });
             response.status(StatusCodes.OK).json({ message: "update account successfully" });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));

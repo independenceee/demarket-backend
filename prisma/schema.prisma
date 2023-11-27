@@ -10,27 +10,26 @@ datasource db {
 }
 
 model Account {
-  id          String     @id @default(uuid())
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  address     String     @unique @db.Text
-  stakeKey    String?    @db.Text
-  email       String     @unique @db.Text
-  name        String     @db.Text
-  description String     @db.Text
-  rating      Float?     @db.Real
-  cover       String     @db.Text
-  avatar      String     @db.Text
-  telegram    String     @db.Text
-  linkedin    String     @db.Text
-  twitter     String     @db.Text
-  followed    Int?       @default(0)
-  validate    Boolean    @default(false)
-  cart        Cart?
-  like        Likes[]
-  followers   Follows[]  @relation("following")
-  following   Follows[]  @relation("follower")
-  Comments    Comments[]
+  id            String     @id @default(uuid())
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  walletAddress String     @unique @db.Text
+  stakeKey      String?    @db.Text
+  email         String?    @db.Text
+  userName      String?    @db.Text
+  description   String?    @db.Text
+  rating        Float?     @db.Real
+  cover         String?    @db.Text
+  avatar        String?    @db.Text
+  telegram      String?    @db.Text
+  linkedin      String?    @db.Text
+  twitter       String?    @db.Text
+  validate      Boolean?   @default(false)
+  cart          Cart?
+  like          Likes[]
+  followers     Follows[]  @relation("following")
+  following     Follows[]  @relation("follower")
+  Comments      Comments[]
 }
 
 model Follows {
@@ -47,7 +46,7 @@ model Follows {
 model Likes {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  accountId String
+  accountId String   @db.Text
   account   Account  @relation(fields: [accountId], references: [id])
   nftId     String
   nft       Nft      @relation(fields: [nftId], references: [id])
@@ -98,8 +97,8 @@ model Category {
   id          String        @id @default(uuid())
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
-  name        String
-  slug        String
+  name        String        @db.Text
+  slug        String        @db.Text
   NftCategory NftCategory[]
 }
 
@@ -138,20 +137,20 @@ model Guide {
   id          String   @id @default(uuid())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  question    String
-  title       String
-  description String
-  imageUrl    String
-  videoUrl    String
+  question    String   @db.Text
+  title       String   @db.Text
+  description String   @db.Text
+  imageUrl    String   @db.Text
+  videoUrl    String   @db.Text
 }
 
 model Founder {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  fistName  String
-  lastName  String
-  role      String
+  fistName  String   @db.Text
+  lastName  String   @db.Text
+  role      String   @db.Text
   company   String   @default("BLOCKALPHA")
   avatar    String   @db.Text
   telegram  String   @db.Text

@@ -64,3 +64,10 @@
 20231125	11:30:50	8390ea9d-ce50-4101-a5ad-0134d1e45e79	GET	/api/v1/follow/followed?accountId=41721f6f-5ac1-43c7-9e66-49e6b52ca579	undefined
 20231125	11:31:25	492fe862-1ba6-42d2-9950-fefab00af554	GET	/api/v1/follow/following?accountId=41721f6f-5ac1-43c7-9e66-49e6b52ca579	undefined
 20231125	11:31:39	8a1461d7-8fcc-4c0f-8722-8d87138d1289	GET	/api/v1/follow/following?accountId=0647b0ce-025c-47dc-a4f7-f7879b228f13	undefined
+20231125	12:54:46	d124de9f-7094-4e41-95fc-476605d9a447	GET	/api/v1/follow/followed?address=ddr1q8xpzfwdwtq9dzu2swe2hlmn9dptmz7dmv8cfs64va29xa03y2thexqurrtyve545ssjqmeywq40wanpqgyl654h57pqr5cegj	undefined
+20231125	12:54:59	165cf7c1-4ccc-4388-b056-a1c3936014dd	GET	/api/v1/follow/followed?address=addr1q8xpzfwdwtq9dzu2swe2hlmn9dptmz7dmv8cfs64va29xa03y2thexqurrtyve545ssjqmeywq40wanpqgyl654h57pqr5cegj	undefined
+20231125	23:08:34	ecd711da-ec29-480f-99fe-8f78cebbb0c9	GET	/api/v1/account/other_account	undefined
+20231125	23:09:43	f27358fb-46cb-40aa-b585-16b8da30c0e5	GET	/api/v1/account/other_account?address=addr1q8xpzfwdwtq9dzu2swe2hlmn9dptmz7dmv8cfs64va29xa03y2thexqurrtyve545ssjqmeywq40wanpqgyl654h57pqr5cegj	undefined
+20231125	23:12:34	55574569-2dfe-43be-be55-499dce594b02	GET	/api/v1/account/other_account?address=addr1q8xpzfwdwtq9dzu2swe2hlmn9dptmz7dmv8cfs64va29xa03y2thexqurrtyve545ssjqmeywq40wanpqgyl654h57pqr5cegj	undefined
+20231125	23:16:32	d49d1c62-0143-4fab-9f0a-f85f544505e7	GET	/api/v1/account/other_account?address=addr1q8xpzfwdwtq9dzu2swe2hlmn9dptmz7dmv8cfs64va29xa03y2thexqurrtyve545ssjqmeywq40wanpqgyl654h57pqr5cegj	undefined
+20231125	23:20:28	1224bbcf-2c59-47c4-8e04-70d0e611c1a8	GET	/api/v1/account/other_account?address=addr1q8xpzfwdwtq9dzu2swe2hlmn9dptmz7dmv8cfs64va29xa03y2thexqurrtyve545ssjqmeywq40wanpqgyl654h57pqr5cegj	undefined
