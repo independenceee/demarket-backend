@@ -163,13 +163,13 @@ class NftController {
      */
     async getNftsFromCart(request: Request, response: Response) {
         try {
-            const { cartId, page, pageSize } = request.query;
-            const nfts = await nftService.findNftsByCartId({
+            const { walletAddress, page, pageSize } = request.query;
+            const nfts = await nftService.findNftsCartByWalletAddress({
                 page: Number(page),
                 pageSize: Number(pageSize || generics.PER_PAGE),
-                cartId: String(cartId),
+                walletAddress: String(walletAddress),
             });
-            console.log(nfts);
+
             response.status(StatusCodes.OK).json({ ...nfts });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));

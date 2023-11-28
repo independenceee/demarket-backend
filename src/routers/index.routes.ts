@@ -27,7 +27,7 @@ const router = function (app: Express) {
     app.use("/api/v1/category", categoryRouter);
     app.use("/api/v1/nft", nftRouter);
     app.use("/api/v1/blog", blogRouter);
-    app.use("/api/v1/founder", founderRouter);
+    app.use("/api/v1/founders", founderRouter);
     app.use("/api/v1/statistics", statisticsRouter);
     app.use("/api/v1/search", searchRouter);
 
