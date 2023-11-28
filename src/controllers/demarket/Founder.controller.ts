@@ -3,18 +3,19 @@ import { StatusCodes } from "http-status-codes";
 import { InternalServerError, NotFound } from "../../errors";
 import founderService from "../../services/demarket/Founder.service";
 import prisma from "../../models";
+import generics from "../../constants/generics";
 
 class FounderController {
     /**
-     *
-     * @param request
-     * @param response
+     * @method GET => DONE
+     * @description Get All founders from demarket
+     * @param request { page , pageSize }
+     * @param response { founders, totalPage }
      */
     async getAllFounders(request: Request, response: Response) {
         try {
-            const { page } = request.query;
-            const founders = await founderService.findAllFounder(Number(page));
-            console.log(founders);
+            const { page, pageSize } = request.query;
+            const founders = await founderService.findAllFounders({ page: Number(page), pageSize: Number(pageSize) || generics.PER_PAGE });
             response.status(StatusCodes.OK).json(founders);
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
@@ -22,21 +23,17 @@ class FounderController {
     }
 
     /**
-     *
-     * @param request
-     * @param response
+     * @method GET => DONE
+     * @description  Get founder by id from demarket
+     * @param request { id }
+     * @param response { founder | null }
      * @returns
      */
     async getFounderById(request: Request, response: Response) {
         try {
             const { id } = request.params;
-
             const founder = await founderService.findFounderById(id);
-
-            if (!founder) {
-                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Founder is not found."));
-            }
-
+            if (!founder) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Founder is not found."));
             response.status(StatusCodes.OK).json(founder);
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
@@ -44,31 +41,18 @@ class FounderController {
     }
 
     /**
-     *
-     * @param request
-     * @param response
+     * @method POST => DONE
+     * @description Get founder by id from demarket
+     * @param request body: { firstName, lastName, role, company, linkedin, twitter, telegram }
+     * @param response { founder | null}
+     * @returns
      */
     async createFounder(request: Request, response: Response) {
         try {
             const { firstName, lastName, role, company, linkedin, twitter, telegram } = request.body;
             const files: Express.Multer.File[] | any = request.files;
-
-            await prisma.founder.create({
-                data: {
-                    fistName: firstName,
-                    lastName: lastName,
-                    role: role,
-                    avatar: process.env.DOMAIN_NAME! + "/founder/" + files[0].filename,
-                    company: company ? company : "BLOCKALPHA",
-                    linkedin: linkedin ? linkedin : "",
-                    twitter: twitter ? twitter : "",
-                    telegram: telegram ? telegram : "",
-                },
-            });
-
-            response.status(StatusCodes.CREATED).json({
-                message: "founder created successfully!",
-            });
+            await founderService.createFounder({ firstName, lastName, role, company, linkedin, twitter, telegram }, files);
+            response.status(StatusCodes.CREATED).json({ message: "founder created successfully!" });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
@@ -83,12 +67,10 @@ class FounderController {
     async updateFounderById(request: Request, response: Response) {
         try {
             const { id } = request.params;
-            const {} = request.body;
-
+            const { firstName, lastName, role, company, linkedin, twitter, telegram } = request.body;
+            const files: Express.Multer.File[] | any = request.files;
             const existFounder = await founderService.findFounderById(id);
-            if (!existFounder) {
-                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Founder id not found."));
-            }
+            if (!existFounder) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Founder id not found."));
 
             response.status(StatusCodes.OK).json({
                 message: "Update founder successfully!",
