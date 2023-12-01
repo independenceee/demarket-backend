@@ -10,3 +10,4 @@
 20231121	17:19:14	587d59bc-c90f-47bc-980c-13da56e4fc65	ReplyError: ReplyError	GET	/api/v1/nft/policyId-assetName?policyId=f92dd79963b506ad8a8fc601cc8003a3195105b44f8557669bbfc62a&assetName=70696b61636875	undefined
 20231121	17:19:27	0365855c-29b0-4b6e-91f0-8da77c8fbedf	ReplyError: ReplyError	GET	/api/v1/nft/policyId-assetName?policyId=f92dd79963b506ad8a8fc601cc8003a3195105b44f8557669bbfc62a&assetName=70696b61636875	undefined
 20231121	17:20:17	7459b517-553c-4e64-a53d-cb710846926f	ReplyError: ReplyError	GET	/api/v1/nft/policyId-assetName?policyId=f92dd79963b506ad8a8fc601cc8003a3195105b44f8557669bbfc62a&assetName=70696b61636875	undefined
+20231201	09:49:14	8937afa2-fffa-4652-a6f3-1dbbfa9d7fe7	SyntaxError: SyntaxError	POST	/api/v1/account	undefined
