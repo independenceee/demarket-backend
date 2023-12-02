@@ -1,5 +1,6 @@
 import { ApiError } from "../../errors";
 import prisma, { Account } from "../../models";
+import stakekeyService from "../emurgo/Stakekey.service";
 
 class AccountService {
     async findAllAccounts({ page, pageSize }: { page: number; pageSize: number }): Promise<{ accounts: Account[]; totalPage: number }> {
@@ -90,9 +91,12 @@ class AccountService {
 
     async createAccount({ walletAddress }: { walletAddress: string }): Promise<Account> {
         try {
+            const stakeKeyWalletAddress = await stakekeyService.convertStakeKeyFromAddress({ walletAddress: walletAddress });
             const account = await prisma.account.create({
                 data: {
                     walletAddress: walletAddress,
+                    stakeKey: stakeKeyWalletAddress,
+                    userName: stakeKeyWalletAddress,
                 },
             });
 
