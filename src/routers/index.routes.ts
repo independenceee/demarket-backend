@@ -12,6 +12,7 @@ import statisticsRouter from "./demarket/statistics.routes";
 import searchRouter from "./demarket/search.routes";
 import followRouter from "./demarket/follow.routes";
 import likeRouter from "./demarket/like.routes";
+import mailRouter from "./demarket/mail.routes";
 
 import blockfrostAssetsRouter from "./blockfrost/assets.routes";
 import blockfrostTransactionRouter from "./blockfrost/transaction.routes";
@@ -20,6 +21,7 @@ import stakekeyRouter from "./emurgo/stakekey.routes";
 
 const router = function (app: Express) {
     app.use("/api/v1/follow", followRouter);
+    app.use("/api/v1/mail", mailRouter);
     app.use("/api/v1/account", accountRouter);
     app.use("/api/v1/cart", cartRouter);
     app.use("/api/v1/guide", guideRouter);
