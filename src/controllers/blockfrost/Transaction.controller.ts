@@ -16,14 +16,12 @@ class TransactionController {
             const { transactionHash } = request.body;
 
             if (!transactionHash) {
-                return response
-                    .status(StatusCodes.BAD_REQUEST)
-                    .json(new BadRequest("Transaction hash has been required."));
+                return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("Transaction hash has been required."));
             }
             const data = await apiBlockfrost.txsUtxos(transactionHash);
-            response.status(StatusCodes.OK).json(data);
+            return response.status(StatusCodes.OK).json(data);
         } catch (error) {
-            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 error,
             });
         }
@@ -39,15 +37,13 @@ class TransactionController {
         try {
             const { transactionHash } = request.body;
             if (!transactionHash) {
-                return response
-                    .status(StatusCodes.BAD_REQUEST)
-                    .json(new BadRequest("Transaction hash has been required."));
+                return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("Transaction hash has been required."));
             }
 
             const data = await apiBlockfrost.txs(transactionHash);
-            response.status(StatusCodes.OK).json(data);
+            return response.status(StatusCodes.OK).json(data);
         } catch (error) {
-            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 error,
             });
         }
@@ -69,9 +65,9 @@ class TransactionController {
             }
             const data = await apiBlockfrost.addressesTransactions(address);
             const results = paginate({ data: data, page: Number(page || 1), pageSize: Number(pageSize || 8) });
-            response.status(StatusCodes.OK).json(results);
+            return response.status(StatusCodes.OK).json(results);
         } catch (error) {
-            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 error,
             });
         }
@@ -90,21 +86,19 @@ class TransactionController {
             const { page, pageSize } = request.query;
 
             if (!policyId && !assetName) {
-                return response
-                    .status(StatusCodes.BAD_REQUEST)
-                    .json(new BadRequest("PolicyId and assetName has been required."));
+                return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("PolicyId and assetName has been required."));
             }
 
             const data = await apiBlockfrost.assetsTransactions(policyId + assetName);
             const allTransaction = paginate({ data: data, page: Number(page || 1), pageSize: Number(pageSize || 8) });
 
-            response.status(StatusCodes.OK).json({
+            return response.status(StatusCodes.OK).json({
                 firstTransaction: data[0],
                 currentTransaction: data[data.length - 1],
                 allTransaction: allTransaction,
             });
         } catch (error) {
-            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 error,
             });
         }

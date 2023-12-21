@@ -135,7 +135,7 @@ CREATE TABLE "Founder" (
     "id" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "fistName" TEXT NOT NULL,
+    "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "role" TEXT NOT NULL,
     "company" TEXT NOT NULL DEFAULT 'BLOCKALPHA',

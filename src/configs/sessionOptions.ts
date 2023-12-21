@@ -7,7 +7,7 @@ const sessionOption = {
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure: false, // http => https => true
+        secure: false,
         httpOnly: true,
         maxAge: 5 * 60 * 1000,
     },

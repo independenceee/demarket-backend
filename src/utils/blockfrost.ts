@@ -3,7 +3,7 @@ import { BlockFrostAPI } from "@blockfrost/blockfrost-js";
 dotenv.config();
 
 const apiBlockfrost = new BlockFrostAPI({
-    projectId: "preprodaXBLgbqqCAo5wMCdB77sUusgmx2RcgtH",
+    projectId: process.env.BLOCKFROST_PROJECT_ID_SECRET_PREPROD!,
 });
 
 export default apiBlockfrost;

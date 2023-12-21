@@ -1,22 +1,16 @@
+import * as dotenv from "dotenv";
 import request from "supertest";
 import { StatusCodes } from "http-status-codes";
-import { expect, assert } from "chai";
-import * as dotenv from "dotenv";
 
 dotenv.config();
 
 describe("FOUNDER", function () {
     const apiUrl = process.env.DEMARKET_BACKEND_API_RPC_URL!;
-
-    beforeEach(function () {
-        console.log(apiUrl);
-    });
-
     describe("Get all founder", function () {
-        it("", function (done) {
+        it("Get all founder.", function (done) {
             const data = {};
             request(apiUrl)
-                .post("/api/v1/founder")
+                .post("/api/v1/founders")
                 .send(data)
                 .expect(StatusCodes.INTERNAL_SERVER_ERROR)
                 .end((error, response) => {
@@ -31,5 +25,8 @@ describe("FOUNDER", function () {
         });
     });
 
-    
+    describe("Get founder by id", function () {});
+    describe("Create founder", function () {});
+    describe("Update founder by id", function () {});
+    describe("Delete founder by id", function () {});
 });

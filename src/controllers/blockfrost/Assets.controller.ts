@@ -19,12 +19,10 @@ class AssetsController {
         }
         const data = await apiBlockfrost.accountsAddressesAssets(stakeAddress);
         if (!data) {
-            response
-                .status(StatusCodes.NOT_FOUND)
-                .json(new NotFound("Stake address wrong  or no data from stake address."));
+            return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Stake address wrong  or no data from stake address."));
         }
         const results = paginate({ data: data, page: Number(page || 1), pageSize: Number(pageSize || 8) });
-        response.status(StatusCodes.OK).json(results);
+        return response.status(StatusCodes.OK).json(results);
     }
 
     /**
@@ -39,15 +37,13 @@ class AssetsController {
             const { policyId, assetName } = request.body;
 
             if (!policyId || !assetName) {
-                return response
-                    .status(StatusCodes.BAD_REQUEST)
-                    .json(new BadRequest("PolicyId and assetName has been required."));
+                return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("PolicyId and assetName has been required."));
             }
 
             const data = await apiBlockfrost.assetsById(policyId + assetName);
-            response.status(StatusCodes.OK).json(data);
+            return response.status(StatusCodes.OK).json(data);
         } catch (error) {
-            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 error,
             });
         }
@@ -68,9 +64,9 @@ class AssetsController {
             }
             const data = await apiBlockfrost.assetsPolicyById(policyId);
             const results = paginate({ data: data, page: Number(page || 1), pageSize: Number(pageSize || 8) });
-            response.status(StatusCodes.OK).json(results);
+            return response.status(StatusCodes.OK).json(results);
         } catch (error) {
-            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+            return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 error,
             });
         }

@@ -192,7 +192,10 @@ class AssetsController {
             if (!address) return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("Address has been required."));
             const data = await post("/address_assets", { _addresses: [address] });
             const results = paginate({ data: data[0].asset_list, page: Number(page || 1), pageSize: Number(pageSize || 8) });
-            response.status(StatusCodes.OK).json(results);
+            response.status(StatusCodes.OK).json({
+                totalPage: 0,
+                paginatedData: data[0].asset_list,
+            });
         } catch (error) {
             response.status(StatusCodes.BAD_REQUEST).json({ error });
         }

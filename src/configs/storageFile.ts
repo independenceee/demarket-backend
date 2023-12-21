@@ -4,16 +4,8 @@ import { Request } from "express";
 type DestinationCallback = (error: Error | null, destination: string) => void;
 type FileNameCallback = (error: Error | null, filename: string) => void;
 
-export const fileFilter = (
-    request: Request,
-    file: Express.Multer.File,
-    callback: FileFilterCallback,
-): void => {
-    if (
-        file.mimetype === "image/png" ||
-        file.mimetype === "image/jpg" ||
-        file.mimetype === "image/jpeg"
-    ) {
+export const fileFilter = (request: Request, file: Express.Multer.File, callback: FileFilterCallback): void => {
+    if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
         callback(null, true);
     } else {
         callback(null, false);
@@ -21,11 +13,7 @@ export const fileFilter = (
 };
 
 const storage = multer.diskStorage({
-    destination: function (
-        request: Request,
-        file: Express.Multer.File,
-        callback: DestinationCallback,
-    ): void {
+    destination: function (request: Request, file: Express.Multer.File, callback: DestinationCallback): void {
         const { destination } = request.query;
         if (destination) {
             callback(null, `public${destination}`);
@@ -34,11 +22,7 @@ const storage = multer.diskStorage({
         }
     },
 
-    filename: function (
-        request: Request,
-        file: Express.Multer.File,
-        callback: FileNameCallback,
-    ): void {
+    filename: function (request: Request, file: Express.Multer.File, callback: FileNameCallback): void {
         callback(null, Date.now() + "-" + file.originalname);
     },
 });
