@@ -6,11 +6,8 @@ class NftService {
     async findAllNfts(page: number): Promise<Nft[]> {
         try {
             const PER_PAGE = generics.PER_PAGE;
-
             const currentPage = Math.max(Number(page || 1), 1);
-
             const nfts: Nft[] = await prisma.nft.findMany({ take: PER_PAGE, skip: (currentPage - 1) * PER_PAGE });
-
             return nfts;
         } catch (error) {
             throw new ApiError(error);
@@ -22,7 +19,6 @@ class NftService {
     async findNftByPolicyIdAndAssetName({ policyId, assetName }: { policyId: string; assetName: string }): Promise<Nft | null> {
         try {
             const nft: Nft | null = await prisma.nft.findFirst({ where: { policyId: policyId, assetName: assetName } });
-
             return nft;
         } catch (error) {
             throw new ApiError(error);
@@ -34,7 +30,6 @@ class NftService {
     async findNftById(id: string): Promise<Nft | null> {
         try {
             const nft: Nft | null = await prisma.nft.findFirst({ where: { id: id } });
-
             return nft;
         } catch (error) {
             throw new ApiError(error);
