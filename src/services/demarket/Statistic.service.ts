@@ -1,14 +1,42 @@
 import { ApiError } from "../../errors";
 import prisma from "../../models";
+import apiBlockfrost from "../../utils/blockfrost";
+import { post } from "../../utils/koios";
 
 class StatisticsService {
-    async findStatistics() {
+    async totalAccounts() {
         try {
-            const totalTransaction = (await prisma.nft.aggregate({ _sum: { countOfTransaction: true } }))._sum.countOfTransaction;
-            const totalTrending = await prisma.nft.count({ where: { countOfTransaction: { gt: 10 } } });
-            const totalAccount = await prisma.account.count();
-            const totalProduct = await prisma.nft.count();
-            return { totalAccount, totalTrending, totalProduct, totalTransaction };
+            const totalAccounts = prisma.account.count();
+            return totalAccounts;
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
+    async totalProducts(contractAddress: string) {
+        try {
+            const data = await post("/address_assets", { _addresses: [contractAddress] });
+            return data[0].asset_list.length;
+        } catch (error) {
+            throw new ApiError(error);
+        }
+    }
+
+    async totalTransactions(contractAddress: string) {
+        try {
+            const data = await apiBlockfrost.addressesTransactions(contractAddress);
+            return data.length;
+        } catch (error) {
+            throw new ApiError(error);
+        }
+    }
+
+    async totalTrendings() {
+        try {
+            const totalAccounts = prisma.account.count();
+            return totalAccounts;
         } catch (error) {
             throw new ApiError(error);
         } finally {
