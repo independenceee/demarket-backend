@@ -32,12 +32,12 @@ class AccountService {
                 select: { followingId: true },
             });
             const followingIdsSet = new Set(followingIds.map((entry) => entry.followingId));
-            const accountsWithFollowStatus = otherAccounts.map((account) => ({
+            const accounts = otherAccounts.map((account) => ({
                 ...account,
                 isFollowed: followingIdsSet.has(account.id),
             }));
-            const totalPage = Math.ceil(accountsWithFollowStatus.length / pageSize);
-            return { accountsWithFollowStatus, totalPage };
+            const totalPage = Math.ceil(accounts.length / pageSize);
+            return { accounts, totalPage };
         } catch (error) {
             throw new ApiError(error);
         } finally {
