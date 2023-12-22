@@ -7,7 +7,7 @@ import cartService from "../../services/demarket/Cart.service";
 class CartController {
     /**
      * @method POST
-     * @description
+     * @description Add to cart
      * @param request
      * @param response
      */

@@ -15,7 +15,15 @@ class AccountController {
      */
     async getAllAccounts(request: Request, response: Response) {
         try {
-            const { page, pageSize } = request.query;
+            const { page, pageSize, walletAddress } = request.query;
+            if (walletAddress) {
+                const accounts = await accountService.findOtherAccount({
+                    walletAddress: String(walletAddress),
+                    page: Number(page),
+                    pageSize: Number(pageSize || generics.PER_PAGE),
+                });
+                response.status(StatusCodes.OK).json({ ...accounts });
+            }
             const accounts = await accountService.findAllAccounts({ page: Number(page), pageSize: Number(pageSize || generics.PER_PAGE) });
             response.status(StatusCodes.OK).json({ ...accounts });
         } catch (error) {
@@ -25,6 +33,7 @@ class AccountController {
 
     /**
      * @method GET => DONE
+     * @description Get other account when address wallet
      * @param request
      * @param response
      * @returns
@@ -62,7 +71,8 @@ class AccountController {
     }
 
     /**
-     *
+     * @method POST => DONE
+     * @description Create account
      * @param request
      * @param response
      * @returns
@@ -83,7 +93,8 @@ class AccountController {
     }
 
     /**
-     *
+     * @method PATCH => DONE
+     * @description Update account by account id
      * @param request
      * @param response
      * @returns
@@ -105,9 +116,10 @@ class AccountController {
     }
 
     /**
-     * @method DELETE
-     * @param request
-     * @param response
+     * @method DELETE => DONE
+     * @description Delete account by account id
+     * @param request { id }
+     * @param response { message }
      * @returns
      */
     async deleteAccountById(request: Request, response: Response) {

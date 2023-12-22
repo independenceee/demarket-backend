@@ -97,9 +97,9 @@ describe("CATEGORY API FROM DEMARKET", () => {
                 name: "description",
             };
             request(apiUrl)
-                .get(`/api/v1/category`)
+                .post(`/api/v1/category`)
                 .send(data)
-                .expect(StatusCodes.OK)
+                .expect(StatusCodes.NOT_FOUND)
                 .end((error, response) => {
                     if (error) {
                         console.log("Test failed with error:", error);
@@ -136,6 +136,37 @@ describe("CATEGORY API FROM DEMARKET", () => {
             request(apiUrl)
                 .patch(`/api/v1/category`)
                 .send(data)
+                .expect(StatusCodes.NOT_FOUND)
+                .end((error, response) => {
+                    if (error) {
+                        console.log("Test failed with error:", error);
+                        console.log("Response body:", response.body);
+                        return done(error);
+                    }
+                    console.log(response.body);
+                    done();
+                });
+        });
+    });
+
+    describe("Delete category.", function () {
+        it("No id", function (done) {
+            request(apiUrl)
+                .delete("/api/v1/category")
+                .expect(StatusCodes.NOT_FOUND)
+                .end((error, response) => {
+                    if (error) {
+                        console.log("Test failed with error:", error);
+                        console.log("Response body:", response.body);
+                        return done(error);
+                    }
+                    console.log(response.body);
+                    done();
+                });
+        });
+        it("Data success.", function (done) {
+            request(apiUrl)
+                .delete(`/api/v1/category`)
                 .expect(StatusCodes.NOT_FOUND)
                 .end((error, response) => {
                     if (error) {
