@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import founderController from "../../controllers/demarket/Founder.controller";
 import UploadFile from "../../middlewares/Upload";
 

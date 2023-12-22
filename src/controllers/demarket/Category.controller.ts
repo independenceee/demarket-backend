@@ -5,9 +5,10 @@ import categoryService from "../../services/demarket/Category.service";
 
 class CategoryController {
     /**
-     *
+     * @method GET => DONE
+     * @description Get all category
      * @param request
-     * @param response
+     * @param response [ category ]
      */
     async getAllCategores(request: Request, response: Response) {
         try {
@@ -19,9 +20,10 @@ class CategoryController {
     }
 
     /**
-     *
-     * @param request
-     * @param response
+     * @method GET => DONE
+     * @description Get category by id
+     * @param request { id }
+     * @param response category
      * @returns
      */
     async getCategory(request: Request, response: Response) {
@@ -39,12 +41,12 @@ class CategoryController {
     }
 
     /**
-     *
-     * @param request
-     * @param response
+     * @method POST => DONE
+     * @description Create Category
+     * @param request { name: string}
+     * @param response message
      * @returns
      */
-
     async createCategory(request: Request, response: Response) {
         try {
             const { name } = request.body;
@@ -65,8 +67,9 @@ class CategoryController {
     }
 
     /**
-     *
-     * @param request
+     * @method PATCH
+     * @description Update category
+     * @param request { id , name }
      * @param response
      * @returns
      */
@@ -79,7 +82,6 @@ class CategoryController {
             if (!existCategory) {
                 return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Category is not found."));
             }
-
             await categoryService.updateCategory({ id, name, existCategory });
             response.status(StatusCodes.OK).json({
                 message: "Update category successfully.",
@@ -90,8 +92,8 @@ class CategoryController {
     }
 
     /**
-     *
-     * @param request
+     * @method DELETE => DONE
+     * @param request { id }
      * @param response
      * @returns
      */

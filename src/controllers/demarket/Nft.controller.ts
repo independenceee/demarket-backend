@@ -15,9 +15,7 @@ class NftController {
     async getAllNfts(request: Request, response: Response) {
         try {
             const { page } = request.query;
-
             const nfts = await nftService.findAllNfts(Number(page));
-
             response.status(StatusCodes.OK).json(nfts);
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
@@ -33,13 +31,8 @@ class NftController {
     async getNftById(request: Request, response: Response) {
         try {
             const { id } = request.params;
-
             const nft = await nftService.findNftById(id);
-
-            if (nft) {
-                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Nft is not found."));
-            }
-
+            if (nft) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Nft is not found."));
             response.status(StatusCodes.OK).json(nft);
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
@@ -55,12 +48,7 @@ class NftController {
     async getNftByPolicyIdAndAssetName(request: Request, response: Response) {
         try {
             const { policyId, assetName } = request.query;
-
-            const nft = await nftService.findNftByPolicyIdAndAssetName({
-                policyId: String(policyId),
-                assetName: String(assetName),
-            });
-
+            const nft = await nftService.findNftByPolicyIdAndAssetName({ policyId: String(policyId), assetName: String(assetName) });
             if (!nft) {
                 return response.status(StatusCodes.OK).json(nft);
             }

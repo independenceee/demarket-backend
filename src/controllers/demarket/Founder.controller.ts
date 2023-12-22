@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { InternalServerError, NotFound } from "../../errors";
 import founderService from "../../services/demarket/Founder.service";
-import prisma from "../../models";
 import generics from "../../constants/generics";
 
 class FounderController {
@@ -42,8 +41,8 @@ class FounderController {
 
     /**
      * @method POST => DONE
-     * @description Get founder by id from demarket
-     * @param request body: { firstName, lastName, role, company, linkedin, twitter, telegram }
+     * @description Create founder from demarket
+     * @param request body: { firstName, lastName, role, company, linkedin, twitter, telegram, image }
      * @param response { founder | null}
      * @returns
      */
@@ -59,8 +58,9 @@ class FounderController {
     }
 
     /**
-     *
-     * @param request
+     * @method PATCH => DONE
+     * @description Update founder by id from demarket
+     * @param request params {id}
      * @param response
      * @returns
      */
@@ -71,35 +71,27 @@ class FounderController {
             const files: Express.Multer.File[] | any = request.files;
             const existFounder = await founderService.findFounderById(id);
             if (!existFounder) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Founder id not found."));
-
-            response.status(StatusCodes.OK).json({
-                message: "Update founder successfully!",
-            });
+            await founderService.updateFounder({ firstName, lastName, role, company, linkedin, twitter, telegram }, files, id);
+            response.status(StatusCodes.OK).json({ message: "Update founder successfully!" });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
 
     /**
-     *
-     * @param request
-     * @param response
+     * @method DELETE => DONE
+     * @description Delete founder by id from demarket
+     * @param request params{id}
+     * @param response { message }
      * @returns
      */
-
     async deleteFounderById(request: Request, response: Response) {
         try {
             const { id } = request.params;
-
             const existFounder = await founderService.findFounderById(id);
-
-            if (!existFounder) {
-                return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Founder id not found."));
-            }
-
-            response.status(StatusCodes.OK).json({
-                message: "Delete founder successfully.",
-            });
+            if (!existFounder) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Founder id not found."));
+            await founderService.deleteFounder(id);
+            response.status(StatusCodes.OK).json({ message: "Delete founder successfully." });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }

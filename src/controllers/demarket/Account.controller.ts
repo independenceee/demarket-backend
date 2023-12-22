@@ -7,7 +7,7 @@ import generics from "../../constants/generics";
 
 class AccountController {
     /**
-     * @method GET
+     * @method GET => OK
      * @description Get All account from database
      * @param request
      * @param response
@@ -24,7 +24,7 @@ class AccountController {
     }
 
     /**
-     *
+     * @method GET => DONE
      * @param request
      * @param response
      * @returns
@@ -33,7 +33,6 @@ class AccountController {
         try {
             const { page, pageSize, walletAddress } = request.query;
             if (!walletAddress) return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("Address has been required!"));
-
             const accounts = await accountService.findOtherAccount({
                 walletAddress: String(walletAddress),
                 page: Number(page),
