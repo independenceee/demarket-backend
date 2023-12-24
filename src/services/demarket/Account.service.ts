@@ -156,6 +156,19 @@ class AccountService {
             },
         });
     }
+
+    async searchAccount(query: string) {
+        try {
+            const accounts = await prisma.account.findMany({
+                where: { OR: [{ walletAddress: { contains: query } }, { email: { contains: query } }, { userName: { contains: query } }] },
+            });
+            return accounts;
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
 }
 
 export default new AccountService();

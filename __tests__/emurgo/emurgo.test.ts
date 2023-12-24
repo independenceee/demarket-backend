@@ -13,7 +13,6 @@ describe("Get stakekey from address", () => {
             .expect(200)
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
@@ -30,7 +29,6 @@ describe("Get stakekey from address", () => {
             .expect(400)
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
