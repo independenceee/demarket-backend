@@ -2,6 +2,7 @@ import { Router } from "express";
 import nftController from "../../controllers/demarket/Nft.controller";
 const router = Router();
 
+router.route("/search").get(nftController.searchNfts);
 router.route("/policyId_assetName").get(nftController.getNftByPolicyIdAndAssetName);
 router.route("/nft_cart").get(nftController.getNftsFromCart);
 

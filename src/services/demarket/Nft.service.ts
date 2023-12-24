@@ -61,22 +61,16 @@ class NftService {
     async findNftsCartByWalletAddress({ walletAddress, page, pageSize }: { walletAddress: string; page: number; pageSize: number }) {
         try {
             const currentPage = Math.max(Number(page || 1), 1);
-
             const account = await prisma.account.findUnique({ where: { walletAddress }, include: { cart: true } });
-
             if (!account || !account.cart) return { totalPage: 0, nfts: [] };
-
             const cartNfts = await prisma.cartNft.findMany({
                 where: { cart: { id: account.cart.id } },
                 include: { nft: true },
                 take: pageSize,
                 skip: (currentPage - 1) * pageSize,
             });
-
             const nfts = cartNfts.map((cartNft) => cartNft.nft);
-
             const totalPage = Math.ceil(nfts.length / pageSize);
-
             return { totalPage, nfts };
         } catch (error) {
             throw new ApiError(error);
@@ -120,6 +114,19 @@ class NftService {
     async deleteNft({ policyId, assetName }: { policyId: string; assetName: string }) {
         try {
             await prisma.nft.delete({ where: { policyId: policyId, assetName: assetName } });
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
+    async searchNfts(query: string) {
+        try {
+            const nfts = await prisma.nft.findMany({
+                where: { OR: [{ policyId: { contains: query, mode: "insensitive" } }, { assetName: { contains: query, mode: "insensitive" } }] },
+            });
+            return nfts;
         } catch (error) {
             throw new ApiError(error);
         } finally {

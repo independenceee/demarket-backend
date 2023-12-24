@@ -3,7 +3,6 @@ import { StatusCodes } from "http-status-codes";
 import { InternalServerError, NotFound } from "../../errors";
 
 import nftService from "../../services/demarket/Nft.service";
-import prisma from "../../models";
 import generics from "../../constants/generics";
 
 class NftController {
@@ -17,6 +16,18 @@ class NftController {
         try {
             const { page } = request.query;
             const nfts = await nftService.findAllNfts(Number(page));
+            response.status(StatusCodes.OK).json(nfts);
+        } catch (error) {
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+        }
+    }
+
+    
+    async searchNfts(request: Request, response: Response) {
+        try {
+            const { query } = request.query;
+            if (!query) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Query has been required"));
+            const nfts = await nftService.searchNfts(String(query));
             response.status(StatusCodes.OK).json(nfts);
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
