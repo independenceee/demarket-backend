@@ -8,7 +8,8 @@ import generics from "../../constants/generics";
 
 class NftController {
     /**
-     *
+     * @method GET => DONE
+     * @description Get all nft from demarket
      * @param request
      * @param response
      */
@@ -22,7 +23,7 @@ class NftController {
         }
     }
     /**
-     *
+     * @method GET => DONE
      * @param request
      * @param response
      * @returns
@@ -40,7 +41,7 @@ class NftController {
     }
 
     /**
-     *
+     * @method GET => DONE
      * @param request
      * @param response
      * @returns
@@ -60,7 +61,7 @@ class NftController {
     }
 
     /**
-     *
+     * @method GET => DONE
      * @param request
      * @param response
      * @returns
@@ -90,7 +91,7 @@ class NftController {
     }
 
     /**
-     *
+     * @method PATCH DONE
      * @param request
      * @param response
      * @returns
@@ -122,7 +123,7 @@ class NftController {
     }
 
     /**
-     *
+     * @method GET => DONE
      * @param request
      * @param response
      * @returns

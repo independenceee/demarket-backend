@@ -1,4 +1,4 @@
-// TESTCASE ACCOUNT
+// TESTCASE NFT
 import { StatusCodes } from "http-status-codes";
 import request from "supertest";
 
@@ -6,10 +6,10 @@ const apiUrl = "https://demarket-backend.vercel.app";
 const walletAddress = "addr_test1qzndmp8766ymgdsqkll9fq4tp63a0qey9q7le7g3wx4wu5d7080dwpufa65mkmh402unp4d4meyftg723gysz7mfnrqqfg09fs";
 const accountId = "f1da746-2fb1-48c8-b0a7-b03f5007936b";
 
-describe("ACCOUNT API FROM DEMARKET", () => {
-    it("Get all account", (done) => {
+describe("NFT API FROM DEMARKET", () => {
+    it("Get all nft", (done) => {
         request(apiUrl)
-            .get("/api/v1/account")
+            .get("/api/v1/nft")
             .expect(StatusCodes.OK)
             .end((err, res) => {
                 if (err) {
@@ -22,46 +22,11 @@ describe("ACCOUNT API FROM DEMARKET", () => {
             });
     });
 
-    describe("Get other account when walletAddress.", function () {
-        it("success", function (done) {
-            const data = {};
-            request(apiUrl)
-                .get(`/api/v1/account/other_account?walletAddress=${walletAddress}`)
-                .send(data)
-                .expect(StatusCodes.OK)
-                .end((error, response) => {
-                    if (error) {
-                        console.log("Test failed with error:", error);
-                        console.log("Response body:", response.body);
-                        return done(error);
-                    }
-                    console.log(response.body);
-                    done();
-                });
-        });
-        it("No wallet address", function (done) {
-            const data = {};
-            request(apiUrl)
-                .get(`/api/v1/account/other_account`)
-                .send(data)
-                .expect(StatusCodes.BAD_REQUEST)
-                .end((error, response) => {
-                    if (error) {
-                        console.log("Test failed with error:", error);
-                        console.log("Response body:", response.body);
-                        return done(error);
-                    }
-                    console.log(response.body);
-                    done();
-                });
-        });
-    });
-
-    describe("Get account by id.", function () {
+    describe("Get nft by id.", function () {
         it("No id.", function (done) {
             const data = {};
             request(apiUrl)
-                .get("/api/v1/account/id")
+                .get("/api/v1/nft/id")
                 .send(data)
                 .expect(StatusCodes.NOT_FOUND)
                 .end((error, response) => {
