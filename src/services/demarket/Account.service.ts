@@ -144,8 +144,10 @@ class AccountService {
                 id: id,
             },
             data: {
-                avatar: "files ? files.avatar[0].filename : existAccount.avatar",
-                cover: "files ? files.cover[0].filename : existAccount.cover",
+                // avatar: "files ? files.avatar[0].filename : existAccount.avatar",
+                // cover: "files ? files.cover[0].filename : existAccount.cover",
+                avatar: "",
+                cover: "",
                 description: description ? description : existAccount.description,
                 email: email ? email : existAccount.email,
                 userName: userName ? userName : existAccount.userName,

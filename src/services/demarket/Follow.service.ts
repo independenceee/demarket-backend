@@ -11,11 +11,11 @@ class FollowService {
                 take: pageSize,
                 skip: (currentPage - 1) * pageSize,
             });
-            const accountsFollowed = following.map(function (follow) {
+            const accounts = following.map(function (follow) {
                 return follow.following;
             });
-            const totalPage = Math.ceil(accountsFollowed.length / pageSize);
-            return { accountsFollowed, totalPage };
+            const totalPage = Math.ceil(accounts.length / pageSize);
+            return { accounts, totalPage };
         } catch (error) {
             throw new ApiError(error);
         } finally {
@@ -32,11 +32,11 @@ class FollowService {
                 take: pageSize,
                 skip: (currentPage - 1) * pageSize,
             });
-            const accountsFollowing = following.map(function (follow) {
+            const accounts = following.map(function (follow) {
                 return follow.follower;
             });
-            const totalPage = Math.ceil(accountsFollowing.length / pageSize);
-            return { accountsFollowing, totalPage };
+            const totalPage = Math.ceil(accounts.length / pageSize);
+            return { accounts, totalPage };
         } catch (error) {
             throw new ApiError(error);
         } finally {
