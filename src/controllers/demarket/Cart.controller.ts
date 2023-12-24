@@ -28,7 +28,7 @@ class CartController {
     }
 
     /**
-     * @method DELETE
+     * @method DELETE => DONE
      * @description Remove from cart
      * @param request
      * @param response

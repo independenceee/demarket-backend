@@ -4,6 +4,13 @@ import mailService from "../../services/demarket/Mail.service";
 import { InternalServerError } from "../../errors";
 
 class MailController {
+    /**
+     * @method POST => DONE
+     * @description Send feedback to email
+     * @param request 
+     * @param response 
+     * @returns 
+     */
     async sendMail(request: Request, response: Response) {
         try {
             const { emailFrom, feedback } = request.body;

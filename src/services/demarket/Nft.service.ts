@@ -1,6 +1,7 @@
 import prisma, { Nft } from "../../models";
 import { ApiError } from "../../errors";
 import generics from "../../constants/generics";
+import { StatusNft } from "@prisma/client";
 
 class NftService {
     async findAllNfts(page: number): Promise<Nft[]> {
@@ -77,6 +78,48 @@ class NftService {
             const totalPage = Math.ceil(nfts.length / pageSize);
 
             return { totalPage, nfts };
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
+    async createNft({ policyId, assetName, status }: { policyId: string; assetName: string; status: StatusNft }) {
+        try {
+            const nft = await prisma.nft.create({
+                data: { status: status == "SELLING" ? status : "SOLDOUT", policyId: policyId, assetName: assetName },
+            });
+            return nft;
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
+    async updateNft(
+        { status, transaction, policyId, assetName }: { status: StatusNft; transaction: string; policyId: string; assetName: string },
+        existNft: Nft,
+    ) {
+        try {
+            await prisma.nft.update({
+                where: { policyId: policyId, assetName: assetName },
+                data: {
+                    status: status ? status : existNft.status,
+                    countOfTransaction: transaction ? Number(existNft.countOfTransaction) + 1 : existNft.countOfTransaction,
+                },
+            });
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
+    async deleteNft({ policyId, assetName }: { policyId: string; assetName: string }) {
+        try {
+            await prisma.nft.delete({ where: { policyId: policyId, assetName: assetName } });
         } catch (error) {
             throw new ApiError(error);
         } finally {
