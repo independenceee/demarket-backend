@@ -22,7 +22,13 @@ class NftController {
         }
     }
 
-    
+    /**
+     * @method GET => DONE
+     * @description Search all nft with policyId and assetName
+     * @param request
+     * @param response
+     * @returns
+     */
     async searchNfts(request: Request, response: Response) {
         try {
             const { query } = request.query;
@@ -107,6 +113,7 @@ class NftController {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
     }
+
     /**
      * @method PATCH => DONE
      * @param request

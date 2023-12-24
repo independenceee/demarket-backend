@@ -7,7 +7,6 @@ import categoryRouter from "./demarket/category.routes";
 import nftRouter from "./demarket/nft.routes";
 import founderRouter from "./demarket/founder.routes";
 import statisticsRouter from "./demarket/statistics.routes";
-import searchRouter from "./demarket/search.routes";
 import followRouter from "./demarket/follow.routes";
 import mailRouter from "./demarket/mail.routes";
 
@@ -26,7 +25,6 @@ const router = function (app: Express) {
     app.use("/api/v1/nft", nftRouter);
     app.use("/api/v1/founders", founderRouter);
     app.use("/api/v1/statistics", statisticsRouter);
-    app.use("/api/v1/search", searchRouter);
     app.use("/api/v1/blockfrost/transaction", blockfrostTransactionRouter);
     app.use("/api/v1/blockfrost/assets", blockfrostAssetsRouter);
     app.use("/api/v1/koios/assets", koiosAssetsRouter);
