@@ -37,7 +37,6 @@ class StatisticsController {
     async getTrendings(request: Request, response: Response) {
         try {
             const totalTrendings = await statisticService.totalTrendings();
-
             response.status(StatusCodes.OK).json({ totalTrendings });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));

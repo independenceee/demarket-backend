@@ -45,7 +45,49 @@ class AccountService {
         }
     }
 
-    async findAccountByAddress(walletAddress: string) {
+    async findAccountFollowedsByAccount({ accountId, page, pageSize }: { accountId: string; page: number; pageSize: number }) {
+        try {
+            const currentPage = Math.max(Number(page || 1), 1);
+            const following = await prisma.follows.findMany({
+                where: { followerId: accountId },
+                include: { following: true },
+                take: pageSize,
+                skip: (currentPage - 1) * pageSize,
+            });
+            const accounts = following.map(function (follow) {
+                return follow.following;
+            });
+            const totalPage = Math.ceil(accounts.length / pageSize);
+            return { accounts, totalPage };
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
+    async findAccountFollowingsByAccount({ accountId, page, pageSize }: { accountId: string; page: number; pageSize: number }) {
+        try {
+            const currentPage = Math.max(Number(page || 1), 1);
+            const following = await prisma.follows.findMany({
+                where: { followingId: accountId },
+                include: { follower: true },
+                take: pageSize,
+                skip: (currentPage - 1) * pageSize,
+            });
+            const accounts = following.map(function (follow) {
+                return follow.follower;
+            });
+            const totalPage = Math.ceil(accounts.length / pageSize);
+            return { accounts, totalPage };
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
+    async findAccountByWalletAddress(walletAddress: string) {
         try {
             return await prisma.account.findUnique({ where: { walletAddress: walletAddress } });
         } catch (error) {
@@ -159,12 +201,16 @@ class AccountService {
         });
     }
 
-    async searchAccount(query: string) {
+    async searchAccount({ query, page, pageSize }: { query: string; page: number; pageSize: number }) {
         try {
+            const currentPage: number = Math.max(Number(page || 1), 1);
             const accounts = await prisma.account.findMany({
                 where: { OR: [{ walletAddress: { contains: query } }, { email: { contains: query } }, { userName: { contains: query } }] },
+                skip: (currentPage - 1) * pageSize,
+                take: pageSize,
             });
-            return accounts;
+            const totalPage: number = Math.ceil(accounts.length / pageSize);
+            return { accounts, totalPage };
         } catch (error) {
             throw new ApiError(error);
         } finally {

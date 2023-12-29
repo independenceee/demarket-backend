@@ -10,6 +10,37 @@ class CartService {
             throw new ApiError(error);
         }
     }
+
+    async findCartByAccountId(accountId: string) {
+        try {
+            const cart = await prisma.cart.findUnique({ where: { accountId: String(accountId) } });
+            return cart;
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
+    async addNftToCart({ nftId, cartId }: { nftId: string; cartId: string }) {
+        try {
+            await prisma.cartNft.create({ data: { cartId: cartId, nftId: String(nftId) } });
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
+    async removeNftFromCart({ nftId, cartId }: { nftId: string; cartId: string }) {
+        try {
+            await prisma.cartNft.delete({ where: { cartId_nftId: { cartId: cartId, nftId: String(nftId) } } });
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
 }
 
 export default new CartService();

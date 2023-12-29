@@ -3,9 +3,8 @@ import nftController from "../../controllers/demarket/Nft.controller";
 const router = Router();
 
 router.route("/search").get(nftController.searchNfts);
-router.route("/policyId_assetName").get(nftController.getNftByPolicyIdAndAssetName);
-router.route("/nft_cart").get(nftController.getNftsFromCart);
-
+router.route("/like").get(nftController.getAllNftsLike);
+router.route("/cart").get(nftController.getNftsFromCart);
 router.route("/").get(nftController.getAllNfts);
 router.route("/").post(nftController.createNft);
 router.route("/:id").get(nftController.getNftById);

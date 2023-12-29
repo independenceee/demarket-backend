@@ -43,6 +43,56 @@ class FollowService {
             await prisma.$disconnect();
         }
     }
+
+    async checkFollowExistAccount({ followingId, followerId }: { followingId: string; followerId: string }) {
+        try {
+            const existFollow = await prisma.follows.findUnique({
+                where: {
+                    followerId_followingId: {
+                        followerId: followerId,
+                        followingId: followingId,
+                    },
+                },
+            });
+            return existFollow;
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
+    async createFollowAccount({ followingId, followerId }: { followingId: string; followerId: string }) {
+        try {
+            await prisma.follows.create({
+                data: {
+                    followerId: followerId,
+                    followingId: followingId,
+                },
+            });
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
+    async deleteFollowAccount({ followingId, followerId }: { followingId: string; followerId: string }) {
+        try {
+            await prisma.follows.delete({
+                where: {
+                    followerId_followingId: {
+                        followerId: followerId,
+                        followingId: followingId,
+                    },
+                },
+            });
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
 }
 
 export default new FollowService();
