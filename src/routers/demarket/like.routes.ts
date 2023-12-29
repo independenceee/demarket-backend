@@ -3,8 +3,7 @@ import likeController from "../../controllers/demarket/Like.controller";
 
 const router = Router();
 
-router.route("/").get(likeController.getLikes);
-router.route("/").post(likeController.addLike);
-router.route("/").delete(likeController.deleteLike);
+router.route("/").post(likeController.addLikeNftByAccountId);
+router.route("/").delete(likeController.deleteLikeNftByAccountId);
 
 export default router;

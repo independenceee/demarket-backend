@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { InternalServerError } from "../../errors";
-import prisma from "../../models";
+import { InternalServerError, NotFound } from "../../errors";
+import accountService from "../../services/demarket/Account.service";
+import nftService from "../../services/demarket/Nft.service";
 import cartService from "../../services/demarket/Cart.service";
 
 class CartController {
@@ -14,12 +15,16 @@ class CartController {
     async addNftToCart(request: Request, response: Response) {
         try {
             const { nftId, accountId } = request.query;
-            const accountCart = await prisma.cart.findUnique({ where: { accountId: String(accountId) } });
-            if (!accountCart) {
+            const nft = await nftService.findNftById(String(nftId));
+            if (!nft) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Nft is not found."));
+            const account = await accountService.findAccountById(String(accountId));
+            if (!account) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Account is not found."));
+            const cartExist = await cartService.findCartByAccountId(String(accountId));
+            if (!cartExist) {
                 const newCart = await cartService.createCartByAccountId(String(accountId));
-                await prisma.cartNft.create({ data: { cartId: newCart.id, nftId: String(nftId) } });
+                await cartService.addNftToCart({ nftId: String(nftId), cartId: newCart.id });
             } else {
-                await prisma.cartNft.create({ data: { cartId: accountCart.id, nftId: String(nftId) } });
+                await cartService.addNftToCart({ nftId: String(nftId), cartId: cartExist.id });
             }
             response.status(StatusCodes.OK).json({ message: "Add nft to cart successfully" });
         } catch (error) {
@@ -37,12 +42,16 @@ class CartController {
     async remoteNftFromCart(request: Request, response: Response) {
         try {
             const { nftId, accountId } = request.query;
-            const accountCart = await prisma.cart.findUnique({ where: { accountId: String(accountId) } });
-            if (!accountCart) {
+            const nft = await nftService.findNftById(String(nftId));
+            if (!nft) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Nft is not found."));
+            const account = await accountService.findAccountById(String(accountId));
+            if (!account) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Account is not found."));
+            const cartExist = await cartService.findCartByAccountId(String(accountId));
+            if (!cartExist) {
                 const newCart = await cartService.createCartByAccountId(String(accountId));
-                await prisma.cartNft.delete({ where: { cartId_nftId: { cartId: newCart.id, nftId: String(nftId) } } });
+                await cartService.removeNftFromCart({ nftId: String(nftId), cartId: newCart.id });
             } else {
-                await prisma.cartNft.delete({ where: { cartId_nftId: { cartId: accountCart.id, nftId: String(nftId) } } });
+                await cartService.removeNftFromCart({ nftId: String(nftId), cartId: cartExist.id });
             }
             response.status(StatusCodes.OK).json({ message: "Remove nft from cart successfully" });
         } catch (error) {

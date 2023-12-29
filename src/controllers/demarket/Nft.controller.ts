@@ -1,21 +1,52 @@
 import { Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { InternalServerError, NotFound } from "../../errors";
-
+import accountService from "../../services/demarket/Account.service";
 import nftService from "../../services/demarket/Nft.service";
 import generics from "../../constants/generics";
 
 class NftController {
     /**
      * @method GET => DONE
-     * @description Get all nft from demarket
+     * @description GET ALL NFT FROM DEMARKET
      * @param request
      * @param response
      */
     async getAllNfts(request: Request, response: Response) {
         try {
-            const { page } = request.query;
-            const nfts = await nftService.findAllNfts(Number(page));
+            const { page, pageSize, policyId, assetName } = request.query;
+            if (policyId && assetName) {
+                const nft = await nftService.findNftByPolicyIdAndAssetName({ policyId: String(policyId), assetName: String(assetName) });
+                if (!nft) return response.status(StatusCodes.OK).json(nft);
+                return response.status(StatusCodes.OK).json(nft);
+            }
+            const nfts = await nftService.findAllNfts({
+                page: Number(page),
+                pageSize: Number(pageSize || generics.PER_PAGE),
+            });
+            return response.status(StatusCodes.OK).json(nfts);
+        } catch (error) {
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+        }
+    }
+
+    /**
+     * @description GET ALL NFT LIKE BY ACCOUNT ID
+     * @method GET => DONE
+     * @param request
+     * @param response
+     */
+    async getAllNftsLike(request: Request, response: Response) {
+        try {
+            const { page, pageSize, accountId } = request.query;
+            const account = await accountService.findAccountById(String(accountId));
+            if (!account) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Account is not found."));
+            const nfts = await nftService.findAllNftsLike({
+                page: Number(page),
+                pageSize: Number(pageSize || generics.PER_PAGE),
+                accountId: String(accountId),
+            });
+
             response.status(StatusCodes.OK).json(nfts);
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
@@ -24,7 +55,7 @@ class NftController {
 
     /**
      * @method GET => DONE
-     * @description Search all nft with policyId and assetName
+     * @description SEARCH NFT WIDTH POLICYID AND ASSETNAME
      * @param request
      * @param response
      * @returns
@@ -42,7 +73,7 @@ class NftController {
 
     /**
      * @method GET => DONE
-     * @description Get all nft from cartId
+     * @description GET NFT FROM CART
      * @param request
      * @param response
      */
@@ -54,8 +85,7 @@ class NftController {
                 pageSize: Number(pageSize || generics.PER_PAGE),
                 walletAddress: String(walletAddress),
             });
-
-            response.status(StatusCodes.OK).json({ ...nfts });
+            response.status(StatusCodes.OK).json({ nfts });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
@@ -81,23 +111,7 @@ class NftController {
 
     /**
      * @method GET => DONE
-     * @param request
-     * @param response
-     * @returns
-     */
-    async getNftByPolicyIdAndAssetName(request: Request, response: Response) {
-        try {
-            const { policyId, assetName } = request.query;
-            const nft = await nftService.findNftByPolicyIdAndAssetName({ policyId: String(policyId), assetName: String(assetName) });
-            if (!nft) return response.status(StatusCodes.OK).json(nft);
-            response.status(StatusCodes.OK).json(nft);
-        } catch (error) {
-            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
-        }
-    }
-
-    /**
-     * @method GET => DONE
+     * @description CREATE NFT TO DATABASE
      * @param request
      * @param response
      * @returns
@@ -116,6 +130,7 @@ class NftController {
 
     /**
      * @method PATCH => DONE
+     * @description UPDATE NFT FROM DATABASE BY POLICYID AND ASSETNAME
      * @param request
      * @param response
      * @returns
@@ -133,7 +148,8 @@ class NftController {
     }
 
     /**
-     * @method GET => DONE
+     * @method DELETE => DONE
+     * @description DELETE NFT BY POLICYID AND ASSETNAME
      * @param request
      * @param response
      * @returns

@@ -1,15 +1,37 @@
 import prisma, { Nft } from "../../models";
 import { ApiError } from "../../errors";
-import generics from "../../constants/generics";
 import { StatusNft } from "@prisma/client";
 
 class NftService {
-    async findAllNfts(page: number): Promise<Nft[]> {
+    async findAllNfts({ page, pageSize }: { page: number; pageSize: number }) {
         try {
-            const PER_PAGE = generics.PER_PAGE;
             const currentPage = Math.max(Number(page || 1), 1);
-            const nfts: Nft[] = await prisma.nft.findMany({ take: PER_PAGE, skip: (currentPage - 1) * PER_PAGE });
-            return nfts;
+            const totalNfts = await prisma.nft.count();
+            const nfts: Nft[] = await prisma.nft.findMany({
+                take: pageSize,
+                skip: (currentPage - 1) * pageSize,
+            });
+            const totalPage = Math.ceil(totalNfts / pageSize);
+            return { nfts, totalPage };
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
+    async findAllNftsLike({ page, pageSize, accountId }: { page: number; pageSize: number; accountId: string }) {
+        try {
+            const currentPage = Math.max(Number(page || 1), 1);
+            const nfts = await prisma.likes.findMany({
+                where: { accountId: accountId },
+                include: { nft: true },
+                take: pageSize,
+                skip: (currentPage - 1) * pageSize,
+            });
+            const totalNfts = nfts.length;
+            const totalPage = Math.ceil(totalNfts / pageSize);
+            return { nfts, totalPage };
         } catch (error) {
             throw new ApiError(error);
         } finally {

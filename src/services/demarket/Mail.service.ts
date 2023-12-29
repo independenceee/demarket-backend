@@ -6,7 +6,7 @@ class MailService {
             await transporter.sendMail({
                 from: emailFrom,
                 to: process.env.MAIL_COMPANY!,
-                subject: "Feedback demarket",
+                subject: "FEEDBACK DEMARKET",
                 html: `<b>${feedback}</b>`,
             });
         } catch (error) {

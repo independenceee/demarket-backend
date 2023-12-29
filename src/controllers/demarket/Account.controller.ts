@@ -7,8 +7,8 @@ import generics from "../../constants/generics";
 
 class AccountController {
     /**
-     * @method GET => OK
-     * @description Get All account from database
+     * @method GET => DONE
+     * @description GET ALL ACCOUNT FROM DATABASE
      * @param request
      * @param response
      * @returns
@@ -22,10 +22,60 @@ class AccountController {
                     page: Number(page),
                     pageSize: Number(pageSize || generics.PER_PAGE),
                 });
-                response.status(StatusCodes.OK).json({ ...accounts });
+                return response.status(StatusCodes.OK).json({ ...accounts });
             }
-            const accounts = await accountService.findAllAccounts({ page: Number(page), pageSize: Number(pageSize || generics.PER_PAGE) });
+            const accounts = await accountService.findAllAccounts({
+                page: Number(page),
+                pageSize: Number(pageSize || generics.PER_PAGE),
+            });
             response.status(StatusCodes.OK).json({ ...accounts });
+        } catch (error) {
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+        }
+    }
+
+    /**
+     * @method GET => DONE
+     * @description GET ALL ACCOUNTS FOLLOWER FROM DATABASE
+     * @param request
+     * @param response
+     * @returns
+     */
+    async getAllAccountFollowers(request: Request, response: Response) {
+        try {
+            const { page, pageSize, walletAddress } = request.query;
+            if (!walletAddress) response.status(StatusCodes.NOT_FOUND).json(new NotFound("address has been required."));
+            const existAccount = await accountService.findAccountByWalletAddress(String(walletAddress));
+            if (!existAccount) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Account is not found."));
+            const accountsFollower = await accountService.findAccountFollowedsByAccount({
+                accountId: existAccount.id,
+                page: Number(page),
+                pageSize: Number(pageSize || generics.PER_PAGE),
+            });
+            response.status(StatusCodes.OK).json({ ...accountsFollower });
+        } catch (error) {
+            response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
+        }
+    }
+
+    /**
+     * @method GET => DONE
+     * @description GET ALL ACCOUNT FOLLOWING FROM DATABASE
+     * @param request
+     * @param response
+     */
+    async getAllAccountFollowings(request: Request, response: Response) {
+        try {
+            const { page, pageSize, walletAddress } = request.query;
+            if (!walletAddress) response.status(StatusCodes.NOT_FOUND).json(new NotFound("address wallet has been required."));
+            const existAccount = await accountService.findAccountByWalletAddress(String(walletAddress));
+            if (!existAccount) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Account is not found."));
+            const accountsFollowing = await accountService.findAccountFollowingsByAccount({
+                accountId: existAccount.id,
+                page: Number(page),
+                pageSize: Number(pageSize || generics.PER_PAGE),
+            });
+            response.status(StatusCodes.OK).json({ ...accountsFollowing });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
@@ -39,10 +89,14 @@ class AccountController {
      */
     async searchAccounts(request: Request, response: Response) {
         try {
-            const { query } = request.query;
+            const { page, pageSize, query } = request.query;
             if (!query) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Search query is required."));
-            const accounts = await accountService.searchAccount(String(query));
-            return response.status(StatusCodes.OK).json({ ...accounts });
+            const accounts = await accountService.searchAccount({
+                query: String(query),
+                page: Number(page),
+                pageSize: Number(pageSize || generics.PER_PAGE),
+            });
+            return response.status(StatusCodes.OK).json(accounts);
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
@@ -50,7 +104,7 @@ class AccountController {
 
     /**
      * @method GET => DONE
-     * @description Get account by account id
+     * @description GET ACCOUNT BY ACCOUNT ID
      * @param request
      * @param response
      * @returns
@@ -68,11 +122,12 @@ class AccountController {
 
     /**
      * @method POST => DONE
-     * @description Create account width walet address
+     * @description CREATE ACCOUNT TO DATABASE DEMARKET
      * @param request
      * @param response
      * @returns
      */
+
     async createAccount(request: Request, response: Response) {
         try {
             const { walletAddress } = request.body;
@@ -90,7 +145,7 @@ class AccountController {
 
     /**
      * @method PATCH => DONE
-     * @description Update account by account id
+     * @description UPDATE ACCOUNT BY ACCOUNT ID
      * @param request { id }
      * @param response { message }
      * @returns
@@ -103,7 +158,7 @@ class AccountController {
             const existAccount = await accountService.findAccountById(String(id));
             if (!existAccount) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Account is not found."));
             await accountService.updateAccount({ files, description, email, existAccount, id, linkedin, userName, telegram, twitter });
-            response.status(StatusCodes.OK).json({ message: "update account successfully" });
+            return response.status(StatusCodes.OK).json({ message: "update account successfully" });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         } finally {
@@ -113,7 +168,7 @@ class AccountController {
 
     /**
      * @method DELETE => DONE
-     * @description Delete account by account id
+     * @description DELETE ACCOUNT BY ACCOUNT ID
      * @param request { id }
      * @param response { message }
      * @returns
@@ -124,7 +179,7 @@ class AccountController {
             const existAccount = await accountService.findAccountById(String(id));
             if (!existAccount) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Account is not found."));
             await accountService.deleteAccount(String(id));
-            response.status(StatusCodes.OK).json({ message: "Delete account successfully" });
+            return response.status(StatusCodes.OK).json({ message: "Delete account successfully" });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
