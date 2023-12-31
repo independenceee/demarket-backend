@@ -85,7 +85,7 @@ class NftController {
                 pageSize: Number(pageSize || generics.PER_PAGE),
                 walletAddress: String(walletAddress),
             });
-            response.status(StatusCodes.OK).json({ nfts });
+            response.status(StatusCodes.OK).json( nfts );
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }

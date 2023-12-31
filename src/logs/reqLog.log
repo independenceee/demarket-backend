@@ -10,3 +10,15 @@
 20231229	16:48:42	aaed5077-dd59-4253-911b-ef6a46ef50ea	GET	/api/v1/account/following?walletAddress=addr_test1qzndmp8766ymgdsqkll9fq4tp63a0qey9q7le7g3wx4wu5d7080dwpufa65mkmh402unp4d4meyftg723gysz7mfnrqqfg09fs	undefined
 20231229	16:50:17	34cddb44-8fdb-49e7-bae1-7452426ad096	GET	/api/v1/account/following?walletAddress=addr_test1qzndmp8766ymgdsqkll9fq4tp63a0qey9q7le7g3wx4wu5d7080dwpufa65mkmh402unp4d4meyftg723gysz7mfnrqqfg09fs	undefined
 20231229	16:50:39	28423402-0800-4147-a03b-0f2d6dff78f0	DELETE	/api/v1/account/7242f44d-0cfe-487a-9b98-b2576853e8a1	undefined
+20231231	16:37:55	f7b33ca7-11c7-43d1-8579-c113084edbaa	POST	/api/v1/cart/add_to_cart?nftId=06bd841a-41a2-4b1d-9b6c-5359461b3a5d&accountId=14b84e7d-5dd8-4b89-bd5b-cca4b3ff79fb	undefined
+20231231	16:39:11	4d079fe4-bf60-45a3-bf24-a65b0c04f612	POST	/api/v1/cart/remove_from_cart?nftId=06bd841a-41a2-4b1d-9b6c-5359461b3a5d&accountId=14b84e7d-5dd8-4b89-bd5b-cca4b3ff79fb	undefined
+20231231	16:47:11	d719cf09-f764-4a90-a294-a581571f9e05	POST	/api/v1/cart/add_to_cart?nftId=06bd841a-41a2-4b1d-9b6c-5359461b3a5d&accountId=14b84e7d-5dd8-4b89-bd5b-cca4b3ff79fb	undefined
+20231231	16:47:42	c569ced0-fef3-4b4d-981b-4276109e2b20	POST	/api/v1/cart/add_to_cart?nftId=06bd841a-41a2-4b1d-9b6c-5359461b3a5d&accountId=14b84e7d-5dd8-4b89-bd5b-cca4b3ff79fb	undefined
+20231231	16:47:57	20573bee-9a72-470d-b799-ae791a3c9d0c	POST	/api/v1/cart/remove_from_cart?nftId=06bd841a-41a2-4b1d-9b6c-5359461b3a5d&accountId=14b84e7d-5dd8-4b89-bd5b-cca4b3ff79fb	undefined
+20231231	16:48:06	6f4053d4-554e-48f5-a5e2-335bcc497436	POST	/api/v1/cart/add_to_cart?nftId=06bd841a-41a2-4b1d-9b6c-5359461b3a5d&accountId=14b84e7d-5dd8-4b89-bd5b-cca4b3ff79fb	undefined
+20231231	16:49:06	42c78566-90ad-465a-b88c-b622842fe6ca	POST	/api/v1/cart/remove_from_cart?nftId=06bd841a-41a2-4b1d-9b6c-5359461b3a5d&accountId=14b84e7d-5dd8-4b89-bd5b-cca4b3ff79fb	undefined
+20231231	16:49:24	4b15d0ee-a9df-4526-92c9-9388abf1ee3f	POST	/api/v1/cart/add_to_cart?nftId=06bd841a-41a2-4b1d-9b6c-5359461b3a5d&accountId=14b84e7d-5dd8-4b89-bd5b-cca4b3ff79fb	undefined
+20231231	16:49:35	cb8e17ad-3053-42e6-9ca2-9f282c25e59b	POST	/api/v1/cart/add_to_cart?nftId=06bd841a-41a2-4b1d-9b6c-5359461b3a5e&accountId=14b84e7d-5dd8-4b89-bd5b-cca4b3ff79fb	undefined
+20231231	16:49:47	11575da0-072a-4fc2-b869-0ca7015fecad	POST	/api/v1/cart/add_to_cart?nftId=06bd841a-41a2-4b1d-9b6c-5359461b3a5d&accountId=14b84e7d-5dd8-4b89-bd5b-cca4b3ff79fb	undefined
+20231231	17:03:07	ca9465d7-9aa7-4e99-98af-db6dee496e72	POST	/api/v1/cart/add_to_cart?nftId=06bd841a-41a2-4b1d-9b6c-5359461b3a5d&accountId=14b84e7d-5dd8-4b89-bd5b-cca4b3ff79fb	undefined
+20231231	17:03:16	1a399c27-3f46-4c58-9a95-5ec7444eba59	POST	/api/v1/cart/add_to_cart?nftId=06bd841a-41a2-4b1d-9b6c-5359461b3a5d&accountId=14b84e7d-5dd8-4b89-bd5b-cca4b3ff79fb	undefined

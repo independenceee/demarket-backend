@@ -11,6 +11,25 @@ class CartService {
         }
     }
 
+    async findNftExistAccount({ nftId, cartId }: { nftId: string; cartId: string }) {
+        try {
+            const existingCartNft = await prisma.cartNft.findUnique({
+                where: {
+                    cartId_nftId: {
+                        cartId: cartId,
+                        nftId: nftId,
+                    },
+                },
+            });
+
+            return existingCartNft;
+        } catch (error) {
+            throw new ApiError(error);
+        } finally {
+            await prisma.$disconnect();
+        }
+    }
+
     async findCartByAccountId(accountId: string) {
         try {
             const cart = await prisma.cart.findUnique({ where: { accountId: String(accountId) } });
