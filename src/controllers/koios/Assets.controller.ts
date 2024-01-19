@@ -122,9 +122,7 @@ class AssetsController {
             if (!policyId && !assetName) {
                 return response.status(StatusCodes.NOT_FOUND).json(new NotFound("policyId and assetName has been required."));
             }
-
             const data = await get(`/asset_summary?_asset_policy=${policyId}&_asset_name=${assetName}`, {});
-
             response.status(StatusCodes.OK).json(data);
         } catch (error) {
             response.status(StatusCodes.BAD_REQUEST).json({
@@ -150,11 +148,9 @@ class AssetsController {
             }
             const data = await get(`/policy_asset_list?_asset_policy=${policyId}`, {});
             const results = paginate({ data: data, page: Number(page || 1), pageSize: Number(pageSize || 8) });
-            response.status(StatusCodes.OK).json(results);
+            response.status(StatusCodes.OK).json({ totalPage: 0, paginatedData: data });
         } catch (error) {
-            response.status(StatusCodes.BAD_REQUEST).json({
-                error,
-            });
+            response.status(StatusCodes.BAD_REQUEST).json({ error });
         }
     }
 

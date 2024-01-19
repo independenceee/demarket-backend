@@ -58,12 +58,10 @@ class TransactionController {
     async getTransactionAccount(request: Request, response: Response) {
         try {
             const { address } = request.body;
-            const { page, pageSize } = request.query;
-
-            if (!address) {
-                return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("Address has been required."));
-            }
+            const { page, pageSize, type } = request.query;
+            if (!address) return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("Address has been required."));
             const data = await apiBlockfrost.addressesTransactions(address);
+            if (type) return response.status(StatusCodes.OK).json(data);
             const results = paginate({ data: data, page: Number(page || 1), pageSize: Number(pageSize || 8) });
             return response.status(StatusCodes.OK).json(results);
         } catch (error) {
@@ -83,13 +81,14 @@ class TransactionController {
     async getTransactionAsset(request: Request, response: Response) {
         try {
             const { policyId, assetName } = request.body;
-            const { page, pageSize } = request.query;
+            const { page, pageSize, type } = request.query;
 
             if (!policyId && !assetName) {
                 return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("PolicyId and assetName has been required."));
             }
 
             const data = await apiBlockfrost.assetsTransactions(policyId + assetName);
+            if (type) return response.status(StatusCodes.OK).json(data);
             const allTransaction = paginate({ data: data, page: Number(page || 1), pageSize: Number(pageSize || 8) });
 
             return response.status(StatusCodes.OK).json({

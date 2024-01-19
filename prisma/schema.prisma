@@ -25,12 +25,15 @@ model Account {
   linkedin      String?    @db.Text
   twitter       String?    @db.Text
   validate      Boolean?   @default(false)
+  // transaction   Int?       @default(0)
   cart          Cart?
   like          Likes[]
   followers     Follows[]  @relation("following")
   following     Follows[]  @relation("follower")
   Comments      Comments[]
 }
+
+
 
 model Follows {
   createdAt   DateTime @default(now())
@@ -41,6 +44,7 @@ model Follows {
   followingId String   @db.Text
 
   @@id([followerId, followingId])
+  @@unique([followerId, followingId])
 }
 
 model Likes {
