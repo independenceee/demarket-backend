@@ -82,8 +82,8 @@ class FollowService {
             await prisma.follows.delete({
                 where: {
                     followerId_followingId: {
-                        followerId: followerId,
-                        followingId: followingId,
+                        followerId,
+                        followingId,
                     },
                 },
             });

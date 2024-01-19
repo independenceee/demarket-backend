@@ -165,6 +165,9 @@ CREATE TABLE "Statistics" (
 CREATE UNIQUE INDEX "Account_walletAddress_key" ON "Account"("walletAddress");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Follows_followerId_followingId_key" ON "Follows"("followerId", "followingId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Nft_policyId_key" ON "Nft"("policyId");
 
 -- CreateIndex

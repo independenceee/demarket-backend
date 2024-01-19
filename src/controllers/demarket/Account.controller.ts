@@ -47,12 +47,12 @@ class AccountController {
             if (!walletAddress) response.status(StatusCodes.NOT_FOUND).json(new NotFound("address has been required."));
             const existAccount = await accountService.findAccountByWalletAddress(String(walletAddress));
             if (!existAccount) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Account is not found."));
-            const accountsFollower = await accountService.findAccountFollowedsByAccount({
+            const accounts = await accountService.findAccountFollowedsByAccount({
                 accountId: existAccount.id,
                 page: Number(page),
                 pageSize: Number(pageSize || generics.PER_PAGE),
             });
-            response.status(StatusCodes.OK).json({ ...accountsFollower });
+            response.status(StatusCodes.OK).json(accounts);
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }
@@ -70,12 +70,12 @@ class AccountController {
             if (!walletAddress) response.status(StatusCodes.NOT_FOUND).json(new NotFound("address wallet has been required."));
             const existAccount = await accountService.findAccountByWalletAddress(String(walletAddress));
             if (!existAccount) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Account is not found."));
-            const accountsFollowing = await accountService.findAccountFollowingsByAccount({
+            const accounts = await accountService.findAccountFollowingsByAccount({
                 accountId: existAccount.id,
                 page: Number(page),
                 pageSize: Number(pageSize || generics.PER_PAGE),
             });
-            response.status(StatusCodes.OK).json({ ...accountsFollowing });
+            response.status(StatusCodes.OK).json(accounts);
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }

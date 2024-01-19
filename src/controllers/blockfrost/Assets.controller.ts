@@ -36,7 +36,7 @@ class AssetsController {
         try {
             const { policyId, assetName } = request.body;
 
-            if (!policyId || !assetName) {
+            if (!policyId) {
                 return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("PolicyId and assetName has been required."));
             }
 
