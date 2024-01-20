@@ -38,13 +38,13 @@ class NftController {
      */
     async getAllNftsLike(request: Request, response: Response) {
         try {
-            const { page, pageSize, accountId } = request.query;
-            const account = await accountService.findAccountById(String(accountId));
+            const { page, pageSize, walletAddress } = request.query;
+            const account = await accountService.findAccountByWalletAddress(String(walletAddress));
             if (!account) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Account is not found."));
             const nfts = await nftService.findAllNftsLike({
                 page: Number(page),
                 pageSize: Number(pageSize || generics.PER_PAGE),
-                accountId: String(accountId),
+                walletAddress: String(walletAddress),
             });
 
             response.status(StatusCodes.OK).json(nfts);
@@ -85,7 +85,7 @@ class NftController {
                 pageSize: Number(pageSize || generics.PER_PAGE),
                 walletAddress: String(walletAddress),
             });
-            response.status(StatusCodes.OK).json( nfts );
+            response.status(StatusCodes.OK).json(nfts);
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));
         }

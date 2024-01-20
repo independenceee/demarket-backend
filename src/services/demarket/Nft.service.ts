@@ -20,14 +20,14 @@ class NftService {
         }
     }
 
-    async findAllNftsLike({ page, pageSize, accountId }: { page: number; pageSize: number; accountId: string }) {
+    async findAllNftsLike({ page, pageSize, walletAddress }: { page: number; pageSize: number; walletAddress: string }) {
         try {
             const currentPage = Math.max(Number(page || 1), 1);
             const nfts = await prisma.likes.findMany({
-                where: { accountId: accountId },
+                where: { account: { walletAddress: walletAddress } },
                 include: { nft: true },
-                take: pageSize,
-                skip: (currentPage - 1) * pageSize,
+                // take: pageSize,
+                // skip: (currentPage - 1) * pageSize,
             });
             const totalNfts = nfts.length;
             const totalPage = Math.ceil(totalNfts / pageSize);

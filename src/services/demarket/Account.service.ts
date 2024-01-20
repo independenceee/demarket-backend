@@ -186,14 +186,11 @@ class AccountService {
                 id: id,
             },
             data: {
-                // avatar: "files ? files.avatar[0].filename : existAccount.avatar",
-                // cover: "files ? files.cover[0].filename : existAccount.cover",
-                avatar: "",
-                cover: "",
+                avatar: files ? files.avatar[0].filename : existAccount.avatar,
+                cover: files ? files.cover[0].filename : existAccount.cover,
                 description: description ? description : existAccount.description,
                 email: email ? email : existAccount.email,
                 userName: userName ? userName : existAccount.userName,
-
                 linkedin: linkedin ? linkedin : "",
                 telegram: telegram ? telegram : "",
                 twitter: twitter ? twitter : "",
