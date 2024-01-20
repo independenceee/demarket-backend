@@ -25,7 +25,6 @@ model Account {
   linkedin      String?    @db.Text
   twitter       String?    @db.Text
   validate      Boolean?   @default(false)
-  // transaction   Int?       @default(0)
   cart          Cart?
   like          Likes[]
   followers     Follows[]  @relation("following")
