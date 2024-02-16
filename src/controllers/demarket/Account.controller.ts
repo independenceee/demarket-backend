@@ -153,11 +153,11 @@ class AccountController {
     async updateAccountById(request: Request, response: Response) {
         try {
             const { id } = request.params;
-            const { email, userName, description, linkedin, telegram, twitter } = request.body;
-            const files: any = request.files;
+            const { email, userName, description, linkedin, telegram, twitter, avatar, cover } = request.body;
+
             const existAccount = await accountService.findAccountById(String(id));
             if (!existAccount) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("Account is not found."));
-            await accountService.updateAccount({ files, description, email, existAccount, id, linkedin, userName, telegram, twitter });
+            await accountService.updateAccount({ avatar, cover, description, email, existAccount, id, linkedin, userName, telegram, twitter });
             return response.status(StatusCodes.OK).json({ message: "update account successfully" });
         } catch (error) {
             response.status(StatusCodes.INTERNAL_SERVER_ERROR).json(new InternalServerError(error));

@@ -10,13 +10,7 @@ router.route("/following").get(accountController.getAllAccountFollowings);
 router.route("/").get(accountController.getAllAccounts);
 router.route("/:id").get(accountController.getAccountById);
 router.route("/").post(accountController.createAccount);
-router.route("/:id").patch(
-    UploadFile.fields([
-        { name: "avatar", maxCount: 1 },
-        { name: "cover", maxCount: 1 },
-    ]),
-    accountController.updateAccountById,
-);
+router.route("/:id").patch(accountController.updateAccountById);
 router.route("/:id").delete(accountController.deleteAccountById);
 
 export default router;

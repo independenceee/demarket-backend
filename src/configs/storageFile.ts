@@ -8,15 +8,16 @@ export const fileFilter = (request: Request, file: Express.Multer.File, callback
     if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
         callback(null, true);
     } else {
-        callback(null, false);
+        callback(null, true);
     }
 };
 
 const storage = multer.diskStorage({
     destination: function (request: Request, file: Express.Multer.File, callback: DestinationCallback): void {
         const { destination } = request.query;
+
         if (destination) {
-            callback(null, `public${destination}`);
+            callback(null, `public/${destination}`);
         } else {
             callback(null, `public`);
         }

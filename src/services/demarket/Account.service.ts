@@ -161,7 +161,8 @@ class AccountService {
     }
 
     async updateAccount({
-        files,
+        avatar,
+        cover,
         existAccount,
         id,
         email,
@@ -171,7 +172,8 @@ class AccountService {
         telegram,
         twitter,
     }: {
-        files: any;
+        avatar: string;
+        cover: string;
         existAccount: Account;
         id: string;
         email: string;
@@ -186,8 +188,8 @@ class AccountService {
                 id: id,
             },
             data: {
-                avatar: files ? files.avatar[0].filename : existAccount.avatar,
-                cover: files ? files.cover[0].filename : existAccount.cover,
+                avatar: avatar ? avatar : existAccount.avatar,
+                cover: cover ? cover : existAccount.cover,
                 description: description ? description : existAccount.description,
                 email: email ? email : existAccount.email,
                 userName: userName ? userName : existAccount.userName,
