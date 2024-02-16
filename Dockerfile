@@ -1,7 +1,17 @@
-FROM node:18
+FROM node:20
+
 WORKDIR /app
-COPY package.json .
+
+COPY package*.json ./
+
 RUN npm install
-COPY . ./
+
+COPY prisma ./prisma
+
+RUN npx prisma generate
+
+COPY . .
+
 EXPOSE 5000
-CMD ["node", "src/index.js"]
+
+CMD ["ts-node", "src/index.ts"]

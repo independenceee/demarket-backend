@@ -3,8 +3,6 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import express, { Express } from "express";
-import session from "express-session";
-import configs from "./configs";
 import router from "./routers/index.routes";
 import LogHandler from "./middlewares/LogHandler";
 import notFound from "./middlewares/NotFound";
@@ -18,8 +16,7 @@ const start = function () {
     }
     const PORT: number = parseInt(process.env.PORT as string, 10);
     app.use(LogHandler);
-    app.use(cors(configs.corsOptions));
-    app.use(session(configs.sessionOptions));
+    app.use(cors());
     app.use(cookieParser());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
