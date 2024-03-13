@@ -1,11 +1,7 @@
-### TEST CASE BACKEND
+# Installation Instructions
 
-Link: https://docs.google.com/spreadsheets/d/1qVDBkyYdoU2QfA4NziCV9K_jsIhUxiQ4/edit#gid=1957770526
+## 1. First, please clone this source code
 
-### REPORT DATABASE
-
-Link: https://docs.google.com/document/d/18WzE6QtEVsiXqi7vCp-alzAta7vkxn65/edit
-
-### LINK WEBSITE
-
-Link: https://demarket-frontend.vercel.app
+```sh
+git clone https://github.com/independenceee/demarket-backend.git
+```
