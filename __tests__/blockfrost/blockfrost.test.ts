@@ -1,6 +1,6 @@
 import request from "supertest";
 
-const apiUrl = "https://demarket-backend.vercel.app";
+const apiUrl = "https://api.demarket.vn/api/v1";
 
 // Get asset information when policyId and assetName are known
 describe("Get asset information when policyId and assetName are known", () => {
