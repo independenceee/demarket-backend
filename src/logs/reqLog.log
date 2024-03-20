@@ -19984,3 +19984,5 @@
 20240223	23:59:43	f8db44f7-0d84-4bc0-95fd-d7c5ade8e837	OPTIONS	/api/v1/account	http://localhost:3000
 20240223	23:59:43	75010653-c2a5-4453-9a35-04311e0aeeaa	POST	/api/v1/account	http://localhost:3000
 20240223	23:59:43	7a03cbdc-0941-4ecf-a1ba-61027c963924	POST	/api/v1/account	http://localhost:3000
+20240317	12:09:23	29d3f870-d274-4b52-a70d-a29a44315f36	POST	/api/v1/blockfrost/transaction/account	undefined
+20240317	12:10:00	1d3c65d0-37af-4c6b-9930-3bc35c019e03	POST	/api/v1/blockfrost/transaction/account	undefined

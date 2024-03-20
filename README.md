@@ -43,10 +43,30 @@ After the project is built successfully, execute `npm run build` to build and ch
 -   You can retrieve the properties of the blockfrost or koios APIs to query the properties to retrieve the necessary information.
 -   The backend has features that make the frontend more flexible and easy to develop
 
-### 3. License
+### 3. Here, we use some Block Frost and Koios APIs to query the resources needed for the project.
+
+The API is used by us so that the assets can have enough information
+
+-   Get details utxo block
+-   Get details transaction block
+-   Get transaction from account address
+-   Get transaction from assets
+-   Get amount asset from stake adress
+-   Get infomation assets from policyId and assetName
+-   Get asset minted from policyId
+-   Get stake key from address
+-   Get the current address holding the asset
+-   Get asset information from policyId and assetName
+-   Get the existing attribute in PolicyId
+-   Get the total transaction stake wallet unstake address from asset
+-   Get the existing attribute in PolicyId
+-   Retrieve the currently active stakeKey
+-   Get all assets from address
+
+### 4. License
 
 The Demarket backend is released under the MIT. See the LICENSE file for more details.
 
-### 4. Contact
+### 5. Contact
 
 For any questions or feedback, please contact the project maintainer at `nguyenkhanh17112003@gmail.com`.

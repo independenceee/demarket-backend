@@ -61,9 +61,10 @@ class TransactionController {
             const { page, pageSize, type } = request.query;
             if (!address) return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("Address has been required."));
             const data = await apiBlockfrost.addressesTransactions(address);
+            console.log(data.length);
             if (type) return response.status(StatusCodes.OK).json(data);
             const results = paginate({ data: data, page: Number(page || 1), pageSize: Number(pageSize || 8) });
-            return response.status(StatusCodes.OK).json(results);
+            return response.status(StatusCodes.OK).json(data);
         } catch (error) {
             return response.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
                 error,
