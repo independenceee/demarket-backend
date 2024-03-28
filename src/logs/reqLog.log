@@ -19986,3 +19986,9 @@
 20240223	23:59:43	7a03cbdc-0941-4ecf-a1ba-61027c963924	POST	/api/v1/account	http://localhost:3000
 20240317	12:09:23	29d3f870-d274-4b52-a70d-a29a44315f36	POST	/api/v1/blockfrost/transaction/account	undefined
 20240317	12:10:00	1d3c65d0-37af-4c6b-9930-3bc35c019e03	POST	/api/v1/blockfrost/transaction/account	undefined
+20240327	23:11:39	a3ee8b83-2ae8-4d21-a7d1-3b0bc5ae0a00	POST	/api/v1/koios/assets/nft-address	undefined
+20240327	23:13:17	211b4e97-ed2d-4329-afc2-c6aa6a5c257d	POST	/api/v1/koios/assets/nft-address	undefined
+20240327	23:17:42	d39f8639-ad4b-4287-8113-eebee6d7d100	POST	/api/v1/koios/assets/nft-address	undefined
+20240327	23:18:22	62e97398-591f-4684-9deb-77328a9b48a6	POST	/api/v1/koios/assets/nft-address	undefined
+20240327	23:24:15	31f32790-e7e0-4bce-8e5e-12caf033f823	POST	/api/v1/koios/assets/nft-address	undefined
+20240327	23:53:16	23de402a-d8ee-499d-8bb9-eb4907f6d6f4	POST	/api/v1/koios/assets/nft-address	undefined
