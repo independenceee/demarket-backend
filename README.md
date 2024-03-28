@@ -38,12 +38,29 @@ http://localhost:5000
 The project is running on `PORT 5000` and now you will carry out development of our project
 After the project is built successfully, execute `npm run build` to build and check the output
 
-### 2.Features: Our Backend allows users to securely execute the following functions
+### 2.Get all the resources and create the necessary environment to run the project
+
+In the project you must create an .env file to run project dependencies
+
+```env
+DATABASE_URL="postgresql..."
+PORT = 5000
+BLOCKFROST_PROJECT_ID_SECRET_PREPROD = preprod...
+BLOCKFROST_PROJECT_ID_SECRET_PREVIEW = preview...
+BLOCKFROST_PROJECT_ID_SECRET_MAINNET = mainnet...
+KOIOS_RPC_URL_PREPROD = https...
+KOIOS_RPC_URL_PREVIEW = https...
+KOIOS_RPC_URL_MAINNET = https...
+```
+
+To get these resources you need to `https://blockfrost.io` and `https://www.koios.rest` to do a few operations to get all the dependencies for the project. For the database, I will use the postgresql database and on the local machine on your computer.
+
+### 3.Features: Our Backend allows users to securely execute the following functions
 
 -   You can retrieve the properties of the blockfrost or koios APIs to query the properties to retrieve the necessary information.
 -   The backend has features that make the frontend more flexible and easy to develop
 
-### 3. Here, we use some Block Frost and Koios APIs to query the resources needed for the project.
+### 4. Here, we use some Block Frost and Koios APIs to query the resources needed for the project.
 
 The API is used by us so that the assets can have enough information
 
@@ -63,10 +80,10 @@ The API is used by us so that the assets can have enough information
 -   Retrieve the currently active stakeKey
 -   Get all assets from address
 
-### 4. License
+### 5. License
 
 The Demarket backend is released under the MIT. See the LICENSE file for more details.
 
-### 5. Contact
+### 6. Contact
 
 For any questions or feedback, please contact the project maintainer at `nguyenkhanh17112003@gmail.com`.

@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { get, post } from "../../utils/koios";
 import { BadRequest, NotFound } from "../../errors";
 import paginate from "../../utils/paginate";
+import axios from "axios";
 
 class AssetsController {
     /**
@@ -17,7 +18,10 @@ class AssetsController {
             const { policyId, assetName } = request.body;
             if (!policyId && !assetName)
                 return response.status(StatusCodes.BAD_REQUEST).json(new BadRequest("policyId and assetName has been required."));
-            const data = await get(`/asset_nft_address?_asset_policy=${policyId}&_asset_name=${assetName}`, {});
+            const res = await axios.get(`https://preprod.koios.rest/api/v1/asset_nft_address?_asset_policy=${policyId}&_asset_name=${assetName}`, {});
+
+            const data = res.data;
+
             if (!data) return response.status(StatusCodes.NOT_FOUND).json(new NotFound("assets from policyId and assetName not exist."));
             response.status(StatusCodes.OK).json({ address: data[0].payment_address });
         } catch (error) {
