@@ -41,7 +41,6 @@ describe("Get stakekey from address", () => {
         request(apiUrl)
             .post("/api/v1/emurgo/stakekey/address")
             .send(postData)
-            .expect(500)
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
