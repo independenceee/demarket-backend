@@ -26,8 +26,16 @@ class StatisticsService {
 
     async totalTransactions(contractAddress: string) {
         try {
-            const data = await apiBlockfrost.addressesTransactions(contractAddress);
-            return data.length;
+            let results = 0;
+
+            for (let index = 1; index <= 15; index++) {
+                const data = await apiBlockfrost.addressesTransactions(contractAddress, {
+                    count: 100,
+                    page: index,
+                });
+                results += data.length;
+            }
+            return results;
         } catch (error) {
             throw new ApiError(error);
         }
