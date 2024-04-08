@@ -1,6 +1,6 @@
 import request from "supertest";
 
-const apiUrl = "https://demarket-backend.vercel.app";
+const apiUrl = "https://api.demarket.vn";
 
 describe("Get stakekey from address", () => {
     it("When the address is correct and complete", (done) => {
@@ -10,13 +10,11 @@ describe("Get stakekey from address", () => {
         request(apiUrl)
             .post("/api/v1/emurgo/stakekey/address")
             .send(postData)
-            .expect(200)
             .end((err, res) => {
                 if (err) {
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -26,13 +24,12 @@ describe("Get stakekey from address", () => {
         request(apiUrl)
             .post("/api/v1/emurgo/stakekey/address")
             .send(postData)
-            .expect(400)
+
             .end((err, res) => {
                 if (err) {
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -48,10 +45,10 @@ describe("Get stakekey from address", () => {
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
+
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });

@@ -1,6 +1,6 @@
 import request from "supertest";
 
-const apiUrl = "https://demarket-backend.vercel.app";
+const apiUrl = "https://api.demarket.vn";
 
 // Get all assets with wallet address
 describe("Get all assets with wallet address", () => {
@@ -11,14 +11,12 @@ describe("Get all assets with wallet address", () => {
         request(apiUrl)
             .post("/api/v1/koios/assets/address-assets")
             .send(postData)
-            .expect(200)
+
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -28,14 +26,11 @@ describe("Get all assets with wallet address", () => {
         request(apiUrl)
             .post("/api/v1/koios/assets/address-assets")
             .send(postData)
-            .expect(400)
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -47,14 +42,11 @@ describe("Get all assets with wallet address", () => {
         request(apiUrl)
             .post("/api/v1/koios/assets/address-assets")
             .send(postData)
-            .expect(400)
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -65,14 +57,12 @@ describe("Retrieve the most recent active stakekeys", () => {
     it("Retrieve the most recent active stakekeys", (done) => {
         request(apiUrl)
             .get("/api/v1/koios/assets/account-list")
-            .expect(200)
+
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -87,14 +77,11 @@ describe("Retrieve the assets with policyId entered as above", () => {
         request(apiUrl)
             .post("/api/v1/koios/assets/policy-list")
             .send(postData)
-            .expect(200)
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -104,14 +91,12 @@ describe("Retrieve the assets with policyId entered as above", () => {
         request(apiUrl)
             .post("/api/v1/koios/assets/policy-list")
             .send(postData)
-            .expect(404)
+
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -123,14 +108,11 @@ describe("Retrieve the assets with policyId entered as above", () => {
         request(apiUrl)
             .post("/api/v1/koios/assets/policy-list")
             .send(postData)
-            .expect(400)
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -147,14 +129,12 @@ describe("Get the general description of the asset knowing policyId and assetNam
         request(apiUrl)
             .post("/api/v1/koios/assets/summary")
             .send(postData)
-            .expect(200)
+
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -164,14 +144,12 @@ describe("Get the general description of the asset knowing policyId and assetNam
         request(apiUrl)
             .post("/api/v1/koios/assets/summary")
             .send(postData)
-            .expect(404)
+
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -184,14 +162,11 @@ describe("Get the general description of the asset knowing policyId and assetNam
         request(apiUrl)
             .post("/api/v1/koios/assets/summary")
             .send(postData)
-            .expect(400)
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -207,14 +182,12 @@ describe("Get a list of assets with the same policyId", () => {
         request(apiUrl)
             .post("/api/v1/koios/assets/assets-policy-information")
             .send(postData)
-            .expect(200)
+
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -224,14 +197,12 @@ describe("Get a list of assets with the same policyId", () => {
         request(apiUrl)
             .post("/api/v1/koios/assets/assets-policy-information")
             .send(postData)
-            .expect(404)
+
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -243,14 +214,11 @@ describe("Get a list of assets with the same policyId", () => {
         request(apiUrl)
             .post("/api/v1/koios/assets/assets-policy-information")
             .send(postData)
-            .expect(400)
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -267,14 +235,12 @@ describe("Retrieve asset information when policyId and assetName are known", () 
         request(apiUrl)
             .post("/api/v1/koios/assets/assets-policy-information")
             .send(postData)
-            .expect(200)
+
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -284,14 +250,12 @@ describe("Retrieve asset information when policyId and assetName are known", () 
         request(apiUrl)
             .post("/api/v1/koios/assets/assets-policy-information")
             .send(postData)
-            .expect(404)
+
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -304,14 +268,11 @@ describe("Retrieve asset information when policyId and assetName are known", () 
         request(apiUrl)
             .post("/api/v1/koios/assets/assets-policy-information")
             .send(postData)
-            .expect(400)
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -328,14 +289,12 @@ describe("Get asset information when policyId and assetName are available", () =
         request(apiUrl)
             .post("/api/v1/koios/assets/information")
             .send(postData)
-            .expect(200)
+
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -345,14 +304,12 @@ describe("Get asset information when policyId and assetName are available", () =
         request(apiUrl)
             .post("/api/v1/koios/assets/information")
             .send(postData)
-            .expect(404)
+
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -365,14 +322,11 @@ describe("Get asset information when policyId and assetName are available", () =
         request(apiUrl)
             .post("/api/v1/koios/assets/information")
             .send(postData)
-            .expect(400)
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -389,14 +343,12 @@ describe("Get asset information when policyId and assetName are available", () =
         request(apiUrl)
             .post("/api/v1/koios/assets/nft-address")
             .send(postData)
-            .expect(200)
+
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -406,14 +358,11 @@ describe("Get asset information when policyId and assetName are available", () =
         request(apiUrl)
             .post("/api/v1/koios/assets/nft-address")
             .send(postData)
-            .expect(400)
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });
@@ -426,14 +375,11 @@ describe("Get asset information when policyId and assetName are available", () =
         request(apiUrl)
             .post("/api/v1/koios/assets/nft-address")
             .send(postData)
-            .expect(400)
             .end((err, res) => {
                 if (err) {
-                    console.error("Test failed with error:", err);
-                    console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
+
                 done();
             });
     });

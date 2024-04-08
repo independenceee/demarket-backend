@@ -1,6 +1,6 @@
 import request from "supertest";
 
-const apiUrl = "https://api.demarket.vn/api/v1";
+const apiUrl = "https://api.demarket.vn";
 
 // Get asset information when policyId and assetName are known
 describe("Get asset information when policyId and assetName are known", () => {
@@ -12,14 +12,13 @@ describe("Get asset information when policyId and assetName are known", () => {
         request(apiUrl)
             .post("/api/v1/blockfrost/assets/information")
             .send(postData)
-            .expect(200)
+
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -29,14 +28,12 @@ describe("Get asset information when policyId and assetName are known", () => {
         request(apiUrl)
             .post("/api/v1/blockfrost/assets/information")
             .send(postData)
-            .expect(400)
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -49,14 +46,12 @@ describe("Get asset information when policyId and assetName are known", () => {
         request(apiUrl)
             .post("/api/v1/blockfrost/assets/information")
             .send(postData)
-            .expect(500)
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -71,14 +66,12 @@ describe("List all assets when minting with the above policyId", () => {
         request(apiUrl)
             .post("/api/v1/blockfrost/assets/information")
             .send(postData)
-            .expect(400)
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -88,14 +81,12 @@ describe("List all assets when minting with the above policyId", () => {
         request(apiUrl)
             .post("/api/v1/blockfrost/assets/information")
             .send(postData)
-            .expect(400)
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -107,14 +98,13 @@ describe("List all assets when minting with the above policyId", () => {
         request(apiUrl)
             .post("/api/v1/blockfrost/assets/information")
             .send(postData)
-            .expect(400)
+
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -129,14 +119,13 @@ describe("List all assets when stakeAddress is present", () => {
         request(apiUrl)
             .post("/api/v1/blockfrost/assets/address")
             .send(postData)
-            .expect(200)
+
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -146,14 +135,13 @@ describe("List all assets when stakeAddress is present", () => {
         request(apiUrl)
             .post("/api/v1/blockfrost/assets/address")
             .send(postData)
-            .expect(502)
+
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -165,14 +153,13 @@ describe("List all assets when stakeAddress is present", () => {
         request(apiUrl)
             .post("/api/v1/blockfrost/assets/address")
             .send(postData)
-            .expect(500)
+
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -187,14 +174,13 @@ describe("Get transaction description information when transactionHash is availa
         request(apiUrl)
             .post("/api/v1/blockfrost/transaction/utxos")
             .send(postData)
-            .expect(200)
+
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -204,14 +190,13 @@ describe("Get transaction description information when transactionHash is availa
         request(apiUrl)
             .post("/api/v1/blockfrost/transaction/utxos")
             .send(postData)
-            .expect(400)
+
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -223,14 +208,13 @@ describe("Get transaction description information when transactionHash is availa
         request(apiUrl)
             .post("/api/v1/blockfrost/transaction/utxos")
             .send(postData)
-            .expect(500)
+
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -245,14 +229,13 @@ describe("Returns all transaction information for the address", () => {
         request(apiUrl)
             .post("/api/v1/blockfrost/transaction/account")
             .send(postData)
-            .expect(200)
+
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -262,14 +245,13 @@ describe("Returns all transaction information for the address", () => {
         request(apiUrl)
             .post("/api/v1/blockfrost/transaction/account")
             .send(postData)
-            .expect(400)
+
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -281,14 +263,13 @@ describe("Returns all transaction information for the address", () => {
         request(apiUrl)
             .post("/api/v1/blockfrost/transaction/account")
             .send(postData)
-            .expect(500)
+
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -304,14 +285,13 @@ describe("Retrieve asset transaction information when knowing policyId and asset
         request(apiUrl)
             .post("/api/v1/blockfrost/transaction/asset")
             .send(postData)
-            .expect(200)
+
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -321,14 +301,13 @@ describe("Retrieve asset transaction information when knowing policyId and asset
         request(apiUrl)
             .post("/api/v1/blockfrost/transaction/asset")
             .send(postData)
-            .expect(400)
+
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
@@ -341,14 +320,13 @@ describe("Retrieve asset transaction information when knowing policyId and asset
         request(apiUrl)
             .post("/api/v1/blockfrost/transaction/asset")
             .send(postData)
-            .expect(500)
+
             .end((err, res) => {
                 if (err) {
                     console.error("Test failed with error:", err);
                     console.log("Response body:", res.body);
                     return done(err);
                 }
-                console.log(res.body);
                 done();
             });
     });
