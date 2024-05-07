@@ -195,10 +195,14 @@ Example
 Currently, we are using APIs to retrieve returned products, you can see the details in the test case below.
 https://docs.google.com/spreadsheets/d/1qVDBkyYdoU2QfA4NziCV9K_jsIhUxiQ4/edit?rtpof=true&sd=true#gid=1957770526
 
-### 5. License
+### 5. Warning
+
+The command `npx prisma db push` is only used when you want to create a new database or want to reset the database, otherwise there is no need to run it because the database is already available, clone [demarket-database](https://github.com/independenceee/demarket-database.git) and run the command `docker compose up --build` to initialize the environment.
+
+### 6. License
 
 The Demarket backend is released under the MIT. See the LICENSE file for more details.
 
-### 6. Contact
+### 7. Contact
 
 For any questions or feedback, please contact the project maintainer at `nguyenkhanh17112003@gmail.com`.
