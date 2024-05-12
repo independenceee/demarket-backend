@@ -85,13 +85,6 @@ Our Backend allows users to securely execute the following functions
 -   You can retrieve the properties of the blockfrost or koios APIs to query the properties to retrieve the necessary information.
 -   The backend has features that make the frontend more flexible and easy to develop
 
-### 4. Here, we use some Block Frost and Koios APIs to query the resources needed for the project.
-
-Our Backend allows users to securely execute the following functions:
-
-- You can retrieve the properties of the blockfrost or koios APIs to query the properties to retrieve the necessary information.
-- The backend has features that make the frontend more flexible and easy to develop
-
 **Use Blockfrost and Koios APIs to query the resources needed for the project.**
 
 The API is used by us so that the assets can have enough information:
