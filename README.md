@@ -1,10 +1,28 @@
 # Installation Instructions
 
-![snapedit_1695973681512](https://github.com/sonson0910/Demarket-Contract/assets/91943651/cd600320-99eb-49c0-96d2-0b20e6d5cf67)
+An open-source project to allow users to connect to the Demarket API. Here, we will guide you by using Docker:
 
-## 1. First, please clone this source code
+* Make sure you have installed docker, nodejs, and others.
 
-In this project, nodejs and expressjs is used as the main backend framework to perform construction and development. Backend is the backend so that the interface is completed simultaneously with the frontend of the dermaket. In this guide there will be some requirements to show you how to develop products using git to clone the project.
+Installation Instructions Youtube Video: [youtube](https://www.youtube.com/watch?v=7GzWfim-iGk&ab_channel=BLOCKALPHAINNOVA)
+
+To help users easily to connect to the our Demarket API, you can follow the video above or step by step with these instructions below:
+
+### 1. Clone demarket-database source code
+
+```ssh
+git clone https://github.com/independenceee/demarket-database/
+```
+
+### 2. Build images before starting containers
+
+```ssh
+docker compose up --build
+```
+
+###  3. Clone demarket backend source code
+
+In this project, NodeJS and ExpressJS is used as the main backend framework to perform construction and development. 
 
 ```sh
 git clone https://github.com/independenceee/demarket-backend.git
@@ -22,27 +40,17 @@ This tutorial requires you to have `nodejs`. If you don't have it yet, install `
 https://nodejs.org/en
 ```
 
-Then install the project using `npm install` to get the necessary resources for the project
+The command `npx prisma db push` is only used when you want to create a new database or want to reset the database, otherwise there is no need to run it.
+
+Then install the project using `npm install` to get the necessary resources for the project
 
 ```sh
 npm install
 ```
 
-after the installation is done successfully use `npm run dev` to run the project
+### 4. Set up .env file 
 
-```sh
-$ npm run dev
-> demarket-backend@1.0.0 dev
-> ts-node src/index.ts
-http://localhost:5000
-```
-
-The project is running on `PORT 5000` and now you will carry out development of our project
-After the project is built successfully, execute `npm run build` to build and check the output
-
-### 2.Get all the resources and create the necessary environment to run the project
-
-In the project you must create an .env file to run project dependencies
+In the project you must create an .env file for getting all the resources and create the necessary environment to run project dependencies.
 
 ```env
 DATABASE_URL="postgresql..."
@@ -55,32 +63,54 @@ KOIOS_RPC_URL_PREVIEW = https...
 KOIOS_RPC_URL_MAINNET = https...
 ```
 
-To get these resources you need to `https://blockfrost.io` and `https://www.koios.rest` to do a few operations to get all the dependencies for the project. For the database, I will use the postgresql database and on the local machine on your computer.
+To get these resources you need to `https://blockfrost.io` and `https://www.koios.rest` to do a few operations to get all the dependencies for the project. For the database, I will use the portgreSQL database and on the local machine on your computer.
 
-### 3.Features: Our Backend allows users to securely execute the following functions
+### 5. Run
+After the installation is done successfully use npm run dev to run the project
+
+```sh
+$ npm run dev
+> demarket-backend@1.0.0 dev
+> ts-node src/index.ts
+http://localhost:5000
+```
+
+The project is running on `PORT 5000` and now you will carry out development of our project
+After the project is built successfully, execute `npm run build` to build and check the output
+
+
+## Features:
+Our Backend allows users to securely execute the following functions
 
 -   You can retrieve the properties of the blockfrost or koios APIs to query the properties to retrieve the necessary information.
 -   The backend has features that make the frontend more flexible and easy to develop
 
 ### 4. Here, we use some Block Frost and Koios APIs to query the resources needed for the project.
 
-The API is used by us so that the assets can have enough information
+Our Backend allows users to securely execute the following functions:
 
--   Get details utxo block
--   Get details transaction block
--   Get transaction from account address
--   Get transaction from assets
--   Get amount asset from stake adress
--   Get infomation assets from policyId and assetName
--   Get asset minted from policyId
--   Get stake key from address
--   Get the current address holding the asset
--   Get asset information from policyId and assetName
--   Get the existing attribute in PolicyId
--   Get the total transaction stake wallet unstake address from asset
--   Get the existing attribute in PolicyId
--   Retrieve the currently active stakeKey
--   Get all assets from address
+- You can retrieve the properties of the blockfrost or koios APIs to query the properties to retrieve the necessary information.
+- The backend has features that make the frontend more flexible and easy to develop
+
+**Use Blockfrost and Koios APIs to query the resources needed for the project.**
+
+The API is used by us so that the assets can have enough information:
+
+- Get details UTXO block
+- Get details transaction block
+- Get transaction from account address
+- Get transaction from assets
+- Get amount asset from stake adress
+- Get infomation assets from policyId and assetName
+- Get asset minted from policyId
+- Get stake key from address
+- Get the current address holding the asset
+- Get asset information from policyId and assetName
+- Get the existing attribute in PolicyId
+- Get the total transaction stake wallet unstake address from asset
+- Get the existing attribute in PolicyId
+- Retrieve the currently active stakeKey
+- Get all assets from address
 
 Example
 
@@ -195,14 +225,14 @@ Example
 Currently, we are using APIs to retrieve returned products, you can see the details in the test case below.
 https://docs.google.com/spreadsheets/d/1qVDBkyYdoU2QfA4NziCV9K_jsIhUxiQ4/edit?rtpof=true&sd=true#gid=1957770526
 
-### 5. Warning
+## Warning
 
 The command `npx prisma db push` is only used when you want to create a new database or want to reset the database, otherwise there is no need to run it because the database is already available, clone [demarket-database](https://github.com/independenceee/demarket-database.git) and run the command `docker compose up --build` to initialize the environment.
 
-### 6. License
+## License
 
 The Demarket backend is released under the MIT. See the LICENSE file for more details.
 
-### 7. Contact
+## Contact
 
-For any questions or feedback, please contact the project maintainer at `nguyenkhanh17112003@gmail.com`.
+For any questions or feedback, please contact the project maintainer at `nguyenkhanh17112003@gmail.com`.
